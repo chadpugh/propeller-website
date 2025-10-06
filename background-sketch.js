@@ -51,29 +51,11 @@ let sketch = function(p) {
     });
   };
 
-  // Resize canvas when window is resized
+  // Resize handling disabled to prevent animation restart
+  // The canvas will maintain its initial dimensions regardless of browser resize
   p.windowResized = function() {
-    // Store the old dimensions for scaling calculations
-    let oldWidth = p.width;
-    let oldHeight = p.height;
-    
-    // Only resize the canvas, don't regenerate particles
-    p.resizeCanvas(p.windowWidth, p.windowHeight);
-    
-    // If we have existing particles, scale their positions proportionally
-    // This preserves the animation state while adapting to new dimensions
-    if (particle_sets.length > 0) {
-      let scaleX = p.width / oldWidth;
-      let scaleY = p.height / oldHeight;
-      
-      particle_sets.forEach(function(particles) {
-        particles.forEach(function(particle) {
-          // Scale particle positions to match new canvas dimensions
-          particle.pos.x *= scaleX;
-          particle.pos.y *= scaleY;
-        });
-      });
-    }
+    // Intentionally empty - no resize handling to prevent animation restart
+    // This keeps the animation continuous even when the browser window changes size
   };
 
   p.keyPressed = function() {
