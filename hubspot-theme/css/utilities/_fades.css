@@ -1,0 +1,32 @@
+
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+	{# ******************** FADES ******************** #}
+
+/* Fades & Animations */
+
+.fade--in, .fade--up, .fade--down, .fade--left, .fade--right { opacity: 0; -webkit-transition: opacity {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}; -moz-transition: opacity {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}; -ms-transition: opacity {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}; -o-transition: opacity {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}; transition: opacity {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}; }
+
+.fade--up, .fade--down, .fade--left, .fade--right { -webkit-transition: opacity {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}, transform {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}; -moz-transition: opacity {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}, transform {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}; -ms-transition: opacity {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}, transform {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}; -o-transition: opacity {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}, transform {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}; transition: opacity {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}, transform {{ config.fade_AnimationDuration }} {{ config.fade_AnimationEasing }}; }
+
+.fade--up { transform: translateY({{ config.fade_VerticalDistance }}); }
+.fade--down { transform: translateY({{ "-" + config.fade_VerticalDistance }}); }
+.fade--left { transform: translateX({{ config.fade_HorizontalDistance }}); }
+.fade--right { transform: translateX({{ "-" + config.fade_HorizontalDistance }}); }
+
+.production--fade.fade--in, .production--fade.fade--up, .production--fade.fade--down, .production--fade.fade--left, .production--fade.fade--right, .production--fade.fade--load { opacity: 1; }
+.production--fade.fade--up, .production--fade.fade--down { transform: translateY(0); }
+.production--fade.fade--left, .production--fade.fade--right { transform: translateX(0); }
+
+{% for n in range(1,11) %}.fade--delay--{{ n }} { -webkit-transition-delay: {{ (n * .33) }}s; transition-delay: {{ (n * .33) }}s; }{% endfor %}
+
+{% call mediaQuery("portable") %}
+	.fade--left,
+	.fade--right { transform: translateX(0); }
+	.fade--in,
+	.fade--up,
+	.fade--down,
+	.fade--left,
+	.fade--right {opacity:1;}
+{% endcall %}

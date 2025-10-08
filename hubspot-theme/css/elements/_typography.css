@@ -1,0 +1,229 @@
+
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ******************** TEXT ******************** #}
+
+/* Headings */
+h1, .h1 {
+  font-family: {{ config.h1_FontFamily }};
+  font-size: {{ config.h1_FontSize }};
+  line-height: {{ config.h1_LineHeight }};
+  font-style: {{ config.h1_FontStyle }};
+  font-weight: {{ config.h1_FontWeight }};
+  text-transform: {{ config.h1_TextTransform }};
+  text-decoration: {{ config.h1_TextDecoration }};
+  letter-spacing: {{ config.h1_LetterSpacing }};
+  word-spacing: {{ config.h1_WordSpacing }};
+  color:{{ config.h1_Color }};
+}
+h2, .h2 {
+  font-family: {{ config.h2_FontFamily }};
+  font-size: {{ config.h2_FontSize }};
+  line-height: {{ config.h2_LineHeight }};
+  font-style: {{ config.h2_FontStyle }};
+  font-weight: {{ config.h2_FontWeight }};
+  text-transform: {{ config.h2_TextTransform }};
+  text-decoration: {{ config.h2_TextDecoration }};
+  letter-spacing: {{ config.h2_LetterSpacing }};
+  word-spacing: {{ config.h2_WordSpacing }};
+  color:{{ config.h2_Color }};
+}
+h3, .h3 {
+  font-family: {{ config.h3_FontFamily }};
+  font-size: {{ config.h3_FontSize }};
+  line-height: {{ config.h3_LineHeight }};
+  font-style: {{ config.h3_FontStyle }};
+  font-weight: {{ config.h3_FontWeight }};
+  text-transform: {{ config.h3_TextTransform }};
+  text-decoration: {{ config.h3_TextDecoration }};
+  letter-spacing: {{ config.h3_LetterSpacing }};
+  word-spacing: {{ config.h3_WordSpacing }};
+  color:{{ config.h3_Color }};
+}
+h4, .h4 {
+  font-family: {{ config.h4_FontFamily }};
+  font-size: {{ config.h4_FontSize }};
+  line-height: {{ config.h4_LineHeight }};
+  font-style: {{ config.h4_FontStyle }};
+  font-weight: {{ config.h4_FontWeight }};
+  text-transform: {{ config.h4_TextTransform }};
+  text-decoration: {{ config.h4_TextDecoration }};
+  letter-spacing: {{ config.h4_LetterSpacing }};
+  word-spacing: {{ config.h4_WordSpacing }};
+  color:{{ config.h4_Color }};
+}
+h5, .h5 {
+  font-family: {{ config.h5_FontFamily }};
+  font-size: {{ config.h5_FontSize }};
+  line-height: {{ config.h5_LineHeight }};
+  font-style: {{ config.h5_FontStyle }};
+  font-weight: {{ config.h5_FontWeight }};
+  text-transform: {{ config.h5_TextTransform }};
+  text-decoration: {{ config.h5_TextDecoration }};
+  letter-spacing: {{ config.h5_LetterSpacing }};
+  word-spacing: {{ config.h5_WordSpacing }};
+  color:{{ config.h5_Color }};
+}
+h6, .h6 {
+  font-family: {{ config.h6_FontFamily }};
+  font-size: {{ config.h6_FontSize }};
+  line-height: {{ config.h6_LineHeight }};
+  font-style: {{ config.h6_FontStyle }};
+  font-weight: {{ config.h6_FontWeight }};
+  text-transform: {{ config.h6_TextTransform }};
+  text-decoration: {{ config.h6_TextDecoration }};
+  letter-spacing: {{ config.h6_LetterSpacing }};
+  word-spacing: {{ config.h6_WordSpacing }};
+  color:{{ config.h6_Color }};
+}
+
+{% set headings_List = ["h1","h2","h3","h4","h5","h6","p"] %}
+{% for item in headings_List %}{{ item }}{% if not loop.last %}, {% endif %}{% endfor %}, ul, ol, {% for item in headings_List %}.{{ item }}{% if not loop.last %}, {% endif %}{% endfor %} {
+  display:block;
+  margin-top:{{ config.textSpacing }};
+  margin-bottom:{{ config.textSpacing }};
+}
+{% for item in headings_List %}{% if loop.last %}{% set outerLoopLast = true %}{% else %}{% set outerLoopLast = false %}{% endif %}{% for itemm in headings_List %}{{ item }} + {{ itemm }}, {{ item }} + .{{ itemm }}{% if (outerLoopLast == false)||(not loop.last) %}, {% endif %}{% endfor %}{% endfor %}, {% for item in headings_List %}{{ item }} + ul, {{ item }} + ol, ul + {{ item }}, ol + {{ item }}{% if not loop.last %}, {% endif %}{% endfor %} {
+  margin-top:{{ config.textSpacing_Top }};
+}
+/*.hs_cos_wrapper_type_rich_text ul li + li, .hs_cos_wrapper_type_rich_text ol li + li {margin-top:{{ config.textSpacing }};}*/
+{% for item in headings_List %}{% for itemm in headings_List %}{{ item }} .{{ itemm }}{% if not loop.last %}, {% endif %}{% endfor %}{% if not loop.last %}, {% endif %}{% endfor %} {
+  margin-top:inherit;
+  margin-bottom:inherit;
+}
+
+/* Paragraph and body text */
+p, li, .p {
+  font-family: {{ config.p_FontFamily }};
+  font-size: {{ config.p_FontSize }};
+  line-height: {{ config.p_LineHeight }};
+  font-style: {{ config.p_FontStyle }};
+  font-weight: {{ config.p_FontWeight }};
+  letter-spacing: {{ config.p_LetterSpacing }};
+  word-spacing: {{ config.p_WordSpacing }};
+  color: {{ config.p_Color }};
+}
+p span[style*="font-size"]:not([style*="line-height"]) {
+  line-height:{{ config.p_LineHeight }};
+}
+
+/* Blockquote */
+blockquote {
+  display:block;
+  width:100%;
+  font-family: {{ config.p_FontFamily }};
+  background-color: {{ color("white") }};
+  font-size: {{ config.p_FontSize }};
+  line-height: {{ config.p_LineHeight }};
+  font-weight: {{ config.p_FontWeight }};
+  letter-spacing: {{ config.p_LetterSpacing }};
+  word-spacing: {{ config.p_WordSpacing }};
+  color: {{ config.p_Color }};
+  padding-top: {{ config.short }};
+  padding-bottom: {{ config.short }};
+  padding-left: {{ config.short }};
+  padding-right: {{ config.short }};
+  font-style: normal;
+  border-left: 4px solid {{ color("secondary") }};
+  margin:20px auto;
+  -webkit-box-shadow:{{ config.default_BoxShadow }};
+  -moz-box-shadow:{{ config.default_BoxShadow }};
+  box-shadow:{{ config.default_BoxShadow }};
+}
+.pagetype--blog blockquote > *:first-child {
+  margin-top: 0px;
+}
+.pagetype--blog blockquote > *:last-child {
+  margin-bottom:0px;
+}
+
+/* Hyperlinks */
+a {
+  font-family: {{ config.a_FontFamily }};
+  font-size: {{ config.a_FontSize }};
+  line-height: {{ config.a_LineHeight }};
+  font-style: {{ config.a_FontStyle }};
+  font-weight: {{ config.a_FontWeight }};
+  text-transform: {{ config.a_TextTransform }};
+  text-decoration: {{ config.a_TextDecoration }};
+  letter-spacing: {{ config.a_LetterSpacing }};
+  word-spacing: {{ config.a_WordSpacing }};
+  color: {{ config.a_Color }};
+  transition: color .3s ease-in-out;
+}
+a:hover {
+  color: {{ color('primary') }};
+}
+
+{% call mediaQuery('palm') %}
+  h1, .h1 {
+    font-size: {{ config.h1_MobileFontSize }};
+    line-height: {{ config.h1_MobileLineHeight }};
+  }
+  h2, .h2 {
+    font-size: {{ config.h2_MobileFontSize }};
+    line-height: {{ config.h2_MobileLineHeight }};
+  }
+  h3, .h3 {
+    font-size: {{ config.h3_MobileFontSize }};
+    line-height: {{ config.h3_MobileLineHeight }};
+  }
+  h4, .h4 {
+    font-size: {{ config.h4_MobileFontSize }};
+    line-height: {{ config.h4_MobileLineHeight }};
+  }
+  h5, .h5 {
+    font-size: {{ config.h5_MobileFontSize }};
+    line-height: {{ config.h5_MobileLineHeight }};
+  }
+  h6, .h6 {
+    font-size: {{ config.h6_MobileFontSize }};
+    line-height: {{ config.h6_MobileLineHeight }};
+  }
+  p, li, .p {
+    font-size: {{ config.p_MobileFontSize }};
+    line-height: {{ config.p_MobileLineHeight }};
+  }
+{% endCall %}
+
+/* Font Families */
+{% for key,value in config.font_List.items() %}
+  .font--{{ key }}, .font--{{ key }} * {font-family: {{ value }} !important;}
+{% endfor %}
+
+/* Font Sizes */
+{% for n in range(1,51) %}
+  .font--{{ n }}, .font--{{ n }} * {font-size: {{ n }}px!important;}
+{% endfor %}
+
+/* Text */
+.lighter, .all--lighter, .all--lighter * {font-weight:{{ config.lighter }}!important;}
+.light, .all--light, .all--light * {font-weight:{{ config.light }}!important;}
+.normal, .all--normal, .all--normal * {font-style:normal;font-weight:{{ config.normal }};!important;}
+.medium, .all--medium, .all--medium * {font-weight:{{ config.medium }}!important;}
+.semibold, .all--semibold, .all--semibold * {font-weight:{{ config.semibold }}!important;}
+.bold, .strong, .all--bold, .all--bold *, .all--strong, .all--strong * {font-weight:{{ config.bold }}!important;}
+.bolder, .all--bolder, .all--bolder * {font-weight:{{ config.bolder }}!important;}
+
+.normal--style, .all--normal--style, .all--normal--style * {font-style:normal!important;}
+.italic, .all--italic, .all--italic * {font-style:italic!important;}
+
+.uppercase, .all--uppercase, .all--uppercase * {text-transform:uppercase;}
+.lowercase, .all--lowercase, .all--lowercase * {text-transform:lowercase;}
+.normalcase, .all--normalcase, .all--normalcase * {text-transform:none;}
+
+h1 a, span.h1 a,
+h2 a, span.h2 a,
+h3 a, span.h3 a,
+h4 a, span.h4 a,
+h5 a, span.h5 a,
+h6 a, span.h6 a {
+  text-decoration:inherit!important;
+  font-family:inherit!important;
+  line-height:inherit!important;
+  text-transform:inherit!important;
+  word-spacing:inherit!important;
+  letter-spacing:inherit!important;
+  font-weight:inherit !important;
+}

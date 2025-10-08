@@ -1,0 +1,260 @@
+
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{% set grid_ColumnSpacing = config.grid_ColumnSpacing|replace("%","")|float %}
+{% set grid_Width         = parseInt(config.grid_Width)|int %}
+{% set grid_Shorthand     = [["one-whole",1],["one-half",.5],["one-third",0.33333],["one-fourth",.25],["one-fifth",.2],["one-sixth",.16666]] %}
+
+{# ******************** GRID ******************** #}
+
+/* Grid */
+.page-center {
+  display:block!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  width:{{ grid_Width }}!important;
+  max-width:{{ config.grid_MaxWidthPercent }}!important;
+  float:none!important;
+}
+.grid {
+  margin:0px auto!important;
+  width: {{ ( grid_Width / ( ( 100 - grid_ColumnSpacing ) / 100 ) )|round }}px!important;
+  max-width:{{ config.grid_MaxWidthPercent }}!important;
+  text-align:center;
+  font-size:0px;
+  {{ boxSizing('border-box') }}
+  padding-top:{{ basic }};
+  padding-bottom:{{ basic }};
+}
+
+.grid.grid--offset {
+  width: {{ (grid_Width/((100-grid_ColumnSpacing)/100))|round + 144 }}px!important;
+}
+
+@media screen and (max-width:768px) and (min-width:415px) {
+  .grid {
+    max-width: 80%!important;
+  }
+}
+
+{% call mediaQuery("palm") %}
+  .grid {
+    max-width: 90%!important;
+  }
+{% endcall %}
+
+.grid .hs_cos_wrapper_type_custom_widget {
+  font-size:0px;
+}
+.grid.hard,
+.grid.hard--sides {
+  width:100%!important;
+  max-width:100%!important;
+}
+.grid__item {
+  display:inline-block;
+  vertical-align:top;
+  margin-left:{{ (grid_ColumnSpacing/2)|float()|string|replace(".0","")+'%!important' }};
+  margin-right:{{ (grid_ColumnSpacing/2)|float()|string|replace(".0","")+'%!important' }};
+  padding-top:{{ basic }};
+  padding-bottom:{{ basic }};
+}
+
+.grid.flexgrid,
+.flexgrid {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0;
+  justify-content: space-between;
+}
+.flexgrid > .grid__item {
+  box-sizing: border-box;
+  max-width: 100%;
+  flex: none;
+}
+.flex__grid__item {
+  flex: 1 1 0%;
+}
+.flexgrid.no--wrap {
+  flex-wrap: nowrap;
+}
+.flexgrid.align--start {
+  justify-content: flex-start;
+}
+.flexgrid.align--center {
+  justify-content: center;
+}
+.flexgrid.align--right {
+  align-self: flex-end;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+.flexgrid.valign--top {
+  align-items: flex-start;
+}
+.flexgrid.valign--middle {
+  align-items: center;
+}
+.flexgrid.valign--baseline {
+  align-items: baseline;
+}
+.flexgrid.valign--bottom {
+  align-items: flex-end;
+}
+.flexgrid.justify--center {
+  justify-content: center;
+}
+.flexgrid.row--reverse {
+  flex-direction: row-reverse;
+}
+.flexgrid.direction--column {
+  flex-direction: column;
+}
+.flexgrid.direction--column > .grid__item {
+  flex-basis: auto;
+}
+.flexgrid.column--reverse {
+  flex-direction: column-reverse;
+}
+.flexgrid.space--between {
+  justify-content: space-between;
+}
+.flexgrid.space--around {
+  justify-content: space-around;
+}
+.flexgrid.equal--height > .grid__item {
+  align-self: stretch;
+  -ms-grid-row-align: stretch;
+}
+.flexgrid.equal--height > .grid__item > * {
+  height: 100%;
+}
+.grid__item.self--top {
+  align-self: flex-start;
+}
+.grid__item.self--middle {
+  align-self: center;
+  -ms-grid-row-align: center;
+}
+.grid__item.self--bottom {
+  align-self: flex-end;
+}
+.grid__item.self--center {
+  justify-self: center;
+}
+.grid__item.self--first {
+  order: -1;
+}
+.grid__item.self--last {
+  order: 1;
+}
+
+{% call mediaLoop() %}
+.flexgrid.{{ media }}valign--top {
+  align-items: flex-start;
+}
+.flexgrid.{{ media }}valign--middle {
+  align-items: center;
+}
+.flexgrid.{{ media }}valign--bottom {
+  align-items: flex-end;
+}
+.flexgrid.{{ media }}justify--center {
+  justify-content: center;
+}
+.flexgrid.{{ media }}row--reverse {
+  flex-direction: row-reverse;
+}
+.flexgrid.{{ media }}direction--column {
+  flex-direction: column;
+}
+.flexgrid.{{ media }}direction--column > .grid__item {
+  flex-basis: auto;
+}
+.flexgrid.{{ media }}column--reverse {
+  flex-direction: column-reverse;
+}
+.flexgrid.{{ media }}first {
+  order: -1;
+}
+.flexgrid.{{ media }}last {
+  order: 1;
+}
+.grid__item.{{ media }}self--center {
+  justify-self: center;
+}
+{% endcall %}
+
+
+/* Grid Column Widths */
+{% call mediaLoop() %}
+  {% if config.grid_List["twelve"] %}
+    {% for i in range(1,13) %}
+      .{{ media }}{{ gridNumToString(i)|string+'-twelfths.grid__item'}} {
+        width: {{ (100*(i/12)-grid_ColumnSpacing)|float()|string|replace(".0","")+'%!important' }};
+        flex-basis: {{ (100*(i/12)-grid_ColumnSpacing)|float()|string|replace(".0","")+'%!important' }};
+      }
+      .{{ media }}{{ gridNumToString(i)|string+'-twelfths.hard--left.grid__item' }},
+      .{{ media }}{{ gridNumToString(i)|string+'-twelfths.hard--right.grid__item' }} {
+        width: {{ (100*(i/12)-grid_ColumnSpacing*.5)|float(0.001)|string|replace(".0","")+'%!important' }};
+        flex-basis: {{ (100*(i/12)-grid_ColumnSpacing*.5)|float(0.001)|string|replace(".0","")+'%!important' }};
+      }
+      .{{ media }}{{ gridNumToString(i)|string+'-twelfths.hard.grid__item' }},
+      .{{ media }}{{ gridNumToString(i)|string+'-twelfths.hard--sides.grid__item' }} {
+        width: {{ (100*(i/12)-grid_ColumnSpacing*0)|float(0.001)|string|replace(".0","")+'%!important' }};
+        flex-basis: {{ (100*(i/12)-grid_ColumnSpacing*0)|float(0.001)|string|replace(".0","")+'%!important' }};
+      }
+    {% endfor %}
+  {% endif %}
+  {% if config.grid_List["ten"] %}
+    {% for i in range(1,11) %}
+      .{{ media }}{{ gridNumToString(i)|string+'-tenths.grid__item' }} {
+        width: {{ (100*(i/10)-grid_ColumnSpacing)|float()|string|replace(".0","")+'%!important' }};
+        flex-basis: {{ (100*(i/10)-grid_ColumnSpacing)|float()|string|replace(".0","")+'%!important' }};
+      }
+      .{{ media }}{{ gridNumToString(i)|string+'-tenths.hard--left.grid__item' }}, .{{ media }}{{ gridNumToString(i)|string+'-tenths.hard--right.grid__item' }} {
+        width: {{ (100*(i/10)-grid_ColumnSpacing*.5)|float(0.001)|string|replace(".0","")+'%!important' }};
+        flex-basis: {{ (100*(i/10)-grid_ColumnSpacing*.5)|float(0.001)|string|replace(".0","")+'%!important' }};
+      }
+      .{{ media }}{{ gridNumToString(i)|string+'-tenths.hard.grid__item' }}, .{{ media }}{{ gridNumToString(i)|string+'-tenths.hard--sides.grid__item' }} {
+        width: {{ (100*(i/10)-grid_ColumnSpacing*0)|float(0.001)|string|replace(".0","")+'%!important' }};
+        flex-basis: {{ (100*(i/10)-grid_ColumnSpacing*0)|float(0.001)|string|replace(".0","")+'%!important' }};
+      }
+    {% endfor %}
+  {% endif %}
+  {% if config.grid_List["eight"] %}
+    {% for i in range(1,9) %}
+      .{{ media }}{{ gridNumToString(i)|string+'-eighths.grid__item' }} {
+        width: {{ (100*(i/8)-grid_ColumnSpacing)|float()|string|replace(".0","")+'%!important' }};
+        flex-basis: {{ (100*(i/8)-grid_ColumnSpacing)|float()|string|replace(".0","")+'%!important' }};
+      }
+      .{{ media }}{{ gridNumToString(i)|string+'-eighths.hard--left.grid__item' }}, .{{ media }}{{ gridNumToString(i)|string+'-eighths.hard--right.grid__item' }} {
+        width: {{ (100*(i/8)-grid_ColumnSpacing*.5)|float(0.001)|string|replace(".0","")+'%!important' }};
+        flex-basis: {{ (100*(i/8)-grid_ColumnSpacing*.5)|float(0.001)|string|replace(".0","")+'%!important' }};
+      }
+      .{{ media }}{{ gridNumToString(i)|string+'-eighths.hard.grid__item' }}, .{{ media }}{{ gridNumToString(i)|string+'-eighths.hard--sides.grid__item' }} {
+        width: {{ (100*(i/8)-grid_ColumnSpacing*0)|float(0.001)|string|replace(".0","")+'%!important' }};
+        flex-basis: {{ (100*(i/8)-grid_ColumnSpacing*0)|float(0.001)|string|replace(".0","")+'%!important' }};
+      }
+    {% endfor %}
+  {% endif %}
+  {% if config.grid_List["shorthand"] %}
+    {% for i in grid_Shorthand %}
+      .{{ media }}{{ i[0]|string+'.grid__item' }} {
+        width: {{ (100*(i[1]|float())-grid_ColumnSpacing)|float()|string|replace(".0","")+'%!important' }};
+        flex-basis: {{ (100*(i[1]|float())-grid_ColumnSpacing)|float()|string|replace(".0","")+'%!important' }};
+      }
+      .{{ media }}{{ i[0]|string+'.hard--left.grid__item' }}, .{{ media }}{{ i[0]|string+'.hard--right.grid__item' }} {
+        width: {{ (100*(i[1]|float())-grid_ColumnSpacing*.5)|float()|string|replace(".0","")+'%!important' }};
+        flex-basis: {{ (100*(i[1]|float())-grid_ColumnSpacing*.5)|float()|string|replace(".0","")+'%!important' }};
+      }
+      .{{ media }}{{ i[0]|string+'.hard.grid__item' }},
+      .{{ media }}{{ i[0]|string+'.hard--sides.grid__item' }} {
+        width: {{ (100*(i[1]|float())-grid_ColumnSpacing*0)|float(0.001)|string|replace(".0","")+'%!important' }};
+        flex-basis: {{ (100*(i[1]|float())-grid_ColumnSpacing*0)|float(0.001)|string|replace(".0","")+'%!important' }};
+      }
+    {% endfor %}
+  {% endif %}
+{% endcall %}

@@ -1,0 +1,92 @@
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ******************** COLORS ******************** #}
+
+{% call colorLoop() -%}
+  {% if name != "white" %}
+    .{{ media }}color--{{ name }},
+    .{{ media }}all--color--{{ name }},
+    .{{ media }}all--color--{{ name }} *,
+    .{{ media }}all--labels--{{ name }} form.hs-form .hs-form-field > label,
+    .hubui .{{ media }}all--labels--{{ name }} form.hs-form .hs-form-field.static > label,
+    .hubui.{{ media }}all--labels--{{ name }} form.hs-form .hs-form-field.static > label,
+    .{{ media }}all--labels--{{ name }} form.hs-form .hs-error-msgs.inputs-list li label,
+    .{{ media }}all--labels--{{ name }} .submitted-message,
+    .{{ media }}all--labels--{{ name }} .submitted-message * {
+      color:{{ color }};
+    }
+  {% endif %}
+{%- endcall %}
+
+{% call mediaLoop() -%}
+  {% call colorLoop() -%}
+    {% if name == "white" %}
+      .{{ media }}color--{{ name }},
+      .{{ media }}all--color--{{ name }},
+      .{{ media }}all--color--{{ name }} *,
+      .{{ media }}all--labels--{{ name }} form.hs-form .hs-form-field > label,
+      .{{ media }}all--labels--{{ name }} form.hs-form .hs-form-field > .input > ul > li > label,
+      .hubui .{{ media }}all--labels--{{ name }} form.hs-form .hs-form-field.static > label,
+      .hubui.{{ media }}all--labels--{{ name }} form.hs-form .hs-form-field.static > label,
+      .{{ media }}all--labels--{{ name }} form.hs-form .hs-error-msgs.inputs-list li label,
+      .{{ media }}all--labels--white form.hs-form .legal-consent-container .hs-richtext,
+      .{{ media }}all--labels--white form.hs-form .legal-consent-container .hs-richtext *,
+      .{{ media }}all--labels--white form.hs-form label p,
+      .{{ media }}all--labels--{{ name }} .submitted-message,
+      .{{ media }}all--labels--{{ name }} .submitted-message * {
+        color:{{ color }};
+      }
+    {% endif %}
+
+    .{{ media }}color--inherit,
+    .{{ media }}all--color--inherit,
+    .{{ media }}all--color--inherit * {
+      color:inherit!important;
+    }
+  {%- endcall %}
+{%- endcall %}
+
+/* Backgrounds */
+{% call colorLoop() %}
+  .background--{{ name }} {
+    background-color:{{ color }};
+  }
+{% endcall %}
+
+/* Borders */
+{% call colorLoop() %}
+  .border--{{ name }} {
+    border-color:{{ color }};
+  }
+{% endcall %}
+
+.border--transparent {
+  border-color: transparent;
+}
+
+/* Social Colors */
+{% call socialLoop() -%}
+  .color--{{ name }},
+  .all--color--{{ name }},
+  .all--color--{{ name }} * {
+    color:{{ color }}!important;
+  }
+{% endcall %}
+
+/* Social Backgrounds */
+{% call socialLoop() %}
+  .background--{{ name }} {
+    background-color:{{ color }};
+  }
+{% endcall %}
+.background--email {
+  background-color:#5d6769;
+}
+
+/* Borders */
+{% call socialLoop() %}
+  .border--{{ name }} {
+    border-color:{{ color }};
+  }
+{% endcall %}

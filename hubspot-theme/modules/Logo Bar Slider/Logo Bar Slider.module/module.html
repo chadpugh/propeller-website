@@ -1,0 +1,77 @@
+<div {% if module.section_controls.anchor_id %}id="{{ module.section_controls.anchor_id|trim }}"{% endif %} class="section section--logoslider relative overflow--hidden {{ snippets.deviceVisibility(module.section_controls.device_visibility) }}">
+  {{ snippets.background(module.background) }}
+  <div class="block relative z-index--3">
+    {{ snippets.swoopSpacerTop(module.background) }}
+    <div class="block gridspacer--top {{ snippets.sectionPadding(module.section_controls.spacing,"top") }}">
+
+    </div>
+    {% if module.header || module.content || module.preheader %}
+    <div class="grid hard--ends {{ snippets.textColorOverride(module.section_controls.text_color_override) }} all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+      <div class="grid__item eight-twelfths tablet-ten-twelfths palm-one-whole hard--top tall--bottom palm-short--bottom first--hard--top last--hard--bottom all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+        {% if module.preheader %}
+        <span class="h6 preheader">{{ module.preheader }}</span>
+        {% endif %}
+        {% if module.enable_header_rule %}
+          <span class="header--rule"></span>
+        {% endif %}
+        {% if module.header %}
+        <h2>{{ module.header }}</h2>
+        {% endif %}
+        {{ module.content }}
+      </div>
+    </div>
+    {% endif %}
+    <div class="grid hard--ends {{ snippets.textColorOverride(module.section_controls.text_color_override) }}">
+      <div class="grid__item one-whole hard--ends first--hard--top last--hard--bottom">
+        <div class="section--logoslider--slider flexslider--slider flexslider--type--slide" data-appendcontrols="false" data-slider="{{ name }}" data-loop="true">
+          <div class="flexslider--slide--outerwrapper">
+            <div class="flexslider--slide--wrapper">
+              <span>
+                {% for slide in module.logo_bar_slider %}
+                <span class="flexslider--slide">
+                  {% for logo in slide.logo_bar_slide %}
+
+                  {% set href = logo.logo_link.url.href %}
+                  {% if logo.logo_link.url.type is equalto "EMAIL_ADDRESS" %}
+                  {% set href = "mailto:" + href %}
+                  {% endif %}
+
+                  <div class="section--logoslider--slide--logo">
+                    {% if logo.add_hyperlink %}
+                    <a href="{{ href }}" title="{{ item2.logo_link_title_attribute }}" {% if logo.logo_link.open_in_new_tab %}target="_blank"{% endif %} {% if logo.logo_link.rel %}rel="{{ logo.logo_link.rel }}"{% endif %}>
+                    {% endif %}
+                      <img class="inline-block" src="{{ logo.logo.src }}" {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} width="{% if (logo.logo.size_type == 'auto_custom_max') %}{{ logo.logo.max_width }}{% elif (logo.logo.size_type == 'exact') %}{{ logo.logo.width }}{% else %}{{ logo.logo.width }}{% endif %}" height="{% if (logo.logo.size_type == 'auto_custom_max') %}{{ logo.logo.max_height }}{% else %}{{ logo.logo.height }}{% endif %}" style="height:auto!important;width:{{ logo.logo.width }}px;" alt="{{ logo.logo.alt }}" draggable="false" />
+                    {% if logo.add_hyperlink %}
+                    </a>
+                    {% endif %}
+                  </div>
+                  {% endfor %}
+                </span>
+                {% endfor %}
+              </span>
+            </div>
+            <span class="flexslider--prev {% if module.logo_bar_slider|length <= 1 %}visuallyhidden{% endif %}" data-slider="{{ name }}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z"/></svg></span>
+            <span class="flexslider--next {% if module.logo_bar_slider|length <= 1 %}visuallyhidden{% endif %}" data-slider="{{ name }}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"/></svg></span>
+          </div>
+          <ul class="flexslider--controls margin--short--top {% if module.logo_bar_slider|length <= 1 %}visuallyhidden{% endif %}" data-slider="{{ name }}">
+            {% for slide in module.logo_bar_slider %}
+            <li class="{% if loop.first %}active{% endif %}"></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% if snippets.multiButton(module.cta) %}
+    <div class="grid hard--ends {{ snippets.textColorOverride(module.section_controls.text_color_override) }}">
+      <div class="grid__item one-whole tall--top palm-short--top hard--bottom first--hard--top last--hard--bottom {{ snippets.textColorOverride(module.section_controls.text_color_override) }} all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+        {{ snippets.multiButton(module.cta) }}
+      </div>
+    </div>
+    {% endif %}
+    <div class="block gridspacer--bottom {{ snippets.sectionPadding(module.section_controls.spacing,"bottom") }}">
+
+    </div>
+    {{ snippets.swoopSpacerBottom(module.background) }}
+  </div>
+  {{ snippets.sectionPaddingCustomStyles(name,module.section_controls.spacing,".gridspacer--top",".gridspacer--bottom") }}
+</div>

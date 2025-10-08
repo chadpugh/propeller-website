@@ -1,0 +1,100 @@
+<div class="section section--brandingpreview relative overflow--hidden">
+  <div class="grid relative all--text--center hard">
+    <div class="grid__item one-half portable-one-whole hard--sides tall padding--tall relative">
+      <div class="background">
+        <div class="background--layer default z-index--1 opacity--100 background--white" style="top:0%;bottom:0%;right:0%;left:0%;">
+
+        </div>
+      </div>
+      <div class="block relative z-index--4">
+        <div class="block first--hard-top last--hard--bottom">
+          <h1>Sample H1 Text</h1>
+          <h2>Sample H2 Text</h2>
+          <h3>Sample H3 Text</h3>
+          <h4>Sample H4 Text</h4>
+          <h5>Sample H5 Text</h5>
+          <h6>Sample H6 Text</h6>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at arcu dolor. Quisque pulvinar pellentesque laoreet. Nunc vitae consectetur neque. Sed et enim varius, imperdiet felis eu, blandit velit. Cras egestas convallis tellus a sollicitudin. Vivamus pulvinar sem eu nisl molestie, pretium feugiat felis egestas. Donec eget leo at lorem pulvinar maximus.</p>
+          <p>Duis purus lectus, dignissim a tincidunt nec, <a href="#">bibendum</a> at ipsum. Curabitur luctus blandit dapibus. Cras sit amet augue tellus.</p>
+          <ul>
+            <li>Sample list item</li>
+            <li>Sample list item</li>
+            <li>Sample list item</li>
+            <li>Sample list item</li>
+            <li>Sample list item</li>
+          </ul>
+          {% for key,value in config.btnColor_List.items() %}
+            {% if key not in ['primary','secondary'] %}
+              <p {% if loop.first %}class="margin--short--top"{% endif %}>
+                <a class="btn btn--{{ key }}">Sample Button</a><span>&nbsp;&nbsp;</span><a class="btn btn--transparent--{{ key }}">Sample Button</a>
+              </p>
+            {% endif %}
+          {% endfor %}
+          <p>
+            <a class="btn btn--simple" href="#">Learn More</a>
+          </p>
+          <p class="margin--short--top" style="font-size:0px;">
+            {% for key,value in config.color_List.items() %}
+              <span class="grid__item two-twelfths palm-one-half hard--sides short valign--top">
+                <span class="block background--{{ key }} {{ 'white' == key ? 'border--1 border--darkgrey' : '' }}">
+                  {{ snippets.aspectSpacer("1:1") }}
+                </span>
+                <span style="display:block;padding:2px 3px 5px;font-size:10px;color:#000000;text-align:center!important;">
+                  {{ key }}
+                </span>
+              </span>
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="grid__item one-half portable-one-whole hard--sides tall padding--tall relative">
+      <div class="background">
+        <div class="background--layer default z-index--1 opacity--100 background--black" style="top:0%;bottom:0%;right:0%;left:0%;">
+
+        </div>
+      </div>
+      <div class="block relative z-index--4 all--color--white">
+        <div class="block first--hard-top last--hard--bottom">
+          <h1>Sample H1 Text</h1>
+          <h2>Sample H2 Text</h2>
+          <h3>Sample H3 Text</h3>
+          <h4>Sample H4 Text</h4>
+          <h5>Sample H5 Text</h5>
+          <h6>Sample H6 Text</h6>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at arcu dolor. Quisque pulvinar pellentesque laoreet. Nunc vitae consectetur neque. Sed et enim varius, imperdiet felis eu, blandit velit. Cras egestas convallis tellus a sollicitudin. Vivamus pulvinar sem eu nisl molestie, pretium feugiat felis egestas. Donec eget leo at lorem pulvinar maximus.</p>
+          <p>Duis purus lectus, dignissim a tincidunt nec, <a href="#">bibendum</a> at ipsum. Curabitur luctus blandit dapibus. Cras sit amet augue tellus.</p>
+          <ul>
+            <li>Sample list item</li>
+            <li>Sample list item</li>
+            <li>Sample list item</li>
+            <li>Sample list item</li>
+            <li>Sample list item</li>
+          </ul>
+          {% for key,value in config.btnColor_List.items() %}
+            {% if key not in ['primary','secondary'] %}
+              <p {% if loop.first %}class="margin--short--top"{% endif %}>
+                <a class="btn btn--{{ key }}">Sample Button</a><span>&nbsp;&nbsp;</span><a class="btn btn--transparent--{{ key }}">Sample Button</a>
+              </p>
+            {% endif %}
+          {% endfor %}
+          <p>
+            <a class="btn btn--simple" href="#">Learn More</a>
+          </p>
+          <p class="margin--short--top" style="font-size:0px;">
+            {% for key,value in config.color_List.items() %}
+            <span class="grid__item two-twelfths palm-one-half hard--sides short valign--top">
+              <span class="block background--{{ key }}">
+                {{ snippets.aspectSpacer("1:1") }}
+              </span>
+              <span style="display:block;padding:2px 3px 5px;font-size:10px;color:#ffffff;text-align:center!important;">
+                {{ key }}
+              </span>
+            </span>
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

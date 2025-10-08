@@ -1,0 +1,42 @@
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# IMPORT CONFIG #}
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ***************************** BASE & CUSTOM CSS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+.section--leftrightselector .selector--group select {
+	height: 55px;
+}
+.section--leftrightselector .selector--group .selector--trigger {
+	min-width: unset !important;
+	height: 55px;
+	border: 0;
+	padding-top: 19px !important;
+	padding-bottom: 18px;
+}
+{% call mediaQuery('lap-and-up') %}
+	.section--leftrightselector .selector--group .selector--trigger {
+		border-top-left-radius: 0px;
+		border-bottom-left-radius: 0px;
+	}
+{% endcall %}
+{% call mediaLoop() %}
+	.section--leftrightselector .{{ media }}all--labels--white .selector--group label {
+		color: {{ color('white') }} !important;
+	}
+{% endcall %}
+
+
+

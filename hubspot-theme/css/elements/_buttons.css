@@ -1,0 +1,201 @@
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css' %}
+
+{# ******************** BUTTONS ******************** #}
+
+{% call button() %}
+  display:inline-block;
+
+  color: {{ config.btn_Color }}!important;
+  background-image:none;
+  text-align: center;
+  font-family: {{ config.btn_FontFamily }};
+  font-size: {{ config.btn_FontSize }};
+  line-height: {{ config.btn_LineHeight }};
+  font-style: {{ config.btn_FontStyle }};
+  font-weight: {{ config.btn_FontWeight }};
+  text-transform: {{ config.btn_TextTransform }};
+  text-decoration: {{ config.btn_TextDecoration }};
+  letter-spacing: {{ config.btn_LetterSpacing }};
+  word-spacing: {{ config.btn_WordSpacing }};
+  padding: {{ config.btn_VerticalPadding }} {{ config.btn_HorizontalPadding }};
+  border-radius: {{ config.btn_BorderRadius }};
+  min-width: {{ config.btn_MinWidth }};
+  text-align: {{ config.btn_TextAlign }}!important;
+  width:auto;
+  max-width:100%;
+
+  border-width:{{ config.btn_BorderWidth }}!important;
+  border-style:solid!important;
+
+  -webkit-box-shadow:{{ config.btn_BoxShadow }}!important;
+  -moz-box-shadow:{{ config.btn_BoxShadow }}!important;
+  box-shadow:{{ config.btn_BoxShadow }}!important;
+  text-shadow: {{ config.btn_TextShadow }}!important;
+
+  background-image:none!important;
+
+  outline:none!important;
+
+  -moz-box-sizing:border-box!important;
+  -webkit-box-sizing:border-box!important;
+  box-sizing:border-box!important;
+  {{ transition(config.btn_Animation) }}
+{% endcall %}
+
+{% call button("",":hover") %}
+  cursor:pointer;
+  color: {{ config.btn_Color }};
+{% endcall %}
+
+a.cta_button.btn {
+  -moz-box-sizing:border-box!important;
+  -webkit-box-sizing:border-box!important;
+  box-sizing:border-box!important;
+}
+
+/* Button Size & Formatting */
+{% call mediaLoop() %}
+
+  {% call button('pill') %}
+    border-radius:9999px!important;
+  {% endcall %}
+
+  {% call button('wide') %}
+    display:block;
+    width:100%;
+    min-width:100%;
+    max-width:100%;
+  {% endcall %}
+
+{% endcall %}
+
+{% call mediaLoop() %}
+
+  {% call button('narrow') %}
+    display:inline-block;
+    width:auto;
+    min-width:0px;
+  {% endcall %}
+
+{% endcall %}
+
+{% call btnColorLoop() %}
+
+  /* Buttons */
+  {% call button(name) %}
+    {% if name in ['blue','secondary'] %}
+      background-color: rgba( {{ color|render|convert_rgb }}, .7 );
+      border-color: rgba( {{ color|render|convert_rgb }}, .7 );
+    {% else %}
+      background-color: {{ color }}!important;
+      border-color: {{ color }}!important;
+    {% endif %}
+  {% endcall %}
+
+  {% call button(name,':hover') %}
+    {% if name in ['blue','secondary'] %}
+      background-color: rgba( {{ color|render|convert_rgb }}, 1 );
+      border-color: rgba( {{ color|render|convert_rgb}}, 1 );
+    {% else %}
+      background-color: {{ colorShade( color|render ) }}!important;
+      border-color: {{ colorShade( color|render ) }}!important;
+    {% endif %}
+  {% endcall %}
+
+  /* Transparent Buttons */
+  {% call button('transparent--' + name) %}
+    background-color: transparent!important;
+    border-color: {{ color }}!important;
+    color: {{ color }}!important;
+    text-shadow: {{ config.btn_TextShadow }} !important;
+  {% endcall %}
+
+  {% call button('transparent--' + name, ':hover') %}
+    background-color: {{ color }}!important;
+    border-color: {{ color }}!important;
+    color: {{ config.btn_Color }}!important;
+    text-shadow: {{ config.btn_TextShadow }}!important;
+  {% endcall %}
+
+{% endcall %}
+
+{% call button("white") %}
+  color:{{ color("black") }}!important;
+{% endcall %}
+
+{% call button("transparent--white",":hover") %}
+  color:{{ color("black") }}!important;
+{% endcall %}
+
+/* BUTTON & FORM OVERRIDES */
+{% call mediaQuery(">tablet") %}
+  .block--multibutton {
+    display:flex;
+    display:inline-flex;
+    -ms-flex-direction:row;
+    flex-direction:row;
+    align-items:center;
+    justify-content:left;
+    flex-wrap:wrap;
+    gap: 12px;
+  }
+  .all--text--center .block--multibutton {
+    justify-content:center;
+  }
+{% endcall %}
+
+{% call mediaQuery("palm") %}
+  .block--multibutton--btn {
+    margin:6px;
+    display:inline-block;
+  }
+{% endcall %}
+
+{% call button("simple") %}
+  font-size:15px!important;
+  text-decoration:none!important;
+  text-transform:uppercase!important;
+  padding:0px!important;
+  border:0px!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  min-width:0px!important;
+  color:{{ config.btn_SimpleColor }}!important;
+{% endcall %}
+
+{% call button("simple",":after") %}
+  display: inline-block;
+  margin-left: 4px;
+  margin-top: 1px;
+  content:"";
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill="%23{{ config.btn_SimpleColor|render|replace('#','') }}" d="M438.6 278.6l-160 160C272.4 444.9 264.2 448 256 448s-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L338.8 288H32C14.33 288 .0016 273.7 .0016 256S14.33 224 32 224h306.8l-105.4-105.4c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160C451.1 245.9 451.1 266.1 438.6 278.6z"/></svg>');
+  background-position:center;
+  background-size:auto;
+  background-repeat:no-repeat;
+  transform: translateX(0);
+  width:11px;
+  height:11px;
+  {{ transition('transform .3s ease-in-out') }};
+{% endcall %}
+
+{% call button("simple",":hover:after") %}
+  transform: translateX(5px);
+{% endcall %}
+
+{% call mediaLoop() %}
+  .{{ media }}all--color--white .btn--simple,
+  .{{ media }}all--color--white .all--btn--simple .hs-cta-wrapper a {
+    color:{{ color("white") }}!important;
+  }
+
+  .{{ media }}all--color--white .btn--simple:after,
+  .{{ media }}all--color--white .all--btn--simple .hs-cta-wrapper a:after {
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill="%23{{ color('white')|render|replace('#','') }}" d="M438.6 278.6l-160 160C272.4 444.9 264.2 448 256 448s-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L338.8 288H32C14.33 288 .0016 273.7 .0016 256S14.33 224 32 224h306.8l-105.4-105.4c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160C451.1 245.9 451.1 266.1 438.6 278.6z"/></svg>');
+  }
+{% endcall %}
+
+p.all--btn--simple {
+  line-height:{{ config.btn_LineHeight }};
+  font-size:{{ config.btn_FontSize }};
+}

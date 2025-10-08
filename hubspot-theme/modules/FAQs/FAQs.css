@@ -1,0 +1,89 @@
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# IMPORT CONFIG #}
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ***************************** BASE & CUSTOM CSS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+.section--faqs--faq:first-child {
+  border-top: 1px solid {{ color("midgrey") }};
+}
+
+.section--faqs--faq {
+  display:block;
+  position:relative;
+  border-bottom: 1px solid {{ color("midgrey") }};
+}
+
+.section--faqs--faq--toggle {
+  display:block;
+  position:relative;
+  padding-right:50px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  cursor:pointer;
+}
+.section--faqs--faq--toggle--icon {
+  width: 25px;
+  height: 25px;
+  border: 1px solid {{ color('darkgrey') }};
+  border-radius: 50%;
+  background: transparent;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  overflow: visible;
+}
+.section--faqs--faq--toggle--icon .icon--axis {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 1px;
+  background: {{ color('secondary') }}
+}
+
+.section--faqs--faq--toggle--icon .icon--vertical--line {
+  transform-origin: center;
+  transform: translate(-50%, -50%) rotate(90deg) ;
+  {{ transition('all .3s ease-in-out') }}
+}
+.section--faqs--faq--toggle--icon .icon--horizontal--line {
+  background: {{ color('secondary') }};
+  transform: translate(-50%, -50%);
+}
+.section--faqs--faq.active .section--faqs--faq--toggle .section--faqs--faq--toggle--icon .icon--vertical--line {
+  transform: translate(-50%, -50%) rotate(0);
+}
+
+.section--faqs--faq--content {
+  width:100%;
+}
+.section--faqs--faq--content--inner--spacer {
+  display:block;
+  width:100%;
+  height:{{ config.short }};
+}
+{% call mediaLoop() %}
+  .{{ media }}all--color--white .section--faqs--faq {
+    border-bottom-color:{{ color("white") }};
+  }
+  .{{ media }}all--color--white .section--faqs--faq--toggle--icon .icon--axis,
+  .{{ media }}all--color--white .section--faqs--faq--toggle--icon .icon--horizontal--line {
+    background:{{ color("white") }}!important;
+  }
+  .{{ media }}all--color--white .section--faqs--faq--toggle--icon {
+    border-color:{{ color("white") }}!important;
+  }
+{% endcall %}

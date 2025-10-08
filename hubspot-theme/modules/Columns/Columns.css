@@ -1,0 +1,72 @@
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# IMPORT CONFIG #}
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ***************************** BASE & CUSTOM CSS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+
+.section--columns--divider--vertical {
+  display:inline;
+  position:absolute;
+  {# left:{{ ( -1 * (grid_ColumnSpacing)|float()|string|replace(".0","") ) + '%!important' }}; #}
+  left: -7%!important;
+  top:auto;
+  width:1px;
+  background:{{ color("black") }};
+  opacity:.15;
+  filter:alpha(opacity=15);
+  height:0px;
+}
+.section--columns--divider--horizontal {
+  display:block;
+  position:absolute;
+  background:{{ color("black") }};
+  opacity:.15;
+  filter:alpha(opacity=15);
+  height:1px;
+  top:0px;
+  {# left:{{ (grid_ColumnSpacing)|float()|string|replace(".0","") + '%!important' }}; #}
+  left:0%;
+  right:0px;
+}
+
+.section--columns .section--columns--column {
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+}
+.section--columns .section--columns--column--body {
+  display: flex;
+  height: 100%;
+  flex-flow: column;
+}
+.section--columns .section--columns--column--body--wrapper {
+  display: flex;
+  height: 100%;
+  flex-flow: column;
+}
+.section--columns.section--columns--equalizebuttons .section--columns--column--body--cta {
+  margin-top: auto;
+}
+.section--columns .grid.hard .section--columns--divider--horizontal,
+.section--columns .grid.hard--sides .section--columns--divider--horizontal {
+  left:{{ short }};
+  right:{{ short }};
+}
+{% call mediaQuery("palm") %}
+.section--columns .section--columns--column {
+  max-width:450px;
+}
+{% endcall %}

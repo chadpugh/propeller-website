@@ -1,0 +1,118 @@
+{% set columnWidthsKey = {
+  "one-whole":1,
+  "one-half":2,
+  "one-third":3,
+  "one-fourth":4,
+  "one-fifth":5,
+  "one-sixth":6
+} %}
+{% set columnWidths = {
+  "desk":columnWidthsKey[module.layout_controls.number_of_columns_desktop],
+  "lap":columnWidthsKey[module.layout_controls.number_of_columns_laptop|replace("lap-","")],
+  "tablet":columnWidthsKey[module.layout_controls.number_of_columns_tablet|replace("tablet-","")],
+  "palm":columnWidthsKey[module.layout_controls.number_of_columns_mobile|replace("palm-","")]
+} %}
+
+<div {% if module.section_controls.anchor_id %}id="{{ module.section_controls.anchor_id|trim }}"{% endif %} class="section section--columns {% if (module.layout_controls.show_border_divider_between_columns) %}section--columns--hasdividers{% endif %} {% if module.layout_controls.columns_horizontally_align_buttons %}section--columns--equalizebuttons{% endif %} relative overflow--hidden {{ snippets.deviceVisibility(module.section_controls.device_visibility) }}">
+  {{ snippets.background(module.background) }}
+  <div class="block relative z-index--3 section--columns--outer">
+    <div class="section--columns--inner text--center">
+      {{ snippets.swoopSpacerTop(module.background) }}
+      <div class="block gridspacer--top {{ snippets.sectionPadding(module.section_controls.spacing,"top") }}">
+
+      </div>
+      {% if module.header || module.content || module.preheader %}
+        <div class="grid relative hard--ends {{ snippets.textColorOverride(module.section_controls.text_color_override) }} all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+          <div class="grid__item eight-twelfths tablet-ten-twelfths palm-one-whole hard--top tall--bottom palm-short--bottom first--hard--top last--hard--bottom all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+            {% if module.preheader %}
+              <span class="h6 preheader">{{ module.preheader }}</span>
+            {% endif %}
+            {% if module.enable_header_rule %}
+              <span class="header--rule"></span>
+            {% endif %}
+            {% if module.header %}
+              <h2>{{ module.header }}</h2>
+            {% endif %}
+            {{ module.content }}
+          </div>
+        </div>
+      {% endif %}
+      <div class="grid section--columns--grid relative hard--ends {% if module.layout_controls.columns_width == 'wide' %}hard--sides{% endif %} {{ snippets.textColorOverride(module.section_controls.text_color_override) }} text--center" data-columns--desk="{{ columnWidths['desk'] }}" data-columns--lap="{{ columnWidths['lap'] }}" data-columns--tablet="{{ columnWidths['tablet'] }}" data-columns--palm="{{ columnWidths['palm'] }}">
+        <div class="grid__item one-whole flexgrid justify--center hard text--{{ module.layout_controls.columns_content_alignment }} palm-all--text--{{ module.layout_controls.columns_content_alignment_mobile }}">
+          {% for item in module.column_content %}
+            <div class="section--columns--column relative grid__item {{ module.layout_controls.number_of_columns_desktop }} {{ module.layout_controls.number_of_columns_laptop }} {{ module.layout_controls.number_of_columns_tablet }} {{ module.layout_controls.number_of_columns_mobile }} tall first--hard--top last--hard--bottom valign--top {% if module.layout_controls.columns_width == 'wide' %}padding--short{% endif %}">
+              {% if (module.layout_controls.show_border_divider_between_columns) %}
+                <span class="section--columns--divider--vertical {% if loop.first %}visuallyhidden{% endif %} {% if (loop.index - 1) % columnWidths['desk'] == 0 %}desk-visuallyhidden{% endif %} {% if (loop.index - 1) % columnWidths['lap'] == 0 %}lap-visuallyhidden{% endif %} {% if (loop.index - 1) % columnWidths['tablet'] == 0 %}tablet-visuallyhidden{% endif %} {% if (loop.index - 1) % columnWidths['palm'] == 0 %}palm-visuallyhidden{% endif %} opacity--{{ module.layout_controls.columns_divider_color.opacity }}" style="background:{{ module.layout_controls.columns_divider_color.color }};"></span>
+              {% endif %}
+              {# {% if (module.layout_controls.show_border_divider_between_columns) %}
+                <span class="section--columns--divider--horizontal {% if (loop.index - (1 + columnWidths['desk'])) < 0 %}desk-visuallyhidden{% endif %} {% if (loop.index - (1 + columnWidths['lap'])) < 0 %}lap-visuallyhidden{% endif %} {% if (loop.index - (1 + columnWidths['tablet'])) < 0 %}tablet-visuallyhidden{% endif %} {% if (loop.index - (1 + columnWidths['palm'])) < 0 %}palm-visuallyhidden{% endif %} opacity--{{ module.layout_controls.columns_divider_color.opacity }}" style="background:{{ module.layout_controls.columns_divider_color.color }};"></span>
+              {% endif %} #}
+              <div class="section--columns--column--body">
+                {% if module.layout_controls.columns_image_type == "native" %}
+                  <div class="block">
+                    {% if ((item.cta.cta_type == "link")&&(item.cta.cta_hyperlink.href)&&(item.cta.cta_button_text)) %}
+                      <a title="{% if item.cta.cta_title_attribute %}{{ item.cta.cta_title_attribute }}{% else %}{{ item.cta.cta_button_text }}{% endif %}" href="{% if item.cta.cta_hyperlink.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{ item.cta.cta_hyperlink.href }}" {% if item.cta.cta_open_in_new_tab %}target="_blank"{% endif %} class="no--underline border--0">
+                        {% endif %}
+                        <img class="inline-block" src="{{ item.image_native.image.src }}" {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} alt="{{ item.image_native.image.alt }}" width="{% if (item.image_native.image.size_type == 'auto_custom_max') %}{{ item.image_native.image.max_width }}{% elif (item.image_native.image.size_type == 'exact') %}{{ item.image_native.image.width }}{% else %}{{ item.image_native.image.width }}{% endif %}" height="{% if (item.image_native.image.size_type == 'auto_custom_max') %}{{ item.image_native.image.max_height }}{% else %}{{ item.image_native.image.height }}{% endif %}" style="width:auto;height:{{ module.layout_controls.columns_native_image_icon_max_height }}px;" />
+                        {% if ((item.cta.cta_type == "link")&&(item.cta.cta_hyperlink.href)&&(item.cta.cta_button_text)) %}
+                      </a>
+                    {% endif %}
+                  </div>
+                {% elif module.layout_controls.columns_image_type == "full" %}
+                  {% if ((item.cta.cta_type == "link")&&(item.cta.cta_hyperlink.href)&&(item.cta.cta_button_text)) %}
+                    <a title="{% if item.cta.cta_title_attribute %}{{ item.cta.cta_title_attribute }}{% else %}{{ item.cta.cta_button_text }}{% endif %}" href="{% if item.cta.cta_hyperlink.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{ item.cta.cta_hyperlink.href }}" {% if item.cta.cta_open_in_new_tab %}target="_blank"{% endif %} class="no--underline border--0 block">
+                  {% endif %}
+                    <span class="block {{ module.section_controls.lazy_load_images ? 'lozad' : '' }}" role="img" aria-label="{{ item.image_full.image.alt }}" {{ module.section_controls.lazy_load_images ? 'data-background-image="{{ item.image_full.image.src }}"' : '' }} style="{{ not module.section_controls.lazy_load_images ? 'background:url(\'{{ item.image_full.image.src }}\');' : '' }}background-repeat:no-repeat;background-position:{{ item.image_full.image_horizontal_alignment }} {{ item.image_full.image_vertical_alignment }};background-size:cover;">
+                      {{ snippets.aspectSpacer(module.layout_controls.columns_image_aspect_ratio) }}
+                    </span>
+                  {% if ((item.cta.cta_type == "link")&&(item.cta.cta_hyperlink.href)&&(item.cta.cta_button_text)) %}
+                    </a>
+                  {% endif %}
+                {% endif %}
+                <div class="section--columns--column--body--wrapper" style="{% if module.layout_controls.columns_image_type != "none" %}margin-top:25px;{% endif %}">
+                  <div class="section--columns--column--body--content block first--hard--top last--hard--bottom">
+                    {% if item.header_label %}
+                      <h3 class="h4">
+                        {% if ((item.cta.cta_type == "link")&&(item.cta.cta_hyperlink.href)&&(item.cta.cta_button_text)) %}
+                          <a title="{% if item.cta.cta_title_attribute %}{{ item.cta.cta_title_attribute }}{% else %}{{ item.cta.cta_button_text }}{% endif %}" href="{% if item.cta.cta_hyperlink.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{ item.cta.cta_hyperlink.href }}" {% if item.cta.cta_open_in_new_tab %}target="_blank"{% endif %} class="no--underline color--inherit">
+                            {% endif %}
+                            {{ item.header_label }}
+                            {% if ((item.cta.cta_type == "link")&&(item.cta.cta_hyperlink.href)&&(item.cta.cta_button_text)) %}
+                          </a>
+                        {% endif %}
+                      </h3>
+                    {% endif %}
+                    {{ item.description }}
+                  </div>
+                  {% if ((item.cta.cta_type == "cta")&&(item.cta.cta))||((item.cta.cta_type == "link")&&(item.cta.cta_hyperlink.href)&&(item.cta.cta_button_text))||((item.cta.cta_type == "anchor")&&(item.cta.cta_section_anchor_id)&&(item.cta.cta_button_text)) %}
+                    <div class="section--columns--column--body--cta">
+                      <p class="all--btn all--btn--{% if item.cta.cta_ghost_transparent_button %}transparent--{% endif %}{{ item.cta.cta_button_color }} margin--short--top hard--bottom">
+                        {% if item.cta.cta_type == "cta" %}
+                        {{ cta(item.cta.cta) }}
+                        {% elif (item.cta.cta_type == "link")||(item.cta.cta_type == "anchor") %}
+                        <a title="{% if item.cta.cta_title_attribute %}{{ item.cta.cta_title_attribute }}{% else %}{{ item.cta.cta_button_text }}{% endif %}" class="btn btn--{% if item.cta.cta_ghost_transparent_button %}transparent--{% endif %}{{ item.cta.cta_button_color }}" href="{% if item.cta.cta_type == 'anchor' %}#{{ item.cta.cta_section_anchor_id|replace('#','') }}{% else %}{% if item.cta.cta_hyperlink.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{ item.cta.cta_hyperlink.href }}{% endif %}" {% if (item.cta.cta_type == "link")&&(item.cta.cta_open_in_new_tab) %}target="_blank"{% endif %}>{{ item.cta.cta_button_text }}</a>
+                        {% endif %}
+                      </p>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% if snippets.multiButton(module.cta) %}
+        <div class="grid hard--ends {{ snippets.textColorOverride(module.section_controls.text_color_override) }}">
+          <div class="grid__item one-whole tall--top palm-short--top hard--bottom first--hard--top last--hard--bottom {{ snippets.textColorOverride(module.section_controls.text_color_override) }} all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+            {{ snippets.multiButton(module.cta) }}
+          </div>
+        </div>
+      {% endif %}
+      <div class="block gridspacer--bottom {{ snippets.sectionPadding(module.section_controls.spacing,"bottom") }}">
+
+      </div>
+      {{ snippets.swoopSpacerBottom(module.background) }}
+    </div>
+  </div>
+  {{ snippets.sectionPaddingCustomStyles(name,module.section_controls.spacing,".gridspacer--top",".gridspacer--bottom") }}
+</div>

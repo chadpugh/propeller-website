@@ -1,0 +1,79 @@
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# IMPORT CONFIG #}
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ***************************** BASE & CUSTOM CSS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+
+.section--peoplelisting .section--peoplelisting--cards--wrapper {
+  display:flex;
+  align-items: stretch;
+	flex-wrap: wrap;
+  justify-content: center;
+  margin-left:-{{ short }};
+  margin-right:-{{ short }};
+}
+.section--peoplelisting .section--peoplelisting--card--inner {
+  padding:{{ short }};
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+.section--peoplelisting .section--peoplelisting--card--body--wrapper {
+  display: flex;
+  height: 100%;
+  flex-flow: column;
+}
+.section--peoplelisting .section--peoplelisting--card--body {
+  display: flex;
+  height: 100%;
+  flex-flow: column;
+}
+.section--peoplelisting.section--peoplelisting--equalizebuttons .section--peoplelisting--social {
+  margin-top: auto;
+  padding-top:20px;
+}
+.section--peoplelisting .section--peoplelisting--card:hover .btn--simple {
+  color: {{ color('primary') }} !important;
+}
+.section--peoplelisting .section--peoplelisting--card:hover .btn--simple:after {
+  transform: translateX(5px);
+}
+.section--peoplelisting  .section--peoplelisting--social div {
+  margin-right:4px;
+  margin-left:4px;
+}
+.section--peoplelisting .section--peoplelisting--social--icon--fb {
+  position:relative;
+  top:1px;
+}
+.section--peoplelisting .section--peoplelisting--social--icon {
+  position:relative;
+  top:2px;
+}
+.section--peoplelisting .social--item a:hover svg {
+  fill: {{ color('primary') }};
+}
+.section--peoplelisting .section--peoplelisting--social svg {
+  fill: {{ config.p_Color }};
+}
+{% call mediaQuery("palm") %}
+.section--peoplelisting .section--peoplelisting--card {
+  max-width:450px;
+}
+.section--peoplelisting .section--peoplelisting--cards--wrapper {
+  justify-content:center;
+}
+{% endcall %}

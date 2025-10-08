@@ -1,0 +1,627 @@
+
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ******************** HUBSPOT ******************** #}
+
+.hubspot-link__container {
+  display:none!important;
+}
+
+/* Grid */
+html {
+  background:{{ color('white') }};
+}
+.row-fluid [class*="span"] {
+  min-height:0px!important;
+}
+
+/* Menus */
+.hs-menu-wrapper ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+.hs-menu-wrapper.hs-menu-flow-horizontal > ul > li {
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* Forms */
+
+form.hs-form.stacked .actions {display:inline-block;padding:0px;margin:0px;text-align:center;}
+.hbspt-form .submitted-message {
+  font-family: {{ config.p_FontFamily }};
+  font-size: {{ config.p_FontSize }};
+  line-height: {{ config.p_LineHeight }};
+  font-style: {{ config.p_FontStyle }};
+  font-weight: {{ config.p_FontWeight }};
+  letter-spacing: {{ config.p_LetterSpacing }};
+  word-spacing: {{ config.p_WordSpacing }};
+  color: {{ config.p_Color }};
+}
+.hs_cos_wrapper_type_form {
+  font-family: {{ config.p_FontFamily }};
+  font-size: {{ config.p_FontSize }};
+  line-height: {{ config.p_LineHeight }};
+  font-style: {{ config.p_FontStyle }};
+  font-weight: {{ config.p_FontWeight }};
+  letter-spacing: {{ config.p_LetterSpacing }};
+  word-spacing: {{ config.p_WordSpacing }};
+  color: {{ config.p_Color }};
+
+}
+.hs_cos_wrapper_type_form .form-title {margin-top: 0px;}
+.hs_cos_wrapper_type_form > a[name] {display: none;}
+form.hs-form .hs_error_rollup {display:none!important;}
+form.hs-form input[type="text"].hs-input,
+form.hs-form input[type="number"].hs-input,
+form.hs-form input[type="email"].hs-input,
+form.hs-form input[type="tel"].hs-input,
+form.hs-form textarea.hs-input,
+.production--form input[type="text"],
+.production--form input[type="number"],
+.production--form input[type="email"],
+.production--form input[type="tel"],
+.production--form input[type="search"],
+.production--form textarea {
+  text-align:left!important;
+  display:block;
+  max-width:100%;
+  width:100%!important;
+  padding-top:{{ config.input_VerticalPadding }};
+  padding-bottom:{{ (config.input_VerticalPadding|replace('px','')-2) }}px;
+  padding-left:{{ config.input_HorizontalPadding }};
+  padding-right:{{ config.input_HorizontalPadding }};
+  margin-top:0px;
+  outline:none;
+  box-shadow: {{ config.input_BoxShadow }};
+  height:auto;
+  background-color:{{ config.input_BackgroundColor }};
+  color:{{ config.input_Color }};
+
+  font-family: {{ config.input_FontFamily }};
+  font-size: {{ config.input_FontSize }};
+  line-height: {{ config.input_LineHeight }};
+  font-weight: {{ config.input_FontWeight }};
+  text-transform: {{ config.input_TextTransform }};
+  letter-spacing: {{ config.input_LetterSpacing }};
+  word-spacing: {{ config.input_WordSpacing }};
+  border-color: {{ config.input_BorderColor }};
+  border-style: solid;
+  border-width: {{ config.input_BorderWidth }};
+  border-radius: {{ config.input_BorderRadius }};
+
+  -webkit-appearance:none;
+
+  {{ boxSizing("border-box") }}
+}
+form.hs-form > .hs-form-field * {
+  text-align:left!important;
+}
+form.hs-form .hs-form-field .input .hs-fieldtype-intl-phone select.hs-input {
+  display: inline-block!important;
+  vertical-align: top;
+  width: 40%!important;
+}
+form.hs-form .hs-form-field .input .hs-fieldtype-intl-phone select.hs-input + input.hs-input {
+  display: inline-block!important;
+  width: 57%!important;
+  margin-left:3%!important;
+}
+{% if config.input_LineHeight %}
+form.hs-form textarea.hs-input, .production--form textarea {
+  min-height: calc({{ config.input_LineHeight }} * 5);
+}
+{% endif %}
+
+form.hs-form select.hs-input,
+.production--form select {
+  width:100%!important;
+  max-width:100%!important;
+  margin-top:0px;
+  height:auto;
+
+  color:{{ config.input_Color }};
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image:url('{{ config.input_SelectBackgroundImage }}');
+    background-repeat:no-repeat;
+    background-position:right {{ config.input_HorizontalPadding }} center;
+    background-color:{{ config.input_BackgroundColor }};
+    background-size:12.25px;
+
+    outline:none;
+    box-shadow: {{ config.input_BoxShadow }};
+
+    padding-top:{{ config.input_VerticalPadding }};
+    padding-bottom:{{ config.input_VerticalPadding }};
+    padding-left:{{ config.input_HorizontalPadding }};
+    padding-right:{{ config.input_SelectBackgroundImageWidth }};
+
+    font-family: {{ config.input_FontFamily }};
+    font-size: {{ config.input_FontSize }};
+    line-height: {{ config.input_LineHeight }};
+    font-weight: {{ config.input_FontWeight }};
+    text-transform: {{ config.input_TextTransform }};
+    letter-spacing: {{ config.input_LetterSpacing }};
+    word-spacing: {{ config.input_WordSpacing }};
+    border-color: {{ config.input_BorderColor }};
+    border-style: solid;
+    border-width: {{ config.input_BorderWidth }};
+    border-radius: {{ config.input_BorderRadius }};
+    }
+form.hs-form select.hs-input::-ms-expand,
+.production--form select::-ms-expand {
+  display: none;
+}
+form.hs-form select.hs-input option, .production--form select.hs-input option {
+  color:{{ color("black") }}!important;
+}
+form.hs-form label, .production--form label {
+  display:block;
+  text-align:left!important;
+  font-family:{{ config.label_FontFamily }};
+  font-size:{{ config.label_FontSize }};
+  line-height:{{ config.label_LineHeight }};
+  font-style:{{ config.label_FontStyle }};
+  font-weight:{{ config.label_FontWeight }};
+  letter-spacing:{{ config.label_LetterSpacing }};
+  text-transform:{{ config.label_TextTransform }};
+  word-spacing:{{ config.label_WordSpacing }};
+  color:{{ config.label_Color }};
+}
+form.hs-form fieldset,
+.production--form fieldset {
+  float:left;
+  max-width:100%;
+  width:100%;
+}
+form.hs-form .field,
+.production--form .field {
+  margin-bottom:0px;
+  position:relative;
+}
+form.hs-form .inputs-list {
+  margin-bottom:{{ config.input_Spacing }};
+  padding-left:0px;
+  list-style:none;
+}
+form.hs-form .hs_recaptcha {
+  clear:both;
+}
+form.hs-form #captcha_wrapper {
+  margin-bottom:{{ config.input_Spacing }};
+  clear:both;
+}
+form.hs-form #captcha_wrapper #recaptcha_area,
+form.hs-form #captcha_wrapper #recaptcha_table {
+  max-width:100%;
+}
+form.hs-form #captcha_wrapper #recaptcha_table {
+  display: block;
+  overflow: hidden;
+  background: #dedede;
+  border-color: {{ config.input_BorderColor }}!important;
+  border-style: solid!important;
+  border-width: {{ config.input_BorderWidth }}!important;
+  border-radius: {{ config.input_BorderRadius }};
+}
+form.hs-form #captcha_wrapper #recaptcha_table * {
+  {{ boxSizing("border-box") }}
+}
+form.hs-form #captcha_wrapper #recaptcha_table td {
+  background-image: none;
+}
+form.hs-form #captcha_wrapper #recaptcha_table .recaptcha_input_area {
+  width:171px!important;
+  margin-left:0px!important;
+  margin-right:0px!important;
+}
+form.hs-form #captcha_wrapper #recaptcha_table #recaptcha_response_field {
+  width:100%!important;
+  margin-top:8px!important;
+  padding: 4px 4px!important;
+  border-color: {{ config.input_BorderColor }};
+}
+form.hs-form #captcha_wrapper #recaptcha_table .recaptcha_r4_c4 {
+  background-size: 90% auto!important;
+}
+form.hs-form #captcha_wrapper #recaptcha_table #recaptcha_privacy a {
+  font-size:13px!important;
+}
+form.hs-form fieldset.form-columns-1 > .hs-form-field,
+form.hs-form > .hs-form-field {
+  display:inline-block;
+  width:100%;
+}
+form.hs-form fieldset.form-columns-1 .hs-form-field {
+  width:100%;
+  padding:0px;
+}
+form.hs-form fieldset.form-columns-2 > .hs-form-field {
+  display:inline-block;
+  vertical-align:top;
+  width:48.5%!important;
+  padding:0px;
+  margin-left:3%;
+  float:none;
+}
+form.hs-form fieldset.form-columns-2 > .hs-form-field:first-child {
+  margin-left:0px;
+}
+{% call mediaQuery("palm") %}
+form.hs-form fieldset.form-columns-2 > .hs-form-field {
+  width:100%!important;
+  margin-left:0px;
+}
+{% endcall %}
+form.hs-form fieldset.form-columns-2 .hs-richtext+.hs-form-field {
+  margin-left:0px!important;
+}
+form.hs-form fieldset.form-columns-3 > .hs-form-field {
+  display:inline-block;
+  vertical-align:top;
+  width:31.3333333%!important;
+  padding:0px;
+  margin-left:3%;
+  float:none;
+}
+form.hs-form fieldset.form-columns-3 > .hs-form-field:first-child {
+  margin-left:0px;
+}
+{% call mediaQuery("palm") %}
+form.hs-form fieldset.form-columns-3 > .hs-form-field {
+  width:100%!important;
+  margin-left:0px;
+}
+{% endcall %}
+form.hs-form fieldset.form-columns-3 .hs-richtext+.hs-form-field {
+  margin-left:0px!important;
+}
+form.hs-form fieldset > .hs-form-field > label,
+form.hs-form > .hs-form-field > label {
+  margin-bottom:{{ config.label_Spacing }};
+}
+form.hs-form .hs-form-required {
+  color: #DD2D2D;
+}
+form.hs-form .hs-form-field > .input {
+  margin-bottom:{{ config.input_Spacing }};
+  margin-right:0px!important;
+}
+form.hs-form .inputs-list label {
+  display:block!important;
+}
+form.hs-form .inputs-list label input {
+  display:inline-block;
+  width:auto;
+  margin-right:10px;
+}
+form.hs-form .hs_submit {
+  clear: both;
+  width: 100%;
+  display: block;
+}
+form.hs-form .hs_submit {
+  padding-top:10px;
+}
+form.hs-form .hs_submit input.hs-button,
+form.hs-form .hs_submit input.hs-button:active {
+  -webkit-appearance: none;
+  outline:none!important;
+  box-shadow:none!important;
+  text-shadow:none;
+}
+form.hs-form .hs_submit input.hs-button {
+  display:inline-block;
+
+  color: {{ config.btn_Color }};
+  background-image:none;
+  background-color:{{ color(config.color_Primary) }};
+  text-align: center;
+  font-family: {{ config.btn_FontFamily }};
+  font-size: {{ config.btn_FontSize }};
+  line-height: {{ config.btn_LineHeight }};
+  font-style: {{ config.btn_FontStyle }};
+  font-weight: {{ config.btn_FontWeight }};
+  text-transform: {{ config.btn_TextTransform }};
+  text-decoration: {{ config.btn_TextDecoration }};
+  letter-spacing: {{ config.btn_LetterSpacing }};
+  word-spacing: {{ config.btn_WordSpacing }};
+  padding: {{ config.btn_VerticalPadding }} {{ config.btn_HorizontalPadding }};
+  border-radius: {{ config.btn_BorderRadius }};
+  min-width: {{ config.btn_MinWidth }};
+  width:auto;
+  max-width:100%;
+
+  border-width:{{ config.btn_BorderWidth }}!important;
+  border-style:solid!important;
+  border-color:{{ color(config.color_Primary) }};
+
+  -webkit-box-shadow:{{ config.btn_BoxShadow }}!important;
+  -moz-box-shadow:{{ config.btn_BoxShadow }}!important;
+  box-shadow:{{ config.btn_BoxShadow }}!important;
+  text-shadow: {{ config.btn_TextShadow }}!important;
+
+  background-image:none!important;
+
+  outline:none!important;
+
+  -moz-box-sizing:border-box!important;
+  -webkit-box-sizing:border-box!important;
+  box-sizing:border-box!important;
+}
+form.hs-form .hs_submit input.hs-button:hover {
+  cursor:pointer;
+  color: {{ config.btn_Color }};
+}
+{% if parseInt(config.input_Spacing)|int >= 15 %}
+form.hs-form fieldset.form-columns-2 > .hs-form-field,
+form.hs-form fieldset.form-columns-3 > .hs-form-field {
+  vertical-align:bottom;
+}
+form.hs-form .hs-error-msgs.inputs-list {
+  position:absolute;
+  right:0;
+  list-style:none!important;
+  padding:0px;
+  margin:calc(-1 * {{ config.input_Spacing }}) 0 0 0;
+  top:100%;
+  width:100%;
+  z-index:5;
+}
+form.hs-form .hs-error-msgs.inputs-list * {
+  text-align:right!important;
+}
+{% else %}
+form.hs-form .hs-error-msgs.inputs-list {
+  margin:calc(-1 * {{ config.input_Spacing }}) 0 {{ config.input_Spacing }} 0;
+}
+{% endif %}
+form.hs-form .hs-fieldtype-booleancheckbox .hs-error-msgs.inputs-list {
+  position: relative!important;
+  margin-top: 0px!important;
+  margin-bottom:{{ config.input_Spacing }}!important;
+}
+form.hs-form .hs-error-msgs.inputs-list li label {
+  list-style: none;
+  margin: 0px;
+  padding: 0;
+  font-style: italic;
+  font-size:12px;
+  color: #DD2D2D;
+  text-align:right;
+  line-height:1.5em;
+}
+form.hs-form .hs-error-msgs.inputs-list li label a {
+  display: inline-block;
+  position:relative;
+  color: inherit;
+  font: inherit;
+  background: #f8f1f1;
+  z-index: 5;
+  border: 1px solid;
+  width: 400px;
+  max-width: 100%;
+  padding-right: 5px;
+  padding-left: 5px;
+  text-decoration:none;
+  font-style:normal;
+  text-align:left;
+}
+form.hs-form .hs-error-msgs.inputs-list li label a:after {
+  content:"→";
+  display:inline-block;
+  margin-left:5px;
+}
+form.hs-form .hs-error-msgs.inputs-list li label a:hover {
+  text-decoration:underline;
+}
+/*
+form.hs-form .hs-error-msgs.inputs-list li label:before {
+font-size:12px;
+line-height:12px;
+content:"Required field. ";
+}
+form.hs-form .hs-error-msgs.inputs-list li+li {
+display:none;
+}
+form.hs-form .hs_email.filled .hs-error-msgs.inputs-list li label:before {
+content: "Please use a valid email. ";
+}
+*/
+form.hs-form hs-input.error, .hs-input.invalid {
+  border-color: #DD2D2D!important;
+}
+form.hs-form .legal-consent-container {
+  margin-bottom:15px;
+  text-align:left;
+}
+form.hs-form .legal-consent-container .hs-richtext > *:first-child {
+  margin-top:0px;
+}
+form.hs-form .hs-agree a {
+  color: {{ color('purple') }};
+}
+form.hs-form .hs-agree a:hover {
+  color: {{ color('darkgrey') }};
+}
+.no--labels .hs-form-field > label {
+  display:none!important;
+}
+html.no-textshadow .no--labels .hs-form-field > label {
+  display:block!important;
+}
+html.no-backgroundsize .no--labels label {
+  display:block!important;
+}
+#hs_cos_wrapper_blog_comments #comments-listing .comment-from a {
+  color: inherit!important;
+  background: none!important;
+  padding: 0px!important;
+  font: inherit!important;
+  display: inline!important;
+}
+{% call mediaLoop() %}
+.{{ media }}all--btn--left form.hs-form .hs_submit {
+  text-align:left;
+}
+.{{ media }}all--btn--center form.hs-form .hs_submit {
+  text-align:center!important;
+}
+.{{ media }}all--btn--right form.hs-form .hs_submit {
+  text-align:right;
+}
+.{{ media }}all--btn--wide form.hs-form.stacked .actions {
+  display:block;
+}
+{% endcall %}
+
+/* HubUI */
+
+.hubui form.hs-form .hs-form-field > label {
+  display: block !important;
+  position: absolute;
+  margin: 0px;
+  width: 100%;
+  opacity: .9;
+  filter: alpha(opacity=90);
+  background: transparent;
+  pointer-events: none;
+  {% if parseInt(config.input_VerticalPadding)|int < 14 %}
+  padding-top: {{ ((14 + parseInt(config.input_VerticalPadding)|int)/2)|round(0, 'ceil') }}px;
+  {% else %}
+  padding-top: {{ parseInt(config.input_VerticalPadding)|int + parseInt(config.input_BorderWidth)|int }}px;
+  {% endif %}
+  padding-bottom: {{ config.input_VerticalPadding }};
+  {% if config.input_BorderWidth %}
+  padding-left: {{ parseInt(config.input_HorizontalPadding)|int + parseInt(config.input_BorderWidth)|int }}px;
+  padding-right: {{ parseInt(config.input_HorizontalPadding)|int + parseInt(config.input_BorderWidth)|int }}px;
+  {% else %}
+  padding-left:{{ config.input_HorizontalPadding }};
+  padding-right:{{ config.input_HorizontalPadding }};
+  {% endif %}
+  outline: none;
+  height: auto;
+
+
+  font-family: {{ config.input_FontFamily }};
+  font-size: {{ config.input_FontSize }}!important;
+  {% if ("em" in config.input_LineHeight)&&("px" in config.input_FontSize) %}
+  line-height: {{ parseFloat(config.input_LineHeight) * parseFloat(config.input_FontSize) }}px;
+  {% else %}
+  line-height: 1.25em;
+  {% endif %}
+  font-weight:{{ config.label_FontWeight }};
+  text-transform:{{ config.label_TextTransform }};
+  letter-spacing:{{ config.label_LetterSpacing }};
+  word-spacing:{{ config.label_WordSpacing }};
+
+  z-index: 1;
+  {% if config.input_BorderWidth %}
+  top:{{ config.input_BorderWidth }};
+  {% else %}
+  top:-1px;
+  {% endif %}
+  left: 0;
+  right: 0;
+  -webkit-appearance: none;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: font-size .3s ease-in-out, padding-top .3s ease-in-out, color .3s ease-in-out, line-height .3s ease-in-out;
+  -moz-transition: font-size .3s ease-in-out, padding-top .3s ease-in-out, color .3s ease-in-out, line-height .3s ease-in-out;
+  -ms-transition: font-size .3s ease-in-out, padding-top .3s ease-in-out, color .3s ease-in-out, line-height .3s ease-in-out;
+  -o-transition: font-size .3s ease-in-out, padding-top .3s ease-in-out, color .3s ease-in-out, line-height .3s ease-in-out;
+  transition: font-size .3s ease-in-out, padding-top .3s ease-in-out, color .3s ease-in-out, line-height .3s ease-in-out;
+}
+.hubui form.hs-form .hs-form-field.hubui--enabled > label {
+  color:{{ config.label_Color }};
+}
+.hubui form.hs-form .hs-form-field > label a {
+  position: relative;
+  z-index: 3;
+  pointer-events: auto;
+}
+.hubui form.hs-form .hs-form-field input[type="text"].hs-input,
+.hubui form.hs-form .hs-form-field input[type="number"].hs-input,
+.hubui form.hs-form .hs-form-field input[type="email"].hs-input,
+.hubui form.hs-form .hs-form-field input[type="tel"].hs-input,
+.hubui form.hs-form .hs-form-field input[type="password"].hs-input,
+.hubui form.hs-form .hs-form-field textarea.hs-input {
+  line-height: {{ config.input_LineHeight }};
+  {% if parseInt(config.input_VerticalPadding)|int < 14 %}
+  padding-top: 14px;
+  {% endif %}
+}
+.hubui form.hs-form .hs-form-field input::-webkit-input-placeholder { color: transparent; }
+.hubui form.hs-form .hs-form-field input::-moz-placeholder { color: transparent; }
+.hubui form.hs-form .hs-form-field input:-ms-input-placeholder { color: transparent; }
+.hubui form.hs-form .hs-form-field input:-moz-placeholder { color: transparent; }
+.hubui form.hs-form .hs-form-field textarea::-webkit-input-placeholder { color: transparent; }
+.hubui form.hs-form .hs-form-field textarea::-moz-placeholder { color: transparent; }
+.hubui form.hs-form .hs-form-field textarea:-ms-input-placeholder { color: transparent; }
+.hubui form.hs-form .hs-form-field textarea:-moz-placeholder { color: transparent; }
+.hubui form.hs-form .hs-form-field select {
+  padding-top: {{ (14 - parseInt(config.input_VerticalPadding)|int)/2 + parseInt(config.input_VerticalPadding)|int }}px;
+  padding-bottom: {{ (14 - parseInt(config.input_VerticalPadding)|int)/2 + parseInt(config.input_VerticalPadding)|int }}px;
+}
+.hubui form.hs-form .hs-form-field.focus > label,
+.hubui form.hs-form .hs-form-field.filled > label {
+  font-size: 10px !important;
+  padding-top: 3px;
+  line-height:1em;
+}
+.hubui form.hs-form .hs-form-field.valid > label {
+  color: #19920B;
+}
+.hubui form.hs-form .hs-form-field.filled.invalid > label {
+  color: #DD2D2D !important;
+}
+.hubui form.hs-form .hs-form-field.focus > label {
+  color: #0D4FB1;
+}
+.hubui form.hs-form .hs-form-field.static > label {
+  position: relative !important;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-bottom: {{ config.label_Spacing }};
+  left: auto;
+  right: auto;
+  font-family: {{ config.label_FontFamily }};
+  font-size: {{ config.label_FontSize }}!important;
+  font-style:{{ config.label_FontStyle }};
+  font-weight:{{ config.label_FontWeight }};
+  line-height: {{ config.label_LineHeight }};
+  color: {{ config.label_Color }};
+  letter-spacing:{{ config.label_LetterSpacing }};
+  word-spacing:{{ config.label_WordSpacing }};
+}
+.hubui form.hs-form .hs-dependent-field .hs-form-field > label {
+  position: relative !important;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  left: auto;
+  right: auto;
+  font-family: {{ config.label_FontFamily }};
+  font-size: {{ config.label_FontSize }};
+  font-style:{{ config.label_FontStyle }};
+  font-weight:{{ config.label_FontWeight }};
+  line-height: {{ config.label_LineHeight }};
+  color: {{ config.label_Color }};
+  letter-spacing:{{ config.label_LetterSpacing }};
+  word-spacing:{{ config.label_WordSpacing }};
+}

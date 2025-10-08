@@ -1,0 +1,79 @@
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# IMPORT CONFIG #}
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ***************************** BASE & CUSTOM CSS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+.section--hero--overhang--bottom .section--hero--grid-wrapper {
+  bottom:0px;
+  {{ transition('all .3s ease-in-out') }};
+}
+{% call mediaQuery(">tablet") %}
+.section--hero--media {
+  display:block!important;
+  position:absolute;
+  top:0;
+  width:{{ 50 - (grid_ColumnSpacing/2) }}%;
+  height:100%;
+}
+.section--hero--media--wrapper {
+  display:block;
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+.section--hero--media--wrapper img {
+  position:relative;
+  top:50%;
+  transform:translateY(-50%);
+}
+.section--hero--right div.section--hero--media {
+  left:0;
+}
+.section--hero--left div.section--hero--media {
+  right:0;
+}
+.section--hero--media--video--icon {
+  position:absolute;
+  top:50%;
+  left:50%;
+  -webkit-transform:translateY(-50%) translateX(-50%);
+  -moz-transform:translateY(-50%) translateX(-50%);
+  transform:translateY(-50%) translateX(-50%);
+}
+{% endcall %}
+{% call mediaQuery("palm") %}
+.section--hero--media--wrapper {
+  background:none;
+}
+{% endcall %}
+@media screen and (min-width:1200px) {
+  .section--hero--swoopspacerbottom {
+    display:none;
+  }
+  .section--hero--overhang--bottom .section--hero--grid-wrapper {
+    position:relative;
+    bottom:-50px;
+    transform:none;
+    top:unset;
+  }
+}
+@media screen and (max-width:1199px) {
+  .section--hero--content--swoopspacerbottom {
+    display:none;
+  }
+}

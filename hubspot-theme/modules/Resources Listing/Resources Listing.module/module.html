@@ -1,0 +1,115 @@
+<style>
+  .mix { display: none; }
+</style>
+<div {% if module.section_controls.anchor_id %}id="{{ module.section_controls.anchor_id|trim }}"{% endif %} class="section section--resources relative overflow--hidden {{ snippets.deviceVisibility(module.section_controls.device_visibility) }}">
+  {{ snippets.background(module.background) }}
+  <script src="https://cdn2.hubspot.net/hubfs/298890/Production/scripts/jquery.mixitup.js" type="text/javascript"></script>
+  <div class="block relative z-index--3">
+    <div class="grid {{ snippets.sectionPadding(module.section_controls.spacing) }}">
+
+      {% if module.header || module.content || module.preheader %}
+        <div class="grid__item eight-twelfths tablet-ten-twelfths palm-one-whole hard--top tall--bottom palm-short--bottom first--hard--top last--hard--bottom all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+          {% if module.preheader %}
+          <span class="h6 preheader">{{ module.preheader }}</span>
+          {% endif %}
+          {% if module.enable_header_rule %}
+          <span class="header--rule"></span>
+          {% endif %}
+          {% if module.header %}
+          <h2>
+            {{ module.header }}
+          </h2>
+          {% endif %}
+          {{ module.content }}
+        </div>
+      {% endif %}
+
+      {% if module.layout_controls.enable_filtering %}
+        <div class="grid__item one-whole hard section--resources--filters">
+          <div class="grid__item two-twelfths portable-one-whole valign--middle short portable-all--text--center all--text--right portable-hard--bottom">
+            <p class="hard--ends font--16">
+              {{ module.layout_controls.filtering_options.filter_by_header }}
+            </p>
+          </div>
+          <div class="section--resources--filters--input production--form grid__item one-third tablet-one-half palm-one-whole short section--filters--input valign--middle palm-hard--bottom">
+            <select rel='Type'>
+              <option value='all'>
+                {{ module.layout_controls.filtering_options.types_all_label }}
+              </option>
+            </select>
+          </div>
+          <div class="section--resources--filters--input production--form grid__item one-third tablet-one-half palm-one-whole short section--filters--input valign--middle">
+            <select rel='Topic'>
+              <option value='all'>
+                {{ module.layout_controls.filtering_options.topics_all_label }}
+              </option>
+            </select>
+          </div>
+          <div class="grid__item two-twelfths portable-visuallyhidden">
+
+          </div>
+
+        </div>
+      {% endif %}
+      <div class="grid__item one-whole hard section--resources--listing--empty visuallyhidden all--text--center">
+        {{ module.no_results_content }}
+      </div>
+      <div class="grid__item one-whole hard all--text--center section--resources--listing">
+        <script>
+          var filterFilters = {}
+          filterFilters["Type"] = [];
+          filterFilters["Topic"] = [];
+        </script>
+        {% for item in module.resources %}
+          <div class="resource--item mix grid__item one-third tablet-one-half palm-one-whole margin--short background--white box-shadow border-radius--3 overflow--hidden hard--ends {% for filter in item.filter_type|split(";") %}filter--type--{{ filter|trim|lower|replace(" ","-") }} {% endfor %}{% for filter in item.filter_topic|split(";") %}filter--topic--{{ filter|trim|lower|replace(" ","-") }} {% endfor %}">
+            <a href="{{ item.button_hyperlink_url }}" class="grid__item one-whole short--top padding--short no--underline">
+              <span role="img" aria-label="{{ item.featured_image.alt }}" class="grid__item one-whole hard {{ module.section_controls.lazy_load_images ? 'lozad' : '' }}" {{ module.section_controls.lazy_load_images ? 'data-background-image="{{ item.featured_image.src }}"' : '' }} style="{{ not module.section_controls.lazy_load_images ? 'background:url(\'{{ item.featured_image.src }}\');' : '' }} background-repeat:no-repeat; background-position:center {{ item.featured_image_vertical_alignment }};background-size:contain;">
+                {{ snippets.aspectSpacer("16:9") }}
+              </span>
+              <span class="block short">
+                <span class="lap-and-up-equalize tablet-equalize">
+                  <span class="block overflow--auto">
+                    <h4 class="hard--top">
+                      {{ item.content_header }}
+                    </h4>
+                    <p>
+                      {{ item.description }}
+                    </p>
+                  </span>
+                </span>
+                <p class="hard--ends">
+                  {% if item.button_hyperlink_url %}
+                  <span class="all--valign--middle btn btn--simple">{{ item.button_text }}</span>
+                  {% else %}
+                  &nbsp;
+                  {% endif %}
+                </p>
+              </span>
+            </a>
+          </div>
+          <script>
+            {% for filter in item.filter_type|split(";") %}
+              if (filterFilters["Type"].indexOf("{{ filter|trim }}") == -1) {
+                filterFilters["Type"].push("{{ filter|trim }}");
+              }
+            {% endfor %}
+
+            {% for filter in item.filter_topic|split(";") %}
+              if (filterFilters["Topic"].indexOf("{{ filter|trim }}") == -1) {
+                filterFilters["Topic"].push("{{ filter|trim }}");
+              }
+            {% endfor %}
+          </script>
+        {% endfor %}
+      </div>
+      {% if snippets.multiButton(module.cta) %}
+      <div class="block {{ module.section_controls.header_alignment }}">
+        <div class="grid__item one-whole short first--hard--top last--hard--bottom">
+          {{ snippets.multiButton(module.cta) }}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {{ snippets.sectionPaddingCustomStyles(name,module.section_controls.spacing,".grid",".grid") }}
+</div>

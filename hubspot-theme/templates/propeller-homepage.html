@@ -1,0 +1,150 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Propeller Homepage
+  screenshotPath: ../images/template-previews/home.png
+-->
+{% extends "./layouts/base.html" %}
+
+{% set body_class_array = [] %}
+{% do body_class_array.append('pagetype--homepage') %}
+{% do body_class_array.append('propeller-homepage') %}
+
+{% set body_classes = body_class_array|join(' ') %}
+
+{% block body %}
+<div class="body-container body-container--propeller">
+    
+    <!-- Fixed background animation container -->
+    <div id="background-animation"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Investing at the<br>Ocean-Climate Nexus</h1>
+                <!-- Mobile CTA Button -->
+                <a href="#" class="mobile-cta-button">
+                    <span>Pitch Us</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M11.6253 1V9.125C11.6253 9.29076 11.5595 9.44973 11.4423 9.56694C11.3251 9.68415 11.1661 9.75 11.0003 9.75C10.8346 9.75 10.6756 9.68415 10.5584 9.56694C10.4412 9.44973 10.3753 9.29076 10.3753 9.125V2.50859L1.44254 11.4422C1.32526 11.5595 1.1662 11.6253 1.00035 11.6253C0.834495 11.6253 0.675435 11.5595 0.55816 11.4422C0.440885 11.3249 0.375 11.1659 0.375 11C0.375 10.8341 0.440885 10.6751 0.55816 10.5578L9.49175 1.625H2.87535C2.70959 1.625 2.55062 1.55915 2.43341 1.44194C2.3162 1.32473 2.25035 1.16576 2.25035 1C2.25035 0.83424 2.3162 0.675269 2.43341 0.558058C2.55062 0.440848 2.70959 0.375 2.87535 0.375H11.0003C11.1661 0.375 11.3251 0.440848 11.4423 0.558058C11.5595 0.675269 11.6253 0.83424 11.6253 1Z" fill="white"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Info Section -->
+    <section class="project-info">
+        <div class="container">
+            <div class="info-cards">
+                <!-- Industrial Card -->
+                <div class="info-card">
+                    <div class="card-icon">
+                        <img src="{{ get_asset_url('/PRO-HubUI-CHAD EDIT/images/icon_layers.svg') }}" alt="Industrial Icon">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">INDUSTRIAL</h3>
+                        <p class="card-description">Energy, shipping, transportation, subsea surveying, inspection and more.</p>
+                    </div>
+                </div>
+                
+                <!-- Carbon Card -->
+                <div class="info-card">
+                    <div class="card-icon carbon-icon">
+                        <img src="{{ get_asset_url('/PRO-HubUI-CHAD EDIT/images/icon_carbon.svg') }}" alt="Carbon Icon">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">CARBON</h3>
+                        <p class="card-description">Chemical, biological, and physical Marine Carbon Dioxide Removal along with sensing, monitoring, and modeling.</p>
+                    </div>
+                </div>
+                
+                <!-- Organics Card -->
+                <div class="info-card">
+                    <div class="card-icon">
+                        <img src="{{ get_asset_url('/PRO-HubUI-CHAD EDIT/images/icon_leaf.svg') }}" alt="Organics Icon">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">ORGANICS</h3>
+                        <p class="card-description">Investing in innovation around food, feed, fertilizer and more.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Banner Section -->
+    <section class="about-banner">
+        <div class="container">
+            <div class="about-content">
+                <!-- Portfolio Logos -->
+                <div class="portfolio-section">
+                    <div class="portfolio-image">
+                        <!-- Background image first (fallback) -->
+                        <img src="{{ get_asset_url('/PRO-HubUI-CHAD EDIT/images/water.png') }}" alt="Ocean background" class="portfolio-image-bg">
+                        <!-- Video overlay with better compatibility -->
+                        <video autoplay muted loop playsinline preload="metadata" class="portfolio-video">
+                            <source src="https://20619041.fs1.hubspotusercontent-na1.net/hubfs/20619041/Videos/assets/loop_water.mov" type="video/mp4">
+                            <source src="https://20619041.fs1.hubspotusercontent-na1.net/hubfs/20619041/Videos/assets/loop_water.mov" type="video/quicktime">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="logos-overlay">
+                            <!-- Portfolio logos grid -->
+                            <div class="logo-grid">
+                                <div class="portfolio-logo"></div>
+                                <div class="portfolio-logo"></div>
+                                <div class="portfolio-logo"></div>
+                                <div class="portfolio-logo"></div>
+                                <div class="portfolio-logo"></div>
+                                <div class="portfolio-logo"></div>
+                                <div class="portfolio-logo"></div>
+                                <div class="portfolio-logo"></div>
+                                <div class="portfolio-logo"></div>
+                                <div class="portfolio-logo"></div>
+                                <div class="portfolio-logo"></div>
+                                <div class="portfolio-logo"></div>
+                                <div class="portfolio-logo"></div>
+                                <div class="portfolio-logo"></div>
+                                <div class="portfolio-logo"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Card -->
+                <div class="contact-card">
+                    <div class="contact-content">
+                        <div class="contact-text">
+                            <h2>Get in touch</h2>
+                            <p>Our investment themes exist to organize our work, but we remain open-minded to the creativity of entrepreneurs.</p>
+                            <p>If you think what you're working on is of interest to us, we encourage you to send in your pitch.</p>
+                        </div>
+                        
+                        <div class="contact-info">
+                            <div class="info-item">
+                                <span class="info-label">INVESTMENT ROUNDS</span>
+                                <span class="info-value">PRE-SEED TO SERIES A</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">INVESTMENT ROLE</span>
+                                <span class="info-value">WE CAN LEAD OR FOLLOW</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">CHECK SIZE</span>
+                                <span class="info-value">~$500K - $2M</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-buttons">
+                        <button class="btn-secondary">OUR PORTFOLIO</button>
+                        <button class="btn-primary">PITCH US</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock body %}

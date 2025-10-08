@@ -1,0 +1,28 @@
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css' %}
+
+{# ******************** SWOOPS ******************** #}
+
+.svg--container.top--orientation::after {
+  top: 0;
+}
+.svg--container.bottom--orientation::after {
+  bottom: 0;
+}
+
+{# SWOOP SPACER #}
+.swoop--spacer--top {
+  padding-top: {{ config.default_SwoopPadding }};
+}
+.swoop--spacer--bottom {
+  padding-bottom: {{ config.default_SwoopPadding }};
+}
+
+{% call mediaQuery('palm') %}
+  .swoop--spacer--top {
+    padding-top: {{ config.default_SwoopPadding|replace("px","")|int / 2 }}px;
+  }
+  .swoop--spacer--bottom {
+    padding-bottom:{{ config.default_SwoopPadding|replace("px","")|int / 2 }}px;
+  }
+{% endcall %}

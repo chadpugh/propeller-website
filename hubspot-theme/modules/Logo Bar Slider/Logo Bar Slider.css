@@ -1,0 +1,80 @@
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# IMPORT CONFIG #}
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ***************************** BASE & CUSTOM CSS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+
+.section--logoslider--slide--logo {
+  display:inline-block;
+  vertical-align:middle;
+  width:16.66667%;
+  padding:20px;
+  text-align:center;
+}
+.section--logoslider--slider .flexslider--slide--outerwrapper {
+  display:block;
+  position:relative;
+}
+.section--logoslider .flexslider--slide {
+  display:none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.section--logoslider .flexslider--prev {
+  margin-left:0px;
+  left:-10px;
+}
+.section--logoslider .flexslider--next {
+  margin-right:0px;
+  right:-10px;
+}
+.section--logoslider .flexslider--slider--draggable .flexslider--slide:hover {
+  cursor:grab;
+}
+.section--logoslider .flexslider--slide:first-child {
+  display:block;
+  position:relative;
+}
+.section--logoslider .flexslider--slider.flexslider--initialized .flexslider--slide {
+  display:block;
+  position:absolute!important;
+  top: 50%;
+  transform: translateY(-50%);
+}
+@media screen and (min-width:1400px) {
+  .section--logoslider .flexslider--prev {
+    left:-5%;
+  }
+  .section--logoslider .flexslider--next {
+    right:-5%;
+  }
+}
+@media screen and (max-width:1399px) {
+  .section--logoslider .flexslider--slide--outerwrapper {
+    padding-left:35px;
+    padding-right:35px;
+  }
+}
+{% call mediaQuery("palm") %}
+  .section--logoslider--slide--logo {
+    width:45%;
+    padding:20px;
+  }
+{% endcall %}

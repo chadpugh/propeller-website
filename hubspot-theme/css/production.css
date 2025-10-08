@@ -1,0 +1,79 @@
+
+{# ******************** DEVELOPER NOTES ******************** #}
+{#
+
+  Write your custom notes here ...
+
+#}
+
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+/*!
+Production™ Framework © 2022 IMPACT Branding & Design LLC. ALL RIGHTS RESERVED.
+IMPACT Branding & Design LLC grants you a nonexclusive, nontransferable, limited right to access and use this
+installation of Production™ Framework. By using this installation of Production™ Framework, you agree not
+to modify, reverse engineer, disassemble, or decompile the Production™ Framework or any portion thereof.
+Any unauthorized copying, reproduction, republishing, uploading, posting, distribution, transmission, display
+or other use of this material without the express written permission of IMPACT Branding & Design is prohibited.
+*/
+
+{# ******************** VERSION ******************** #}
+
+{# Production™ Framework v5 #}
+
+{#
+  MODIFIED = FALSE
+
+  If the variable MODIFIED above is FALSE it means the framework core has not been modified and is able to be updated without issue.
+  Update the value of MODIFIED to TRUE once the framework core has been modified to ensure your changes are not overwritten.
+  Please leave a comment about what modifications were made in the DEVELOPER NOTES area above to keep track of all changes.
+  When updating the framework core always check the variable MODIFIED and DEVELOPER NOTES to confirm the core can be updated without issue.
+
+  Please note that there is a separate MODIFIED variable and DEVELOPER NOTES for each of the files in /assets/.
+#}
+
+{# ******************** OBJECTS ******************** #}
+{% include './objects/_containers-dnd.css' %}
+{% include './objects/_grid.css' %}
+{% include './objects/_base.css' %}
+{% include './objects/_layout.css' %}
+
+{# ******************** ELEMENTS ******************** #}
+{% include './elements/_buttons.css' %}
+{% include './elements/_typography.css' %}
+{% include './elements/_colors.css' %}
+{% include './elements/_tables.css' %}
+{% include './elements/_forms.css' %}
+{% include './elements/_video.css' %}
+{% include './elements/_swoops.css' %}
+
+{# ******************** UTILITIES ******************** #}
+{% include './utilities/_fancybox.css' %}
+{% include './utilities/_fades.css' %}
+{% include './utilities/_flexslider.css' %}
+{% include './utilities/_helpers.css' %}
+
+{# ******************** GLOBALS ******************** #}
+{% include '../globals/Header/_header.css' %}
+{% include '../globals/Footer/_footer.css' %}
+
+{# ******************** SECTIONS ******************** #}
+{% for section, value in config.sections_List.items() %}
+  {% if value == true %}
+    {% set pathDefault = '/PRO-HubUI-2022/modules/' + section + '/' + section + '.css' %}
+    {% set pathResponse = get_asset_url( pathDefault )|trim %}
+    {% if pathResponse %}
+      {% include pathDefault ignore missing %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{# ******************** OVERRIDES ******************** #}
+{% include '../css/theme-overrides.css' %}

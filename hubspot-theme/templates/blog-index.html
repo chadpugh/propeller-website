@@ -1,0 +1,286 @@
+<!--
+  templateType: blog_listing
+  isAvailableForNewContent: true
+  label: PRO-HubUI-2022 - blog listing
+  screenshotPath: ../images/template-previews/blog-index.png
+-->
+{% set template_css = "../../css/templates/blog.css" %}
+{% extends "./layouts/base.html" %}
+
+{% set body_classes = 'pagetype--blog' %}
+
+{% block body %}
+  <div class="header--anchor"></div>
+  {% module "bop" path="/PRO-HubUI-2022/modules/_bop/BOP Controls", label="BOP Controls", no_wrapper=True, export_to_template_context=True %}
+
+  {#{% module "module_16536824251083" path="/PRO-HubUI-2022/modules/_bop/BOP Menu", label="BOP Menu" %}#}
+
+  {% set isSubscriber = false %}
+  {% if widget_data.bop.subscriber_information.subscriber_lists && request_contact.list_memberships %}
+    {% set memberLists = widget_data.bop.subscriber_information.subscriber_lists|map(attribute='list_id')|join(",")|split(",") %}
+    {% set contactLists = request_contact.list_memberships|join(",")|split(",") %}
+    {% set overlapLists = contactLists|intersect(memberLists) %}
+    {% if overlapLists|length > 0 %}
+      {% set isSubscriber = true %}
+    {% endif %}
+  {% endif %}
+  <div class="block">
+    {% if (request.query_dict.search)&&(widget_data.bop.google_custom_search_id) %}
+      {# ##### START SEARCH RESULTS ##### #}
+      <div class="bop--listing--search">
+        <div class="grid short">
+          <div class="grid__item one-whole short">
+            <script>
+              (function() {
+                var cx = '{{ customCSECode }}';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:searchresults-only></gcse:searchresults-only>
+          </div>
+        </div>
+      </div>
+      {# ##### END SEARCH RESULTS ##### #}
+    {% else %}
+      {# ##### START AUTHOR LISTING ##### #}
+      {% if blog_author %}
+        <div class="bop--listing--author">
+          <div class="grid short">
+            <div class="grid__item eight-twelfths portable-one-whole short">
+              {% if blog_author.avatar %}
+              <div class="bop--listing--author--avatar" style="background-image: url('{{ blog_author.avatar }}');" alt="{{ blog_author.display_name }}"></div>
+              {% endif %}
+              <h3 class="bop--listing--author--name hard--ends">{{ blog_author.display_name }}</h3>
+              <div class="bop--listing--author--bio">
+                <p>{{ blog_author.bio }}</p>
+              </div>
+              {% if blog_author.has_social_profiles %}
+              <div class="bop--listing--author--social">
+                <ul>
+                  <li><strong>Connect with {{ blog_author.display_name }}</strong></li>
+                  {% if blog_author.facebook %}
+                  <li class="background--facebook">
+                    <a href="{{ blog_author.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                  </li>
+                  {% endif %}
+                  {% if blog_author.linkedin %}
+                  <li class="background--linkedin">
+                    <a href="{{ blog_author.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                  </li>
+                  {% endif %}
+                  {% if blog_author.twitter %}
+                  <li class="background--twitter">
+                    <a href="{{ blog_author.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                  </li>
+                  {% endif %}
+                  {% if blog_author.google_plus %}
+                  <li class="background--google">
+                    <a href="{{ blog_author.google_plus }}?rel=author" target="_blank"><i class="fab fa-google-plus"></i></a>
+                  </li>
+                  {% endif %}
+                  {% if blog_author.email %}
+                  <li class="background--email">
+                    <a href="mailto:{{ blog_author.email }}" target="_blank"><i class="fa fa-envelope"></i></a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+      {# ##### END AUTHOR LISTING ##### #}
+
+      {# ##### START LISTING ##### #}
+      <div class="bop--listing--posts">
+        <div class="grid short hard--top">
+          <div class="grid__item eight-twelfths portable-one-whole hard bop--listing--posts--inner">
+            {% if simple_list_page %}
+              {# ##### START SIMPLE LISTING ##### #}
+              {% for content in contents %}
+                <div class="grid__item one-whole short all--text--center">
+                  <h3 class="hard--ends">
+                    <a href="{{ content.absolute_url }}" class="no--underline color--inherit">{{ content.name }}</a>
+                  </h3>
+                </div>
+              {% endfor %}
+              {# ##### END SIMPLE LISTING ##### #}
+            {% else %}
+              {# ##### START NORMAL LISTING ##### #}
+              {% for content in contents %}
+                <div class="bop--listing--item block">
+                  <div class="grid__item one-whole tall text--left">
+                    <a href="{{ content.absolute_url }}" title="{{ content.name }}" class="bop--listing--item--image block" style="background-image: url('{% if content.post_list_summary_featured_image %}{{ content.post_list_summary_featured_image }}{% else %}{{ widget_data.bop.default_featured_image.src }}{% endif %}');background-size:cover;background-position:center {% if widget_data.pageBackgroundPosition.value %}{{ widget_data.pageBackgroundPosition.value }}{% endif %};background-repeat:no-repeat;">
+                      {{ snippets.aspectSpacer("3x1") }}
+                    </a>
+                    {% if content.topic_list %}
+                    <p class="bop--listing--item--topics font--13">
+                      {% for topic in content.topic_list %}
+                        <a class="bop--listing--item--topics--item uppercase" style="color:#898BA2;" href="{{ group.absolute_url }}/topic/{{ topic.slug }}">{{ topic.name }}</a>{% if not loop.last %}<span class="separator"> | </span>{% endif %}
+                      {% endfor %}
+                    </p>
+                    {% endif %}
+                    <div class="bop--listing--item--title">
+                      <h2>
+                        <a href="{{ content.absolute_url }}" class="no--underline color--inherit">
+                          {{ content.name }}
+                        </a>
+                      </h2>
+                    </div>
+                    <div class="bop--listing--item--author">
+                      {% if content.blog_post_author.avatar %}
+                        <a class="bop--listing--item--author--avatar" href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}" title="{{ content.blog_post_author.display_name }}" style="background-image:url('{{ content.blog_post_author.avatar }}');"></a>
+                      {% endif %}
+                      <p class="bop--listing--item--author--meta hard--ends" data-hubspot-form-id="author_data" data-hubspot-name="Blog Author">
+                        By:
+                        <a class="author-link" href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}">{{ content.blog_post_author.display_name }}</a>
+                        <br>
+                        {% set daySuffix = {"01":"1st","02":"2nd","03":"3rd","04":"4th","05":"5th","06":"6th","07":"7th","08":"8th","09":"9th","10":"10th","11":"11th","12":"12th","13":"13th","14":"14th","15":"15th","16":"16th","17":"17th","18":"18th","19":"19th","20":"20th","21":"21st","22":"22nd","23":"23rd","24":"24th","25":"25th","26":"26th","27":"27th","28":"28th","29":"29th","30":"30th","31":"31st"} %}
+                        <span class="post-item--published">{{ content.publish_date_local_time.strftime('%B') }} {{ daySuffix[content.publish_date_local_time.strftime('%d')] }}, {{ content.publish_date_local_time.strftime('%Y') }}</span>
+                      </p>
+                    </div>
+                    <div class="bop--listing--item--body">
+                      <p>{{ content.post_summary|striptags }}</p>
+                    </div>
+                    <div class="bop--listing--item--lower">
+                      {% if content_group.show_summary_in_listing %}
+                        <a class="btn btn--{{ widget_data.bop.branding.post_button_color }} palm-btn--narrow left relative z-index--4" style="margin-right:20px;" href="{{ content.absolute_url }}">Read More</a>
+                      {% endif %}
+                      <div class="bop--listing--item--social--wrapper">
+                        <p onclick="bopLowerSocial($(this));" class="hover--pointer">Share <i class="fa fa-share"></i></p>
+                        <ul class="bop--listing--item--social">
+                          <li class="bop--listing--item--social--close tablet-visuallyhidden lap-and-up-visuallyhidden"><a onclick="bopLowerSocialClose($(this));"><i class="fa fa-times"></i>  Close</a></li>
+                          <li class="share--facebook"><a target="_blank" class="color--facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ content.absolute_url }}" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                          <li class="share--twitter"><a target="_blank" class="color--twitter" href="https://twitter.com/intent/tweet?text={{ content.html_title|urlencode }}&url={{ content.absolute_url }}&via={{content.blog_post_author.twitter|replace('http:','')|replace('https:','')|replace('//','')|replace('www.twitter.com/','')|replace('twitter.com/','') }}" title="Share on Twitter"><i class="fab fa-twitter"></i></a></li>
+                          <li class="share--linkedin"><a target="_blank" class="color--linkedin" href="https://www.linkedin.com/shareArticle?url={{ content.absolute_url }}&title={{ content.html_title|urlencode }}&summary={{ content.meta_description|urlencode }}" title="Share on Linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+                          {#<li class="share--pinterest"><a target="_blank" class="color--pinterest" href="https://pinterest.com/pin/create/button/?url={{ content.absolute_url }}&media={{ content.post_list_summary_featured_image }}&description={{ content.meta_description|urlencode }}"><i class="fab fa-pinterest"></i></a></li>#}
+                          <li class="share--mail-to"><a target="_blank" class="color--email" href="mailto:?body={{ content.absolute_url }}" title="Share via Email"><i class="fa fa-envelope"></i></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            <!--
+                {% if (isSubscriber) %}
+                {% else %}
+                  {# ##### START INLINE LEAD MAGNET ##### #}
+                  {% if (loop.index == 2)&&(widget_data.bop.lead_magnet.lead_magnet_inline_enabled) %}
+                    <div class="bop--listing--leadmagnet block">
+                      <div class="grid__item one-whole tall">
+                        {% if widget_data.bop.lead_magnet.lead_magnet_image.src %}
+                          <div class="bop--listing--leadmagnet--image palm-visuallyhidden">
+                            <img loading='lazy' src="{{ widget_data.bop.lead_magnet.lead_magnet_image.src }}" alt="{{ widget_data.bop.lead_magnet.lead_magnet_image.alt }}" />
+                          </div>
+                        {% endif %}
+                        <div class="bop--listing--leadmagnet--content {% if widget_data.bop.lead_magnet.lead_magnet_image.src %}{% else %}bop--listing--leadmagnet--noimage{% endif %}">
+                          <h4 class="palm--all--text--center">{{ widget_data.bop.lead_magnet.lead_magnet_header }}</h4>
+                          <p class="palm--all--text--center">
+                            {{ widget_data.bop.lead_magnet.lead_magnet_subheader }}
+                          </p>
+                          <div class="bop--listing--leadmagnet--form all--btn all--btn--{{ widget_data.bop.branding.subscribe_button_color }} palm-all--btn--wide">
+                            {% form
+                                  form_to_use="{{ widget_data.bop.lead_magnet.lead_magnet_form.form_id }}"
+                                  response_response_type="{{ widget_data.bop.lead_magnet.lead_magnet_form.response_type }}"
+                                  response_message="{{ widget_data.bop.lead_magnet.lead_magnet_form.message }}"
+                                  response_redirect_id="{{ widget_data.bop.lead_magnet.lead_magnet_form.redirect_id }}"
+                                  response_redirect_url="{{ widget_data.bop.lead_magnet.lead_magnet_form.redirect_url}}"
+                                  gotowebinar_webinar_key="{{ widget_data.bop.module.lead_magnet.lead_magnet_form.gotowebinar_webinar_key }}",
+                                  no_title=True
+                                %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                  {# ##### END INLINE LEAD MAGNET ##### #}
+-->
+                {% endif %}
+              {% endfor %}
+
+              {# ##### START INFINITE SCROLL ##### #}
+              <script src="//cdn2.hubspot.net/hubfs/298890/blog-files/ajaxscroll.min.js"></script>
+
+              <script>
+                var ias = $.ias({
+                  container:  '.bop--listing--posts--inner',
+                  item:       '.bop--listing--item',
+                  pagination: '.bop--pagination',
+                  next:       '.bop--pagination--next'
+                });
+
+                ias.extension(new IASSpinnerExtension());
+
+                ias.extension(new IASNoneLeftExtension({html: "<div class='grid__item one-whole short end-text text--center'><p class='hard'><em>You have reached the end of our posts.{% if (isSubscriber) %}{% elif (widget_data.bop.subscriber_information.subscribe_url) %} Please consider <a href='https://www.propellervc.com/newsletter' target='_blank'>subscribing</a> if you haven't already!{% endif %}</em></p></div>"}));
+
+                {% if isSubscriber %}
+                {% else %}
+                  var lazyLeadmagnet = "{% if isSubscriber %}{% elif (widget_data.bop.lead_magnet.lead_magnet_inline_enabled) %}<div class='bop--listing--leadmagnet bop--listing--leadmagnet--lazy block'><div class='grid__item one-whole short'>{% if widget_data.bop.lead_magnet.lead_magnet_image.src %}<div class='bop--listing--leadmagnet--image palm-visuallyhidden'><img src='{{ widget_data.bop.lead_magnet.lead_magnet_image.src }}' alt='"+decodeURIComponent(("{{ widget_data.bop.lead_magnet.lead_magnet_image.alt|urlencode }}").replace(/\+/g, '%20'))+"' /></div>{% endif %}<div class='bop--listing--leadmagnet--content palm--all--text--center {% if widget_data.bop.lead_magnet.lead_magnet_image.src %}{% else %}bop--listing--leadmagnet--noimage{% endif %}'><h4>"+decodeURIComponent(("{{ widget_data.bop.lead_magnet.lead_magnet_header|urlencode }}").replace(/\+/g, '%20'))+"</h4><p>"+decodeURIComponent(("{{ widget_data.bop.lead_magnet.lead_magnet_subheader|urlencode }}").replace(/\+/g, '%20'))+"</p><p><a href='{{ widget_data.bop.subscriber_information.subscribe_url }}' class='btn btn--{{ widget_data.bop.branding.subscribe_button_color }} palm-btn--wide' target='_blank'>Subscribe</a></p></div></div></div>{% endif %}";
+
+                  ias.on('rendered', function(items) {
+                    var i=0;
+                    $(items).each(function () {
+                      $(this).css('display','block');
+                      if (i==1) {
+                        $(this).after(lazyLeadmagnet);
+                      }
+                      i++;
+                    });
+                  });
+                {% endif %}
+              </script>
+              {# #### END INFINITE SCROLL ##### #}
+              {# ##### END NORMAL LISTING ##### #}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {# ##### END LISTING ##### #}
+
+      {# ##### START PAGINATION ##### #}
+      <div class="bop--pagination visuallyhidden">
+        <div class="grid short">
+          <div class="grid__item one-whole short">
+            <p class="hard--ends text--center relative">
+              {% if last_page_num %}
+              <a class="bop--pagination--prev" href="{{ blog_page_link(last_page_num) }}">
+                Previous
+              </a>
+              {% endif %}
+              <a class="bop--pagination--all" href="{{ group.absolute_url }}/all">
+                All posts
+              </a>
+              {% if next_page_num %}
+              <a class="bop--pagination--next" href="{{ blog_page_link(next_page_num) }}">
+                Next
+              </a>
+              {% endif %}
+            </p>
+          </div>
+        </div>
+      </div>
+      {# ##### END PAGINATION ##### #}
+    {% endif %}
+  </div>
+
+  <script>
+    function bopLowerSocial(thisPost) {
+      if(!thisPost.closest(".bop--listing--item--social--wrapper").hasClass("bop--listing--item--social--open")) {
+        thisPost.closest(".bop--listing--item--social--wrapper").find(".bop--listing--item--social").css('left','0');
+        thisPost.closest(".bop--listing--item--social--wrapper").addClass("bop--listing--item--social--open");
+      }
+    }
+    function bopLowerSocialClose(thisPost) {
+      if( thisPost.closest(".bop--listing--item--social--wrapper").hasClass("bop--listing--item--social--open")) {
+        thisPost.closest(".bop--listing--item--social--wrapper").find(".bop--listing--item--social").css('left','-350px');
+        thisPost.closest(".bop--listing--item--social--wrapper").removeClass("bop--listing--item--social--open");
+      }
+    }
+  </script>
+{% endblock body %}

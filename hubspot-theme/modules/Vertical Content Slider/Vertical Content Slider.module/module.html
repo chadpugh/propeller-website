@@ -1,0 +1,276 @@
+<div {% if module.section_controls.anchor_id %}id="{{ module.section_controls.anchor_id|trim }}"{% endif %} class="{{ name }} section section--verticalcontentslider {% if not module.layout_controls.disable_scroll %}section--verticalcontentslider--scroll{% endif %}  relative overflow--hidden {{ snippets.deviceVisibility(module.section_controls.device_visibility) }}">
+  {{ snippets.background(module.background) }}
+  <div class="block relative z-index--3">
+    {{ snippets.swoopSpacerTop(module.background) }}
+    <div class="block gridspacer--top {{ snippets.sectionPadding(module.section_controls.spacing,"top") }}">
+
+    </div>
+    <div class="grid hard--ends">
+      <div class="section--verticalcontentslider--anchor section--verticalcontentslider--scrollwrapper relative">
+        <div class="section--verticalcontentslider--panel grid__item one-half palm-one-whole hard--ends palm-margin--tall--bottom text--left {{ module.layout_controls.content_alignment_mobile }} {{ snippets.textColorOverride(module.section_controls.text_color_override) }}">
+          <div class="section--verticalcontentslider--scrollitem--outer">
+            <div class="section--verticalcontentslider--scrollitem first--hard--top last--hard--bottom">
+              {% if module.preheader %}
+                <span class="h6 preheader">{{ module.preheader }}</span>
+              {% endif %}
+              {% if module.enable_header_rule %}
+                <span class="header--rule"></span>
+              {% endif %}
+              {% if module.header %}
+              <h2>{{ module.header }}</h2>
+              {% endif %}
+              {{ module.content }}
+              {% if snippets.multiButton(module.cta) %}
+              {{ snippets.multiButton(module.cta) }}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="grid__item one-half palm-one-whole hard--ends palm-short first--hard--top last--hard--bottom text--left {{ module.layout_controls.content_alignment_mobile }} {{ snippets.textColorOverride(module.section_controls.text_color_override) }}">
+          <div class="grid__item one-whole hard--side hard--top palm-short--top hard--bottom text--left overflow--visible">
+            <div class="section--verticalcontentslider--wrapper">
+              {# Start column content #}
+
+              {# Start image icon width calculations #}
+              {% set iconWidth = 60 %}
+              {% set iconUsedWidth = iconMaxWidth %}
+
+              {% if module.column.bullet_list_icon_style == "image-individual" %}
+
+              {% set iconWidths = [] %}
+
+              {% for row in module.column.bullet_list %}
+              {% set iconWidths2 = iconWidths.append(row.image_icon.width) %}
+              {% endfor %}
+
+              {% set iconWidths = iconWidths|sort(true) %}
+              {% set iconUsedWidth = iconWidths[0] %}
+              {% set iconWidth = iconUsedWidth %}
+
+              {% elif module.column.bullet_list_icon_style == "image-same" %}
+              {% set iconUsedWidth = module.column.image_icon.image_icon.width %}
+              {% set iconWidth = iconUsedWidth %}
+              {% endif %}
+
+              {% if iconWidths|length > 0 %}
+              {% set iconWidth = iconUsedWidth %}
+              {% endif %}
+              {# End image icon width calculations #}
+
+              <div class="block">
+                <div class="grid__item one-whole hard">
+                  {% for row in module.column.bullet_list %}
+
+
+
+                  {% set iconVerticalPosition = 0 %}
+                  {% if module.column.bullet_list_icon_style == "image-individual" %}
+                  {% set iconVerticalPosition = row.image_icon_vertical_offset %}
+                  {% elif module.column.bullet_list_icon_style == "image-same" %}
+                  {% set iconVerticalPosition = module.column.image_icon.image_icon_vertical_offset %}
+                  {% endif %}
+
+
+                  <div class="section--verticalcontentslider--row all--text--left palm-all--text--left section--verticalcontentslider--row--{{ loop.index }} {% if loop.first %}active--list--item{% endif %} {% if not loop.last %}tall--bottom margin--short--bottom border--0 border--bottom--1{% endif %} {% if loop.last %}section--verticalcontentslider--lastrow{% endif %}">
+                    <span class="section--verticalcontentslider--row--inner">
+                      <span class="block">
+                        {% if module.column.bullet_list_icon_style != "none" %}
+                        <span class="section--verticalcontentslider--row--icon" style="{% if (module.column.bullet_list_icon_style == "image-same")||(module.column.bullet_list_icon_style == "image-individual") %}width:{{ iconWidth }}px;max-width:{% if module.column.image_icons_maximum_width.image_icons_maximum_width_measurement_unit == 'percent' %}{{ module.column.image_icons_maximum_width.image_icons_maximum_column_width_percent }}%{% else %}{{ module.column.image_icons_maximum_width.image_icons_maximum_pixel_width }}px;{% endif %}{% endif %}position:relative;top:{{ iconVerticalPosition }}px;">
+                          {% if module.column.bullet_list_icon_style == "image-same" %}
+                          <img {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} src="{{ module.column.image_icon.image_icon.src }}" alt="{{ module.column.image_icon.image_icon.alt }}" width="{{ module.column.image_icon.image_icon.width }}" style="height:auto;" />
+                          {% if module.column.enable_active_state_icon %}
+                          <img {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} src="{{ module.column.image_icon.active_image_icon.src }}" alt="{{ module.column.image_icon.active_image_icon.alt }}" width="{{ module.column.image_icon.active_image_icon.width }}" style="height:auto;" class="active--state--icon" />
+                          {% endif %}
+                          {% elif module.column.bullet_list_icon_style == "image-individual" %}
+                          <img {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} src="{{ row.image_icon.src }}" alt="{{ row.image_icon.alt }}" width="{{ row.image_icon.width }}" style="height:auto;" />
+                          {% if module.column.enable_active_state_icon %}
+                          <img {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} src="{{ row.active_image_icon.active_image_icon.src }}" alt="{{ row.active_image_icon.active_image_icon.alt }}" width="{{ row.active_image_icon.active_image_icon.width }}" style="height:auto;" class="active--state--icon" />
+                          {% endif %}
+                          {% endif %}
+                        </span>
+                        {% endif %}
+                        <span class="section--verticalcontentslider--row--content first--hard--top last--hard--bottom" style="padding-top:10px;">
+                          {% if row.header_label %}
+                          <h3 class="h5">
+                            {{ row.header_label }}
+                          </h3>
+                          {% endif %}
+                          {% if row.description %}
+                          {{ row.description }}
+                          {% endif %}
+                        </span>
+                        <span class="block clear"></span>
+                      </span>
+                    </span>
+
+
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              {# End column content #}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="block gridspacer--bottom {{ snippets.sectionPadding(module.section_controls.spacing,"bottom") }}">
+
+  </div>
+  {{ snippets.swoopSpacerBottom(module.background) }}
+  {{ snippets.sectionPaddingCustomStyles(name,module.section_controls.spacing,".grid",".grid") }}
+</div>
+{% if not module.layout_controls.disable_scroll %}
+{% require_js %}
+<script>
+  var position = $(window).scrollTop();
+
+  function delay() {
+    var timer = 0;
+    return function(callback, ms){
+      clearTimeout (timer);
+      timer = setTimeout(callback, ms);
+    };
+  }
+
+  function lastItemSpacer() {
+    $(document).find('.section--verticalcontentslider.section--verticalcontentslider--scroll').each(function(){
+      var lastItem = $(this).find(".section--verticalcontentslider--lastrow");
+      var scrollItem = $(this).find(".section--verticalcontentslider--scrollitem");
+      var elementHeight = scrollItem.outerHeight();
+
+      if ($(window).width() >= 768) {
+        if (lastItemHeight < elementHeight) {
+          lastItemSpacerHeight = elementHeight - lastItemHeight + 'px';
+          lastItem.append("<div class='last-item-spacer palm-visuallyhidden' style='height:"+lastItemSpacerHeight+"'></div>");
+        } else {
+          $(this).find('.last-item-spacer').detach();
+        }
+      }
+    });
+  }
+
+  function stickyHeaderContent() {
+    $(document).find('.section--verticalcontentslider.section--verticalcontentslider--scroll').each(function(){
+      panelItem = $(this).find(".section--verticalcontentslider--scrollitem--outer");
+      scrollBody = $(this).find(".section--verticalcontentslider--scrollwrapper");
+      scrollItem = $(this).find(".section--verticalcontentslider--scrollitem");
+      scrollAnchor = $(this).find(".section--verticalcontentslider--anchor");
+      lastItem = $(this).find(".section--verticalcontentslider--lastrow");
+
+      scrollAnchorOffset = scrollAnchor.offset().top;
+      scrollTop = $(window).scrollTop();
+      lastItemOffset = lastItem.offset().top;
+      lastItemHeight = lastItem.outerHeight();
+
+      stickyStart = scrollAnchorOffset;
+      stickyTop = 0;
+      stickyOffset = 0;
+
+      windowHeight = $(window).height();
+      elementHeight = scrollItem.outerHeight();
+
+      stickyEnd = scrollBody.offset().top + scrollBody.height() - (scrollItem.height() + stickyOffset);
+      panelItemWidth = panelItem.width();
+
+      stickyContainerOffset = scrollAnchorOffset - scrollTop;
+      lastItemElementOffset = lastItemOffset - scrollTop;
+      stickyTopPosition = windowHeight / 2 - elementHeight / 2;
+      lastItemPosition = lastItem.outerHeight() - elementHeight;
+
+      if ($(window).width() >= 769) {
+        var scroll = $(window).scrollTop();
+        scrollDirection = "neutral";
+        if(scroll > position) {
+          scrollDirection = "down";
+        } else {
+          scrollDirection = "up";
+        }
+        position = scroll;
+
+        /* Add sticky behavior */
+        if(stickyContainerOffset < stickyTopPosition) {
+          if ((!scrollItem.hasClass("sticky--active--class"))||(!scrollItem.hasClass("sticky--passed--class"))) {
+            scrollItem.addClass("sticky--active--class");
+            scrollItem.removeClass("sticky--passed--class");
+            scrollItem.css({
+              "position":"fixed",
+              "top":stickyTopPosition+"px",
+              "width":panelItemWidth+"px",
+              "bottom":""
+            });
+          }
+        }
+
+        // Remove sticky behavior
+        if (stickyContainerOffset >= stickyTopPosition) {
+          if (scrollItem.hasClass("sticky--active--class")) {
+            scrollItem.removeClass("sticky--active--class");
+            scrollItem.css({
+              "top":"",
+              "position":"",
+              "width":""
+            });
+          }
+        }
+
+        /* Bottom align element reaches sticky */
+        if(lastItemElementOffset < stickyTopPosition) {
+          if (!scrollItem.hasClass("sticky--passed--class")) {
+            scrollItem.removeClass("sticky--active--class");
+            scrollItem.addClass("sticky--passed--class");
+            scrollItem.css({
+              "position":"absolute",
+              "bottom":lastItemPosition+"px",
+              "top":""
+            });
+          }
+        }
+
+        /* scrolling up and bottom align element is not longer past */
+        if ( (scrollDirection == 'up') && (lastItemElementOffset >= stickyTopPosition) && (scrollItem.hasClass("sticky--passed--class")) ) {
+          scrollItem.removeClass("sticky--passed--class");
+        }
+
+        $(this).find(".section--verticalcontentslider--row").each(function () {
+          scrollItemOffset =  scrollItem.offset().top - scrollTop;
+          bulletItemOffset = $(this).offset().top - scrollTop;
+          bulletItemHeight = $(this).outerHeight();
+
+          bulletItemOffsetStart = bulletItemOffset - 20 ;
+          bulletItemOffsetEnd = bulletItemOffset + bulletItemHeight + 10;
+
+          if( (scrollItemOffset >= bulletItemOffsetStart)&&(scrollItemOffset <= bulletItemOffsetEnd) ) {
+            $(this).addClass('active--list--item');
+          } else {
+            $(this).removeClass('active--list--item');
+          }
+        });
+      } else {
+        scrollItem.css({
+          "position":"relative",
+          "top":"",
+          "width":"",
+          "bottom":""
+        });
+      }
+    });
+  }
+  $(document).ready(function () {
+    stickyHeaderContent();
+    lastItemSpacer()
+  });
+  $(window).scroll(function () {
+    stickyHeaderContent();
+  });
+  $(window).resize(function () {
+    stickyHeaderContent();
+    delay(function(){
+      lastItemSpacer();
+    },1000);
+  });
+
+</script>
+{% end_require_js %}
+{% endif %}

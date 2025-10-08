@@ -1,0 +1,77 @@
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# IMPORT CONFIG #}
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ***************************** BASE & CUSTOM CSS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+
+{% set iconColor      = '{{ color("darkgrey") }}' %}
+{% set checkColor     = '{{ color("primary") }}' %}
+
+.section--pricingcolumns--column--feature {
+  display:block;
+  padding:7px 10px;
+  width:340px;
+  max-width:90%;
+  margin-left:auto;
+  margin-right:auto;
+}
+.section--pricingcolumns--bullet--icon svg {
+  width:18px;
+}
+.section--pricingcolumns--bullet--icon svg g {
+  fill:{{ checkColor }};
+}
+.section--pricingcolumns--bullet--icon {
+  flex: 0 0 35px;
+  padding-right:17px;
+  position:relative;
+  top:-3px;
+}
+.section--pricingcolumns--bullet--type--xmark {
+  top:-4px;
+}
+.section--pricingcolumns--bullet--label {
+  display:table;
+}
+.section--pricingcolumns--bullet + .section--pricingcolumns--bullet {
+  margin-top:15px;
+}
+.section--pricingcolumns--bullet--type--xmark svg g {
+  fill: {{ iconColor }};
+}
+.section--pricingcolumns--bullet--type--xmark,
+.section--pricingcolumns--bullet--type--xmark svg {
+  opacity:.35;
+  filter:alpha(opacity=35);
+}
+.section--pricingcolumns--bullet--type--xmark .section--pricingcolumns--bullet--label {
+  text-decoration:line-through;
+}
+
+.section--pricingcolumns .section--pricingcolumns--column--wrapper {
+  display:block;
+  margin-left:-{{ short }};
+  margin-right:-{{ short }};
+}
+.section--pricingcolumns .section--pricingcolumns--column--inner {
+  padding:{{ short }};
+}
+
+{% call mediaQuery("palm") %}
+.section--pricingcolumns .section--pricingcolumns--column {
+  max-width:450px;
+}
+{% endcall %}

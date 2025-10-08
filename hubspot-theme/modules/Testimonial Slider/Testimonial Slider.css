@@ -1,0 +1,85 @@
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# IMPORT CONFIG #}
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ***************************** BASE & CUSTOM CSS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+
+.section--testimonialslider--slider .flexslider--slide--outerwrapper {
+  display:block;
+  position:relative;
+}
+.section--testimonialslider .flexslider--slide {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.section--testimonialslider--image {
+  display:block;
+  width:67px;
+  height:67px;
+  border-radius:50%;
+  {# border: 2px solid {{ color('white') }}; #}
+}
+.section--testimonialslider .flexslider--prev {
+  margin-left:0px;
+  left:-10px;
+}
+.section--testimonialslider .flexslider--next {
+  margin-right:0px;
+  right:-10px;
+}
+.section--testimonialslider .flexslider--slider--draggable .flexslider--slide:hover {
+  cursor:grab;
+}
+.section--testimonialslider .flexslider--slide:first-child {
+  display:block;
+  position:relative;
+}
+.section--testimonialslider .flexslider--slider.flexslider--initialized .flexslider--slide {
+  display:block;
+  position:absolute!important;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.section--testimonialslider--byline .section--testimonialslider--image--container {
+  max-width:82px;
+  flex:0 0 auto;
+  padding-right:15px;
+}
+
+@media screen and (min-width:1400px) {
+  .section--testimonialslider .flexslider--prev {
+    left:-5%;
+  }
+  .section--testimonialslider .flexslider--next {
+    right:-5%;
+  }
+}
+@media screen and (max-width:1399px) {
+  .section--testimonialslider--slider .flexslider--slide--outerwrapper {
+    padding-left:35px;
+    padding-right:35px;
+  }
+}
+{% call mediaQuery("palm") %}
+.section--testimonialslider--byline .section--testimonialslider--image--container {
+  padding-right:0px;
+  margin-bottom:15px;
+}
+{% endcall %}

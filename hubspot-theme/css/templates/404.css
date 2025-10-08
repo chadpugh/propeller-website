@@ -1,0 +1,108 @@
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# Production™ Framework v5.0 #}
+
+/*!
+Production™ Framework © 2019 IMPACT Branding & Design LLC. ALL RIGHTS RESERVED.
+IMPACT Branding & Design LLC grants you a nonexclusive, nontransferable, limited right to access and use this
+installation of Production™ Framework. By using this installation of Production™ Framework, you agree not
+to modify, reverse engineer, disassemble, or decompile the Production™ Framework or any portion thereof.
+Any unauthorized copying, reproduction, republishing, uploading, posting, distribution, transmission, display
+or other use of this material without the express written permission of IMPACT Branding & Design is prohibited.
+*/
+
+/* ******************** BASE ******************** */
+body, html {
+	margin: 0;
+	padding: 0;
+}
+
+/* 404 */
+.fourohfour--menu .hs-menu-wrapper {}
+.fourohfour--menu .hs-menu-wrapper > ul {
+	display:block;
+	text-align:center;
+}
+.fourohfour--menu .hs-menu-wrapper > ul > li {
+	display:inline-block;
+	padding:10px 20px;
+	text-align:center;
+}
+.fourohfour--menu .hs-menu-wrapper > ul > li > a {
+	display:block;
+	color: {{ config.btn_Color }};
+
+	text-align: center;
+	font-family: {{ config.btn_FontFamily }};
+	font-size: {{ config.btn_FontSize }};
+	line-height: {{ config.btn_LineHeight }};
+	font-style: {{ config.btn_FontStyle }};
+	font-weight: {{ config.btn_FontWeight }};
+	text-transform: {{ config.btn_TextTransform }};
+	text-decoration: {{ config.btn_TextDecoration }};
+	letter-spacing: {{ config.btn_LetterSpacing }};
+	word-spacing: {{ config.btn_WordSpacing }};
+	padding: {{ config.btn_VerticalPadding }} {{ config.btn_HorizontalPadding }};
+	border-radius: {{ config.btn_BorderRadius }};
+	min-width: 200px;
+	width:auto;
+	max-width:100%;
+
+	border-width:{{ config.btn_BorderWidth }}!important;
+	border-style:solid!important;
+
+	-webkit-box-shadow:{{ config.btn_BoxShadow }}!important;
+	-moz-box-shadow:{{ config.btn_BoxShadow }}!important;
+	box-shadow:{{ config.btn_BoxShadow }}!important;
+	text-shadow: {{ config.btn_TextShadow }}!important;
+
+	background-image:none!important;
+	background-color:{{ color("primary") }};
+	border-color:{{ color("primary") }};
+
+	outline:none!important;
+
+	-moz-box-sizing:border-box!important;
+	-webkit-box-sizing:border-box!important;
+	box-sizing:border-box!important;
+
+	-webkit-transition:background .3s ease-in-out, color .3s ease-in-out, border .3s ease-in-out;
+	-moz-transition:background .3s ease-in-out, color .3s ease-in-out, border .3s ease-in-out;
+	-ms-transition:background .3s ease-in-out, color .3s ease-in-out, border .3s ease-in-out;
+	-o-transition:background .3s ease-in-out, color .3s ease-in-out, border .3s ease-in-out;
+	transition:background .3s ease-in-out, color .3s ease-in-out, border .3s ease-in-out;
+}
+.fourohfour--menu .hs-menu-wrapper > ul > li > a:hover {
+	background-color:{{ colorShade(color("primary")) }};
+	border-color:{{ colorShade(color("primary")) }};
+}
+{% call mediaQuery("lap") %}
+	.fourohfour--menu .hs-menu-wrapper > ul > li > a {
+		font-size:16px;
+		min-width:180px;
+	}
+{% endCall %}
+{% call mediaQuery("portable") %}
+	.fourohfour--menu .hs-menu-wrapper > ul > li > a {
+		font-size:16px;
+		min-width:180px;
+	}
+{% endCall %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ********************************* CUSTOM CSS ******************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+
+

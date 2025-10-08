@@ -1,0 +1,407 @@
+{# ******************** DEVELOPER NOTES ******************** #}
+
+{#
+
+Write your custom notes here ...
+
+#}
+
+{# ************************ VERSION ************************ #}
+
+{# Production™ Framework v3.424 #}
+
+{# ************************** PATHS ************************* #}
+
+
+{# ************************* FONTS ************************* #}
+
+{% set font_List = {
+    "heading":"'Montserrat',sans-serif",
+    "reading":"'Montserrat',sans-serif",
+    "fontawesome":"'Font Awesome 5 Free'"
+}%}
+
+{# ************************* COLORS ************************ #}
+
+{% set color_List = {
+    "white":     "#ffffff",
+    "black":     "#2D3541",
+    "darkgrey":  "#545D69",
+    "midgrey":   "#898BA2",
+    "grey":      "#E2E1E8",
+    "lightgrey": "#F7F7F9",
+    "purple":    "#6000B8",
+    "blue":      "#111555",
+    "navy":      "#0C1E40"
+}%}
+
+{% set btnColor_List = {
+    "purple":    "#AA00FF",
+    "blue":      "#111555",
+    "navy":      "#0C1E40",
+    "white":     "#FFFFFF"
+}%}
+
+{% set social_List = {
+    "facebook":"#395697",
+    "twitter":"#50aee1",
+    "linkedin":"#007bb6",
+    "google":"#dd4b39",
+    "youtube":"#bb0000",
+    "instagram":"#125688",
+    "pinterest":"#cb2027",
+    "dribbble":"#ef558f"
+}%}
+
+{% set color_Primary = "purple" %}
+{% set color_Secondary = "blue" %}
+
+{# ********************* MEDIA QUERIES ********************* #}
+
+{% set media_List = {
+    "default":[undefined,undefined],
+    "desk":[undefined,1164],
+    "lap":[1163,1025],
+    "lap-and-up":[undefined,1025],
+    "portable":[1024,undefined],
+    "tablet":[1024,769],
+    "palm":[768,undefined]
+}%}
+
+{# ************************* MACROS ************************* #}
+
+{# Mixin for individual color #}
+{% macro color(name) -%}
+    {% if name == 'primary' %}
+        {% set name = color_Primary %}
+    {% elif name == 'secondary' %}
+        {% set name = color_Secondary %}
+    {% endif %}
+    {% for key,value in color_List.items() %}
+        {% if name == key %}
+            {{ value }}
+        {% endif %}
+    {% endfor %}
+    {% for key,value in social_List.items() %}
+        {% if name == key %}
+            {{ value }}
+        {% endif %}
+    {% endfor %}
+{%- endmacro %}
+
+{# Loop for returning the fonts list. #}
+{% macro font(name) -%}
+    {% for key,value in font_List.items() %}
+        {% if name == key %}
+            {{ value }}
+        {% endif %}
+    {% endfor %}
+{%- endmacro %}
+
+{# ************************** GRID ************************* #}
+
+{% set grid_MaxWidthPercent             = "98%" %}
+{% set grid_Width                       = "1188px" %}
+{% set grid_ColumnSpacing               = "4%" %}
+
+{% set grid_List = {
+    "shorthand": true,
+    "eight":     false,
+    "ten":       false,
+    "twelve":    true
+}%}
+
+{% set short                            = "15px" %}
+{% set tall                             = "30px" %}
+{% set basic                            = "60px" %}
+{% set grande                           = "60px" %}
+{% set venti                            = "90px" %}
+{% set trenta                           = "120px" %}
+
+{# ******************** HEADINGS & TEXT ******************** #}
+
+{% set textSpacing_Top                  = "-15px" %}
+{% set textSpacing                      = "25px" %}
+
+{% set lighter                          = "100" %}
+{% set light                            = "300" %}
+{% set normal                           = "400" %}
+{% set medium                           = "500" %}
+{% set semibold                         = "600" %}
+{% set bold                             = "700" %}
+{% set bolder                           = "900" %}
+
+{# Desktop #}
+{% set h1_FontFamily                    = '{{ font("heading") }}' %}
+{% set h1_FontSize                      = '55px' %}
+{% set h1_LineHeight                    = 55 / h1_FontSize|replace('px','') + 'em' %}
+{% set h1_FontStyle                     = undefined %}
+{% set h1_FontWeight                    = '900' %}
+{% set h1_TextTransform                 = 'uppercase' %}
+{% set h1_TextDecoration                = undefined %}
+{% set h1_LetterSpacing                 = undefined %}
+{% set h1_WordSpacing                   = undefined %}
+{% set h1_Color                         = '{{ color("navy") }}' %}
+
+{% set h2_FontFamily                    = '{{ font("heading") }}' %}
+{% set h2_FontSize                      = '40px' %}
+{% set h2_LineHeight                    = 44 / h2_FontSize|replace('px','') + 'em' %}
+{% set h2_FontStyle                     = undefined %}
+{% set h2_FontWeight                    = '900' %}
+{% set h2_TextTransform                 = 'uppercase' %}
+{% set h2_TextDecoration                = undefined %}
+{% set h2_LetterSpacing                 = undefined %}
+{% set h2_WordSpacing                   = undefined %}
+{% set h2_Color                         = '{{ color("navy") }}' %}
+
+{% set h3_FontFamily                    = '{{ font("heading") }}' %}
+{% set h3_FontSize                      = '40px' %}
+{% set h3_LineHeight                    = 44 / h3_FontSize|replace('px','') + 'em' %}
+{% set h3_FontStyle                     = undefined %}
+{% set h3_FontWeight                    = '900' %}
+{% set h3_TextTransform                 = undefined %}
+{% set h3_TextDecoration                = undefined %}
+{% set h3_LetterSpacing                 = undefined %}
+{% set h3_WordSpacing                   = undefined %}
+{% set h3_Color                         = '{{ color("navy") }}' %}
+
+{% set h4_FontFamily                    = '{{ font("heading") }}' %}
+{% set h4_FontSize                      = '26px' %}
+{% set h4_LineHeight                    = 34 / h4_FontSize|replace('px','') + 'em' %}
+{% set h4_FontStyle                     = undefined %}
+{% set h4_FontWeight                    = '900' %}
+{% set h4_TextTransform                 = 'uppercase' %}
+{% set h4_TextDecoration                = undefined %}
+{% set h4_LetterSpacing                 = undefined %}
+{% set h4_WordSpacing                   = undefined %}
+{% set h4_Color                         = '{{ color("navy") }}' %}
+
+{% set h5_FontFamily                    = '{{ font("heading") }}' %}
+{% set h5_FontSize                      = '20px' %}
+{% set h5_LineHeight                    = 28 / h5_FontSize|replace('px','') + 'em' %}
+{% set h5_FontStyle                     = undefined %}
+{% set h5_FontWeight                    = '900' %}
+{% set h5_TextTransform                 = undefined %}
+{% set h5_TextDecoration                = undefined %}
+{% set h5_LetterSpacing                 = undefined %}
+{% set h5_WordSpacing                   = undefined %}
+{% set h5_Color                         = '{{ color("navy") }}' %}
+
+{% set h6_FontFamily                    = '{{ font("heading") }}' %}
+{% set h6_FontSize                      = '14px' %}
+{% set h6_LineHeight                    = ( 22 / h6_FontSize|replace('px','') ) ~ 'em' %}
+{% set h6_FontStyle                     = '' %}
+{% set h6_FontWeight                    = '900' %}
+{% set h6_TextTransform                 = 'uppercase' %}
+{% set h6_TextDecoration                = '' %}
+{% set h6_LetterSpacing                 = '3px' %}
+{% set h6_WordSpacing                   = '' %}
+{% set h6_Color                         = '{{ color("purple") }}' %}
+
+{% set p_FontFamily                     = '{{ font("reading") }}' %}
+{% set p_FontSize                       = '19px' %}
+{% set p_LineHeight                     = 30 / p_FontSize|replace('px','') + 'em' %}
+{% set p_FontStyle                      = undefined %}
+{% set p_FontWeight                     = '400' %}
+{% set p_LetterSpacing                  = undefined %}
+{% set p_WordSpacing                    = undefined %}
+{% set p_Color                          = '{{ color("darkgrey") }}' %}
+
+{% set a_FontFamily                     = 'inherit' %}
+{% set a_FontSize                       = undefined %}
+{% set a_LineHeight                     = undefined %}
+{% set a_FontStyle                      = undefined %}
+{% set a_FontWeight                     = undefined %}
+{% set a_TextTransform                  = undefined %}
+{% set a_TextDecoration                 = 'underline' %}
+{% set a_LetterSpacing                  = undefined %}
+{% set a_WordSpacing                    = undefined %}
+{% set a_Color                          = '{{ color("darkgrey") }}' %}
+
+{# Mobile #}
+{% set h1_MobileFontSize                = '40px' %}
+{% set h1_MobileLineHeight              = 40 / h1_MobileFontSize|replace('px','') + 'em' %}
+{% set h2_MobileFontSize                = '35px' %}
+{% set h2_MobileLineHeight              = 40 / h2_MobileFontSize|replace('px','') + 'em' %}
+{% set h3_MobileFontSize                = '35px' %}
+{% set h3_MobileLineHeight              = 39 / h3_MobileFontSize|replace('px','') + 'em' %}
+{% set h4_MobileFontSize                = '24px' %}
+{% set h4_MobileLineHeight              = 32 / h4_MobileFontSize|replace('px','') + 'em' %}
+{% set h5_MobileFontSize                = '20px' %}
+{% set h5_MobileLineHeight              = 28 / h5_MobileFontSize|replace('px','') + 'em' %}
+{% set h6_MobileFontSize                = '14px' %}
+{% set h6_MobileLineHeight              = 22 / h6_MobileFontSize|replace('px','') + 'em' %}
+{% set p_MobileFontSize                 = '16px' %}
+{% set p_MobileLineHeight               = 32 / p_MobileFontSize|replace('px','') + 'em' %}
+
+{# ************************ BUTTONS ************************ #}
+
+{% set btn_FontFamily                   = '{{ font("heading") }}' %}
+{% set btn_FontSize                     = '14px' %}
+{% set btn_VerticalPadding              = '20px' %}
+{% set btn_HorizontalPadding            = '18px' %}
+{% set btn_LineHeight                   = 20 / btn_FontSize|replace('px','') + 'em' %}
+{% set btn_FontStyle                    = undefined %}
+{% set btn_FontWeight                   = '900' %}
+{% set btn_TextTransform                = 'uppercase' %}
+{% set btn_TextDecoration               = 'none' %}
+{% set btn_LetterSpacing                = '2px' %}
+{% set btn_WordSpacing                  = undefined %}
+{% set btn_TextAlign                    = 'center' %}
+{% set btn_BorderRadius                 = '5px' %}
+{% set btn_BorderWidth                  = '1px' %}
+{% set btn_MinWidth                     = '200px' %}
+{% set btn_Color                        = '#ffffff' %}
+{% set btn_TextShadow                   = '' %}
+{% set btn_BoxShadow                    = '' %}
+{% set btn_Animation                    = 'color .3s ease-in-out, background .3s ease-in-out, border .3s ease-in-out' %}
+{% set btn_HoverShadingPercent          = '-15%' %}
+
+{% set btn_SimpleColor                  = '{{ color("primary") }}' %}
+
+{# ************************* FORMS ************************* #}
+
+{% set label_FontFamily                 = '{{ font("reading") }}' %}
+{% set label_FontSize                   = '19px' %}
+{% set label_LineHeight                 = 30 / label_FontSize|replace('px','') + 'em' %}
+{% set label_FontStyle                  = 'normal' %}
+{% set label_FontWeight                 = '{{ normal }}' %}
+{% set label_TextTransform              = undefined %}
+{% set label_LetterSpacing              = undefined %}
+{% set label_WordSpacing                = undefined %}
+{% set label_Color                      = '{{ color("darkgrey") }}' %}
+{% set label_Spacing                    = '5px' %}
+
+{% set input_FontFamily                 = '{{ font("reading") }}' %}
+{% set input_FontSize                   = '19px' %}
+{% set input_LineHeight                 = 30 / input_FontSize|replace('px','') + 'em' %}
+{% set input_FontWeight                 = '{{ normal }}' %}
+{% set input_TextTransform              = undefined %}
+{% set input_LetterSpacing              = "0px" %}
+{% set input_WordSpacing                = undefined %}
+{% set input_BorderColor                = '{{ color("grey") }}' %}
+{% set input_BorderWidth                = '1px' %}
+{% set input_BorderRadius               = '3px' %}
+{% set input_BoxShadow                  = 'none' %}
+{% set input_VerticalPadding            = '13px' %}
+{% set input_HorizontalPadding          = '20px' %}
+{% set input_Color                      = '{{ color("darkgrey") }}' %}
+{% set input_BackgroundColor            = '{{ color("white") }}' %}
+{% set input_SelectBackgroundImage      = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="%235B6371" d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z"/></svg>' %}
+{% set input_SelectBackgroundImageWidth = '20px' %}
+{% set input_Spacing                    = '25px' %}
+
+{# *********************** DEFAULTS ************************ #}
+
+{% set default_BorderRadius             = '0px' %}
+{% set default_BoxShadow                = '0 0 25px 0 rgba(66,66,66,.08)' %}
+{% set default_HoverBoxShadow           = '0 6px 35px 0 rgba(66,66,66,.15)' %}
+{% set default_TextShadow               = '0px 1px 2px rgba(0,0,0,.15)' %}
+{% set default_SwoopPadding             = '122px' %}
+
+{# *********************** FLEXSLIDER CONTROLS ************************ #}
+{% set flexslider_Arrow                 = '{{ color("midgrey") }}' %}
+{% set flexslider_ArrowHover            = '{{ color("purple") }}' %}
+{% set flexslider_Navigation            = '{{ color("midgrey") }}' %}
+{% set flexslider_NavigationActive      = '{{ color("purple") }}' %}
+
+{# ************************* FADES ************************* #}
+
+{% set fade_AnimationDuration           = '1.25s' %}
+{% set fade_AnimationEasing             = 'ease-in-out' %}
+{% set fade_VerticalDistance            = '50px' %}
+{% set fade_HorizontalDistance          = '75px' %}
+{% set fade_TriggerPercent              = '33%' %}
+
+{# ********************* COUNTERTICKER ********************* #}
+
+{% set counterticker_TriggerPercent     = '33%' %}
+
+{# ********************* COLOR LIST UPDATE ********************* #}
+
+{% do color_List.update({
+    "primary":   "{{ color(color_Primary) }}",
+    "secondary": "{{ color(color_Secondary) }}"
+}) %}
+
+{% do btnColor_List.update({
+    "primary":   "{{ color(color_Primary) }}",
+    "secondary": "{{ color(color_Secondary) }}"
+}) %}
+
+{# ************************* ASSETS ************************ #}
+
+{% set assets_List = {
+    "aspectratio":true,
+    "cookie":true,
+    "counterticker":true,
+    "doomsday":false,
+    "equalize":true,
+    "flexslider":true,
+    "hubrss":false,
+    "hubui":false,
+    "jquerymobile":true,
+    "jquerymousewheel":true,
+    "modernizr":false,
+    "scrollitem":true
+}%}
+
+{# ************************ SECTIONS *********************** #}
+
+{% set sections_SubfoldersList = [
+    "custom",
+    "core",
+    "foundational",
+    "special",
+    "unfinished",
+    "foundational/base"
+]%}
+
+{% set sections_List = {
+    "Blog Feed":true,
+    "Cards":true,
+    "Columns":true,
+    "FAQs":true,
+    "Full-Width Content":false,
+    "Hero":true,
+    "Learning Center":false,
+    "Left-Right Self Selector":true,
+    "Left-Right Content":true,
+    "Left-Right Float":true,
+    "Left-Right Form":true,
+    "Logo Bar Slider":true,
+    "Pricing Columns":true,
+    "Testimonial Slider":true,
+    "Vertical Content Slider":true,
+    "Left-Right Feature":false,
+    "Bullet List Columns":false,
+    "Chapter Title":false,
+    "Comparison Table":false,
+    "Divider":false,
+    "How It Works":false,
+    "Image Banner Mosaic":false,
+    "Job Listing":false,
+    "Left-Right Corner Overlap":false,
+    "Left-Right Overlap":false,
+    "Pop-Ups and Exit Intents":false,
+    "Statistics":false,
+    "Submenu":false,
+    "Table of Contents":false,
+    "Two-Column Text":false,
+    "Left-Right CTA":false,
+    "Left-Right Presenters":false,
+    "Left-Right Statistic with Animated Shapes":false,
+    "People Listing":true,
+    "Resource Gallery Slider":false,
+    "Resources Listing":false,
+    "Statistics with Animated Shapes":false,
+    "Image Slider":false,
+    "Left-Right Bulleted List":false,
+    "Full-Width Map":false,
+    "Tabbed Content":false,
+    "Tabbed Content - v2":false,
+    "Scrolling Animated Text":false,
+    "Before-After Image Gallery":false,
+    "Image Banner Mosaic":false,
+    "Media Gallery Slider":false
+}%}

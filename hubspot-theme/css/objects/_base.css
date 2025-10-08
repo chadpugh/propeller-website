@@ -1,0 +1,242 @@
+
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ******************** BASE ******************** #}
+.bugfix {/*!*/}
+
+/* FOUNDATION */
+* {
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+}
+html, body {
+	padding:0px;
+	margin:0px;
+	opacity:1!important;
+}
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-o-font-smoothing: antialiased;
+}
+.widget-span img,
+.widget-span iframe {
+	max-width:100%;
+}
+.widget-span img {
+	height:auto;
+}
+a img {
+	border:0px;
+	outline:none;
+}
+.background {
+	display:block;
+	position:absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	z-index:1;
+}
+.background--layer {
+	display:block;
+	position:absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+}
+.background--layer .background--layer--image--label {
+  position:absolute;
+  bottom:0;
+  padding:10px;
+  background-color:#FFF;
+  max-width:50%;
+}
+.background--layer .background--layer--image--label p {
+  font-size: 14px;
+}
+.background--layer .background--layer--image--label.background--layer--image--label--right {
+  right:0;
+}
+.background--layer .background--layer--image--label.background--layer--image--label--left {
+  left:0;
+}
+.background--video {
+	background-size:cover;
+	opacity:0;
+	filter:alpha(opacity=0);
+	transition: opacity .2s ease-in-out;
+}
+.background--video.background--video--active {
+	opacity:1;
+	filter:alpha(opacity=100);
+}
+.background--video[poster] {
+	object-fit:cover;
+}
+img.spacer {
+	display:block;
+	width:100%;
+	height:auto;
+	opacity:0;
+	filter:alpha(opacity=0);
+	visibility:hidden;
+}
+.aspectspacer {
+	display:block;
+	width:100%;
+	height:auto;
+	padding:0px;
+	margin:0px;
+	opacity:0;
+	filter:alpha(opacity=0);
+	visibility:hidden;
+}
+
+/* Vertical Padding */
+{% call mediaLoop() %}
+	/* Top & Bottom */
+	.{{ media }}basic {
+		padding-top:{{ config.basic }}{{ important }};
+		padding-bottom:{{ config.basic }}{{ important }};
+	}
+	.{{ media }}short {
+		padding-top:{{ config.short }}{{ important }};
+		padding-bottom:{{ config.short }}{{ important }};
+	}
+	.{{ media }}tall {
+		padding-top:{{ config.tall }}{{ important }};
+		padding-bottom:{{ config.tall }}{{ important }};
+	}
+	.{{ media }}grande {
+		padding-top:{{ config.grande }}{{ important }};
+		padding-bottom:{{ config.grande }}{{ important }};
+	}
+	.{{ media }}venti {
+		padding-top:{{ config.venti }}{{ important }};
+		padding-bottom:{{ config.venti }}{{ important }};
+	}
+	.{{ media }}trenta {
+		padding-top:{{ config.trenta }}{{ important }};
+		padding-bottom:{{ config.trenta }}{{ important }};
+	}
+	/* Top */
+	.{{ media }}basic--top {
+		padding-top:{{ config.basic }}{{ important }};
+	}
+	.{{ media }}short--top {
+		padding-top:{{ config.short }}{{ important }};
+	}
+	.{{ media }}tall--top {
+		padding-top:{{ config.tall }}{{ important }};
+	}
+	.{{ media }}grande--top {
+		padding-top:{{ config.grande }}{{ important }};
+	}
+	.{{ media }}venti--top {
+		padding-top:{{ config.venti }}{{ important }};
+	}
+	.{{ media }}trenta--top {
+		padding-top:{{ config.trenta }}{{ important }};
+	}
+
+	/* Bottom */
+	.{{ media }}basic--bottom {
+		padding-bottom:{{ config.basic }}{{ important }};
+	}
+	.{{ media }}short--bottom {
+		padding-bottom:{{ config.short }}{{ important }};
+	}
+	.{{ media }}tall--bottom {
+		padding-bottom:{{ config.tall }}{{ important }};
+	}
+	.{{ media }}grande--bottom {
+		padding-bottom:{{ config.grande }}{{ important }};
+	}
+	.{{ media }}venti--bottom {
+		padding-bottom:{{ config.venti }}{{ important }};
+	}
+	.{{ media }}trenta--bottom {
+		padding-bottom:{{ config.trenta }}{{ important }};
+	}
+{% endcall %}
+
+{% call mediaLoop() %}
+	.{{ media }}negative--basic--top {
+		margin-top:-{{ config.basic }}{{ important }};
+	}
+	.{{ media }}negative--short--top {
+		margin-top:-{{ config.short }}{{ important }};
+	}
+	.{{ media }}negative--tall--top {
+		margin-top:-{{ config.tall }}{{ important }};
+	}
+	.{{ media }}negative--grande--top {
+		margin-top:-{{ config.grande }}{{ important }};
+	}
+	.{{ media }}negative--venti--top {
+		margin-top:-{{ config.venti }}{{ important }};
+	}
+	.{{ media }}negative--trenta--top {
+		margin-top:-{{ config.trenta }}{{ important }};
+	}
+
+	.{{ media }}negative--basic--bottom {
+		margin-bottom:-{{ config.basic }}{{ important }};
+	}
+	.{{ media }}negative--short--bottom {
+		margin-bottom:-{{ config.short }}{{ important }};
+	}
+	.{{ media }}negative--tall--bottom {
+		margin-bottom:-{{ config.tall }}{{ important }};
+	}
+	.{{ media }}negative--grande--bottom {
+		margin-bottom:-{{ config.grande }}{{ important }};
+	}
+	.{{ media }}negative--venti--bottom {
+		margin-bottom:-{{ config.venti }}{{ important }};
+	}
+	.{{ media }}negative--trenta--bottom {
+		margin-bottom:-{{ config.trenta }}{{ important }};
+	}
+{% endcall %}
+
+{% call mediaLoop() %}
+	/* Remove padding and margin */
+	.{{ media }}hard, .{{ media }}hard--top, .{{ media }}hard--ends {
+		padding-top:0px!important;
+		margin-top:0px!important;
+	}
+	.{{ media }}hard, .{{ media }}hard--right, .{{ media }}hard--sides {
+		padding-right:0px!important;
+		margin-right:0px!important;
+	}
+	.{{ media }}hard, .{{ media }}hard--bottom, .{{ media }}hard--ends {
+		padding-bottom:0px!important;
+		margin-bottom:0px!important;
+	}
+	.{{ media }}hard, .{{ media }}hard--left, .{{ media }}hard--sides {
+		padding-left:0px!important;
+		margin-left:0px!important;
+	}
+	.first--hard--top > *:first-child, .all--first--hard--top *:first-child {
+		margin-top:0px!important;
+	}
+	.last--hard--bottom > *:last-child, .all--last--hard--bottom *:last-child {
+		margin-bottom:0px!important;
+	}
+{% endcall %}
+
+/* Floats */
+{% call mediaLoop() %}
+	.{{ media }}left {
+		float:left!important;
+	}
+	.{{ media }}right {
+		float:right!important;
+	}
+{% endcall %}

@@ -1,0 +1,187 @@
+{# Config #}
+{% set minHeight = 500 %}
+
+{# Vars #}
+{% set contentClasses = "one-half" %}
+{% set mediaClasses = "one-half" %}
+{% set mediaWidthNumerical = (1/2) %}
+{% if module.layout_controls.column_widths == "four-twelfths" %}
+{% set contentClasses = "four-twelfths" %}
+{% set mediaClasses = "eight-twelfths" %}
+{% set mediaWidthNumerical = (8/12) %}
+{% elif module.layout_controls.column_widths == "eight-twelfths" %}
+{% set contentClasses = "eight-twelfths" %}
+{% set mediaClasses = "four-twelfths" %}
+{% set mediaWidthNumerical = (4/12) %}
+{% elif module.layout_controls.column_widths == "five-twelfths" %}
+{% set contentClasses = "five-twelfths" %}
+{% set mediaClasses = "seven-twelfths" %}
+{% set mediaWidthNumerical = (7/12) %}
+{% elif module.layout_controls.column_widths == "seven-twelfths" %}
+{% set contentClasses = "seven-twelfths" %}
+{% set mediaClasses = "five-twelfths" %}
+{% set mediaWidthNumerical = (5/12) %}
+{% endif %}
+
+{% if module.layout_controls.column_widths_tablet == "four-twelfths" %}
+{% set contentClasses = contentClasses+" tablet-four-twelfths" %}
+{% set mediaClasses = mediaClasses+" tablet-eight-twelfths" %}
+{% set mediaTabletWidthNumerical = (8/12) %}
+{% elif module.layout_controls.column_widths_tablet == "eight-twelfths" %}
+{% set contentClasses = contentClasses+" tablet-eight-twelfths" %}
+{% set mediaClasses = mediaClasses+" tablet-four-twelfths" %}
+{% set mediaTabletWidthNumerical = (4/12) %}
+{% elif module.layout_controls.column_widths_tablet == "five-twelfths" %}
+{% set contentClasses = contentClasses+" tablet-five-twelfths" %}
+{% set mediaClasses = mediaClasses+" tablet-seven-twelfths" %}
+{% set mediaTabletWidthNumerical = (7/12) %}
+{% elif module.layout_controls.column_widths_tablet == "seven-twelfths" %}
+{% set contentClasses = contentClasses+" tablet-seven-twelfths" %}
+{% set mediaClasses = mediaClasses+" tablet-five-twelfths" %}
+{% set mediaTabletWidthNumerical = (5/12) %}
+{% else %}
+{% set contentClasses = contentClasses+" tablet-one-half" %}
+{% set mediaClasses = mediaClasses+" tablet-one-half" %}
+{% set mediaTabletWidthNumerical = (1/2) %}
+{% endif %}
+
+<div {% if module.section_controls.anchor_id %}id="{{ module.section_controls.anchor_id|trim }}"{% endif %} class="section section--leftrightfloat section--leftrightfloat--{{ module.layout_controls.content_position }} {% if module.layout_controls.disable_minimum_height %}section--leftrightfloat--nominheight{% endif %} {% if module.image_fit == 'fit' %}section--leftrightfloat--fit{% endif %} relative overflow--hidden {{ snippets.deviceVisibility(module.section_controls.device_visibility) }}" data-columnspacing="{{ functions.grid_ColumnSpacing/2 }}" data-columnwidth="{{ mediaWidthNumerical }}" data-tabletcolumnwidth="{{ mediaTabletWidthNumerical }}" data-minheight="{% if module.image.image.src && module.media_type == "image" && module.image_fit == 'fit' %}{{ module.image.image.height }}{% elif module.video.video_thumbnail_image.src && module.media_type == "video" && module.image_fit == 'fit' %}{{ module.video.video_thumbnail_image.height }}{% else %}{{ minHeight }}{% endif %}">
+  {{ snippets.background(module.background) }}
+  <div class="block relative z-index--3">
+    {{ snippets.swoopSpacerTop(module.background) }}
+    <div class="block gridspacer--top {{ snippets.sectionPadding(module.section_controls.spacing,"top") }}">
+
+    </div>
+    <div class="block relative">
+      <div class="grid flexgrid hard--ends valign--middle {% if module.layout_controls.content_position_mobile == 'bottom' %}palm-column--reverse{% endif %} {% if module.layout_controls.content_position == 'right' %}row--reverse{% endif %}" style="position:static;">
+        <div class="grid__item {{ contentClasses }} palm-one-whole {{ snippets.textColorOverride(module.section_controls.text_color_override) }} {% if module.layout_controls.disable_minimum_height %}tall palm-hard--ends{% else %}hard--ends{% endif %} palm-short text--left palm-text--{{ module.layout_controls.content_alignment_mobile }}">
+          <div class="section--leftrightfloat--content block first--hard--top last--hard--bottom">
+            {% if module.preheader %}
+            <span class="h6 preheader">{{ module.preheader }}</span>
+            {% endif %}
+            {% if module.enable_header_rule %}
+              <span class="header--rule"></span>
+            {% endif %}
+            {% if module.header %}
+            <h2>{{ module.header }}</h2>
+            {% endif %}
+            {{ module.content }}
+
+            {{ snippets.bulletsList(module.bullets) }}
+
+            {% if module.conversion_type == 'cta' %}
+            <div class="margin--tall--top">
+              {{ snippets.multiButton(module.cta) }}
+            </div>
+            {% elif module.conversion_type == 'form' %}
+            <div class="margin--tall--top block all--btn all--btn--{% if module.form.form_ghost_transparent_button %}transparent--{% endif %}{{ module.form.form_button_color }} {% if 'all--color' in snippets.textColorOverride(module.section_controls.text_color_override) %}{{ snippets.textColorOverride(module.section_controls.text_color_override)|replace("all--color","all--labels") }}{% endif %}">
+              {{ module.form.form_header }}
+
+              {% form
+              form_to_use="{{ module.form.form.form_id }}"
+              response_response_type="{{ module.form.form.response_type }}"
+              response_message="{{ module.form.form.message }}"
+              response_redirect_id="{{ module.form.form.redirect_id }}"
+              response_redirect_url="{{ module.form.form.redirect_url }}"
+              gotowebinar_webinar_key="{{ module.form.form.gotowebinar_webinar_key }}"
+              follow_up_type_simple="{{ module.form.send_a_follow_up_email }}"
+              simple_email_for_live_id="{{ module.form.email }}"
+              notifications_are_overridden="{{ module.form.send_form_notifications_to_specified_email_addresses_instead_of_the_form_defaults }}"
+              notifications_override_email_addresses="{{ module.form.email_addresses }}"
+              no_title=True
+            %}
+            </div>
+            {% endif %}
+
+          </div>
+        </div>
+        <div class="grid__item {{ mediaClasses }} palm-one-whole {% if module.layout_controls.content_position_mobile == 'bottom' %}portable-tall--bottom portable-hard--top{% else %}portable-tall--top portable-hard--bottom{% endif %} lap-and-up-hard--ends all--text--center">
+          <div class="inline-block {{ snippets.deviceVisibility(module.media_device_visibility) }} section--leftrightfloat--media">
+            {% if module.media_type == "image" %}
+            <div class="block section--leftrightfloat--media--wrapper text--center" style="background-image:url('{{ module.image.image.src }}');background-repeat:no-repeat;{% if module.image_fit == 'fill' %}background-position:center center;background-size:cover;{% else %}{% if module.layout_controls.content_position == 'left' %}background-position:center left;{% else %}background-position:center right;{% endif %} background-size:auto {{ module.fill_height }}%!important;{% endif %}">
+              {% if module.image.image.src %}
+              <img class="block lap-and-up-visuallyhidden tablet-visuallyhidden" src="{{ module.image.image.src }}" {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} alt="{{ module.image.image.alt }}" width="{% if (module.image.image.size_type == 'auto_custom_max') %}{{ module.image.image.max_width }}{% elif (module.image.image.size_type == 'exact') %}{{ module.image.image.width }}{% else %}{{ module.image.image.width }}{% endif %}" height="{% if (module.image.image.size_type == 'auto_custom_max') %}{{ module.image.image.max_height }}{% else %}{{ module.image.image.height }}{% endif %}">
+              {% endif %}
+              {% if module.image.image_label_text %}
+              <div class="section--leftrightfloat--media--label palm-margin--short--top">
+                <p class="hard--ends">
+                  {{ module.image.image_label_text }}
+                </p>
+              </div>
+              {% endif %}
+            </div>
+            {% elif module.media_type == "video" %}
+            <div class="block section--leftrightfloat--media--wrapper">
+              {% if (module.video.video_thumbnail_type != 'none')||(module.video.video_thumbnail_type_mobile != 'none') %}
+              <div class="block section--leftrightfloat--media--wrapper text--center {% if module.video.video_thumbnail_type == 'none' %}lap-and-up-visuallyhidden tablet-visuallyhidden{% endif %} {% if module.video.video_thumbnail_type_mobile == 'none' %}palm-visuallyhidden{% endif %}">
+                <a title="{% if module.video.video_title_attribute %}{{ module.video.video_title_attribute }}{% else %}Watch the Video{% endif %}" class="section--leftrightfloat--media--wrapper inline-block {% if not module.video.hide_play_button %}block--video{% endif %}" {% if module.video.video_type == 'modal' %}data-fancybox {% if '.mp4' in module.video.video_url_of_iframe_embeddable_video_file.href %}{% else %}data-type="iframe" data-width="936" data-height="636"{% endif %} href="{{ module.video.video_url_of_iframe_embeddable_video_file.href }}"{% elif module.video.video_type == 'hubspot' %}data-src="#{{ name }}--embed" data-fancybox{% elif module.video.video_type == 'vidyard' %}href="javascript:;" onclick="launchLightbox_{{ name }}('{{ module.video.vidyard_video_uuid|trim }}');"{% endif %} style="background-image:url('{{ module.image.image.src }}');background-repeat:no-repeat;{% if module.image_fit == 'fill' %}background-position:center center;background-size:cover;{% else %}{% if module.layout_controls.content_position == 'left' %}background-position:center left;{% else %}background-position:center right;{% endif %} background-size:auto {{ module.fill_height }}%!important;{% endif %}">
+                  <img class="block lap-and-up-visuallyhidden tablet-visuallyhidden" src="{{ module.video.video_thumbnail_image.src }}" {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} alt="{{ module.video.video_thumbnail_image.alt }}" width="{% if (module.video.video_thumbnail_image.size_type == 'auto_custom_max') %}{{ module.video.video_thumbnail_image.max_width }}{% elif (module.video.video_thumbnail_image.size_type == 'exact') %}{{ module.video.video_thumbnail_image.width }}{% else %}{{ module.video.video_thumbnail_image.width }}{% endif %}" height="{% if (module.video.video_thumbnail_image.size_type == 'auto_custom_max') %}{{ module.video.video_thumbnail_image.max_height }}{% else %}{{ module.video.video_thumbnail_image.height }}{% endif %}" />
+                </a>
+                
+                {% if module.video.video_label_text %}
+                <div class="section--leftrightfloat--media--label palm-margin--short--top">
+                  <p class="hard--ends">
+                    {{ module.video.video_label_text }}
+                  </p>
+                </div>
+                {% endif %}
+              </div>
+              {% endif %}
+              {% if (module.video.video_thumbnail_type == 'none')||(module.video.video_thumbnail_type_mobile == 'none') %}
+              <div class="block section--leftrightfloat--media--wrapper {% if module.video.video_thumbnail_type != 'none' %}lap-and-up-visuallyhidden tablet-visuallyhidden{% endif %} {% if module.video.video_thumbnail_type_mobile != 'none' %}palm-visuallyhidden{% endif %}">
+                <a title="{% if module.video.video_title_attribute %}{{ module.video.video_title_attribute }}{% else %}Watch the Video{% endif %}" class="section--leftrightfloat--media--video--icon inline-block no--underline" {% if module.video.video_type == 'modal' %}data-fancybox {% if '.mp4' in module.video.video_url_of_iframe_embeddable_video_file.href %}{% else %}data-type="iframe" data-width="936" data-height="636"{% endif %}  href="{{ module.video.video_url_of_iframe_embeddable_video_file.href }}"{% elif module.video.video_type == 'hubspot' %}data-src="#{{ name }}--embed" data-fancybox{% elif module.video.video_type == 'vidyard' %}href="javascript:;" onclick="launchLightbox_{{ name }}('{{ module.video.vidyard_video_uuid|trim }}');"{% endif %} style="width:320px;max-width:100%;">
+                  {% if not module.video.hide_video_play_icon %}
+                  <span class="block--video--icon {{ snippets.textColorOverride(module.section_controls.text_color_override) }}"></span>
+                  {% endif %}
+                </a>
+              </div>
+              {% endif %}
+            </div>
+            {% if module.video.video_type == 'hubspot' %}
+              {% if module.video.video_hubspot_video.player_id %}
+              <div id="{{ name }}--embed" class="video--popover all--aspectratio" style="display:none;">
+
+                {% set max_width = module.video.video_hubspot_video.size_type == 'auto_custom_max' ? module.video.video_hubspot_video.max_width : module.video.video_hubspot_video.width %}
+                {% set max_height = module.video.video_hubspot_video.size_type == 'auto_custom_max' ? module.video.video_hubspot_video.max_height : module.video.video_hubspot_video.height %}
+
+                {% set playColor = module.video.video_hubspot_play_button_color.color %}
+
+                {% video_player "embed_player"
+                    placeholder_alt_text={{ module.video.video_image_alt_tag }}
+                   play_button_color={{ playColor }}
+                   player_id={{ module.video.video_hubspot_video.player_id }}
+                   type={{ module.video.video_hubspot_video.player_type || 'scriptV4' }}
+                   full_width={{ module.video.video_hubspot_video.size_type == 'auto_full_width' }},
+                   conversion_asset={{ module.video.video_hubspot_video.conversion_asset|tojson|safe }}
+                %}
+
+              </div>
+              {% endif %}
+            {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="block gridspacer--bottom {{ snippets.sectionPadding(module.section_controls.spacing,"bottom") }}">
+
+    </div>
+    {{ snippets.swoopSpacerBottom(module.background) }}
+    {% if (module.video.video_type == "vidyard")&&(module.media_type == "video") %}
+    {% require_js %}
+    <script type="text/javascript" async src="https://play.vidyard.com/embed/v4.js"></script>
+    {% end_require_js %}
+    <div class="visuallyhidden">
+      <img class="vidyard-player-embed" alt="{{ module.video.video_image_alt_tag }}" data-uuid="{{ module.video.vidyard_video_uuid|trim }}" data-type="lightbox" data-v="4">
+    </div>
+    <script>
+      function launchLightbox_{{ name }}(uuid) {
+        var players = VidyardV4.api.getPlayersByUUID(uuid);
+        var player = players[0];
+        player.showLightbox();
+      }
+    </script>
+    {% endif %}
+  </div>
+  {{ snippets.sectionPaddingCustomStyles(name,module.section_controls.spacing,".gridspacer--top",".gridspacer--bottom") }}
+</div>

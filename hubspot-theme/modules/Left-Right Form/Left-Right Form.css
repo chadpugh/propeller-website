@@ -1,0 +1,61 @@
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# IMPORT CONFIG #}
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ***************************** BASE & CUSTOM CSS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+
+.section--leftrightform--share--icon {
+  display:inline-block;
+  vertical-align:middle;
+  margin-left:10px;
+  width:40px;
+  height:40px;
+  line-height:40px;
+  text-align:center;
+  border-radius:50%;
+  text-decoration:none!important;
+  position:relative;
+  {{ transition("background .3s ease-in-out") }}
+}
+.section--leftrightform--share--icon svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  height:16px;
+  fill:#FFF!important;
+}
+.section--leftrightform--share--icon:first-child {
+  margin-left:0px;
+}
+.section--leftrightform--share--icon--facebook {
+  background:{{ color("facebook") }};
+}
+.section--leftrightform--share--icon--facebook:hover {
+  background:{{ colorShade(color("facebook")) }};
+}
+.section--leftrightform--share--icon--twitter {
+  background:{{ color("twitter") }};
+}
+.section--leftrightform--share--icon--twitter:hover {
+  background:{{ colorShade(color("twitter")) }};
+}
+.section--leftrightform--share--icon--linkedin {
+  background:{{ color("linkedin") }};
+}
+.section--leftrightform--share--icon--linkedin:hover {
+  background:{{ colorShade(color("linkedin")) }};
+}

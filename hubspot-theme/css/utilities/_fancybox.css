@@ -1,0 +1,45 @@
+
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ******************** FANCYBOX ******************** #}
+.fancybox__container {
+  font-family: {{ font('reading') }};
+}
+
+.fancybox-navigation .fancybox-button {
+  top:50%!important;
+}
+.fancybox-navigation .fancybox-button--arrow_left {
+  padding: 31px 0px 31px 8px!important;
+}
+.fancybox-navigation .fancybox-button--arrow_right {
+  padding: 31px 8px 31px 0px!important;
+}
+.fancybox-navigation button:before {
+  display:none!important;
+}
+.fancybox-navigation .fancybox-button--arrow_left > div:before,
+.fancybox-navigation .fancybox-button--arrow_right > div:before {
+  display: block;
+  margin-top: 2px;
+  font-family:{{ font("fontawesome") }};
+  font-weight:900;
+  font-size: 21px;
+  line-height: 1em;
+  color:{{ color("secondary") }};
+}
+.fancybox-navigation .fancybox-button--arrow_left > div:before {
+  content:"\f053";
+}
+.fancybox-navigation .fancybox-button--arrow_right > div:before {
+  content:"\f054";
+}
+.fancybox-navigation .fancybox-button--arrow_left svg,
+.fancybox-navigation .fancybox-button--arrow_right svg {
+  display:none!important;
+}
+.fancybox-navigation .fancybox-button--arrow_left svg,
+.fancybox-navigation .fancybox-button--arrow_right svg {
+  display:none!important;
+}

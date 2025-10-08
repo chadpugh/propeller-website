@@ -1,0 +1,174 @@
+{% set contentClasses = "one-half portable-one-whole" %}
+{% set formClasses = "one-half tablet-ten-twelfths palm-one-whole" %}
+{% if module.layout_controls.column_widths == "four-twelfths" %}
+{% set contentClasses = "four-twelfths portable-one-whole" %}
+{% set formClasses = "eight-twelfths tablet-ten-twelfths palm-one-whole" %}
+{% elif module.layout_controls.column_widths == "eight-twelfths" %}
+{% set contentClasses = "eight-twelfths palm-one-whole" %}
+{% set formClasses = "four-twelfths tablet-ten-twelfths palm-one-whole" %}
+{% elif module.layout_controls.column_widths == "five-twelfths" %}
+{% set contentClasses = "five-twelfths portable-one-whole" %}
+{% set formClasses = "seven-twelfths tablet-ten-twelfths palm-one-whole" %}
+{% elif module.layout_controls.column_widths == "seven-twelfths" %}
+{% set contentClasses = "seven-twelfths portable-one-whole" %}
+{% set formClasses = "five-twelfths tablet-ten-twelfths palm-one-whole" %}
+{% endif %}
+
+<div {% if module.section_controls.anchor_id %}id="{{ module.section_controls.anchor_id|trim }}"{% endif %} class="section section--leftrightform relative overflow--hidden {{ snippets.deviceVisibility(module.section_controls.device_visibility) }}">
+  {{ snippets.background(module.background) }}
+  <div class="block relative z-index--3">
+    {{ snippets.swoopSpacerTop(module.background) }}
+    <div class="block gridspacer--top {{ snippets.sectionPadding(module.section_controls.spacing,"top") }}">
+
+    </div>
+    <div class="grid flexgrid {{ module.layout_controls.content_vertical_alignment }} {% if module.layout_controls.content_position_mobile == 'bottom' %}palm-column--reverse{% endif %} {% if module.layout_controls.content_position == 'right' %}row--reverse{% endif %} hard--ends">
+      <div class="grid__item {{ contentClasses }} short first--hard--top last--hard--bottom text--left {{ snippets.textColorOverride(module.section_controls.text_color_override) }}">
+        <div class="flexgrid {% if module.enable_video == 'above' %}column--reverse{% else %}direction--column{% endif %}">
+          <div class="block first--hard--top">
+            {% if module.enable_header_rule %}
+              <span class="header--rule"></span>
+            {% endif %}
+            {% if module.preheader %}
+              <span class="h6 preheader">{{ module.preheader }}</span>
+            {% endif %}
+            {% if module.header %}
+              <h2>{{ module.header }}</h2>
+            {% endif %}
+            {{ module.content }}
+
+            {{ snippets.bulletsList(module.bullets) }}
+
+          </div>
+          {% if module.enable_video != 'none' %}
+          <div class="block {% if module.enable_video == 'above' %}margin--short--bottom{% endif %}">
+            {% if module.video.video_type == "embed" %}
+            <div class="block all--aspectratio">
+              {{ module.video.video_embed_code }}
+            </div>
+            {% elif (module.video.video_type == "modal")||(module.video.video_type == "vidyard")||(module.video.video_type == "hubspot") %}
+            <div class="block text--center {% if module.video.video_thumbnail_type == 'none' %}lap-and-up-visuallyhidden tablet-visuallyhidden{% endif %} {% if module.video.video_thumbnail_type_mobile == 'none' %}palm-visuallyhidden{% endif %}">
+              <a class="{% if module.video.video_type == "modal" %}fancybox{% endif %} inline-block block--video" {% if module.video.video_type == "modal" %}href="{{ module.video.video_url_of_iframe_embeddable_video_file.href }}"{% elif module.video.video_type == 'hubspot' %}data-src="#{{ name }}--embed" data-fancybox{% elif module.video.video_type == "vidyard" %}href="javascript:;" onclick="launchLightbox_{{ name }}('{{ module.video.vidyard_video_uuid|trim }}');"{% endif %}>
+                <img class="block" src="{{ module.video.video_thumbnail_image.src }}" {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} alt="{{ module.video.video_thumbnail_image.alt }}" width="{% if (module.video.video_thumbnail_image.size_type == 'auto_custom_max') %}{{ module.video.video_thumbnail_image.max_width }}{% elif (module.video.video_thumbnail_image.size_type == 'exact') %}{{ module.video.video_thumbnail_image.width }}{% else %}{{ module.video.video_thumbnail_image.width }}{% endif %}" height="{% if (module.video.video_thumbnail_image.size_type == 'auto_custom_max') %}{{ module.video.video_thumbnail_image.max_height }}{% else %}{{ module.video.video_thumbnail_image.height }}{% endif %}" />
+              </a>
+            </div>
+            {% if module.video.video_type == 'hubspot' %}
+              {% if module.video.video_hubspot_video.player_id %}
+              <div id="{{ name }}--embed" class="video--popover all--aspectratio" style="display:none;">
+
+                {% set max_width = module.video.video_hubspot_video.size_type == 'auto_custom_max' ? module.video.video_hubspot_video.max_width : module.video.video_hubspot_video.width %}
+                {% set max_height = module.video.video_hubspot_video.size_type == 'auto_custom_max' ? module.video.video_hubspot_video.max_height : module.video.video_hubspot_video.height %}
+
+                {% set playColor = module.video.video_hubspot_play_button_color.color %}
+
+                {% video_player "embed_player"
+                    placeholder_alt_text={{ module.video.video_image_alt_tag }}
+                   play_button_color={{ playColor }}
+                   player_id={{ module.video.video_hubspot_video.player_id }}
+                   type={{ module.video.video_hubspot_video.player_type || 'scriptV4' }}
+                   full_width={{ module.video.video_hubspot_video.size_type == 'auto_full_width' }},
+                   conversion_asset={{ module.video.video_hubspot_video.conversion_asset|tojson|safe }}
+                %}
+
+              </div>
+              {% endif %}
+            {% endif %}
+            {% endif %}
+            {% if module.video.video_label_text %}
+            <div class="block short--top all--text--center block--video--label {{ snippets.textColorOverride(module.section_controls.text_color_override) }} {% if ((module.video.video_type == 'modal')||(module.video.video_type == 'vidyard')||(module.video.video_type == 'hubspot'))&&(module.video.video_thumbnail_type == 'none') %}lap-and-up-visuallyhidden tablet-visuallyhidden{% endif %} {% if ((module.video.video_type == 'modal')||(module.video.video_type == 'vidyard')||(module.video.video_type == 'hubspot'))&&(module.video.video_thumbnail_type_mobile == 'none') %}palm-visuallyhidden{% endif %}">
+              <p class="hard--ends">
+                {{ module.video.video_label_text }}
+              </p>
+            </div>
+            {% endif %}
+            {% if module.video.video_type == 'hubspot' %}
+              {% if module.video.video_hubspot_video.player_id %}
+              <div id="{{ name }}--embed" class="video--popover all--aspectratio" style="display:none;">
+
+                {% set max_width = module.video.video_hubspot_video.size_type == 'auto_custom_max' ? module.video.video_hubspot_video.max_width : module.video.video_hubspot_video.width %}
+                {% set max_height = module.video.video_hubspot_video.size_type == 'auto_custom_max' ? module.video.video_hubspot_video.max_height : module.video.video_hubspot_video.height %}
+
+                {% set playColor = module.video.video_hubspot_play_button_color.color %}
+
+                {% video_player "embed_player"
+                    placeholder_alt_text={{ module.video.video_image_alt_tag }}
+                   play_button_color={{ playColor }}
+                   player_id={{ module.video.video_hubspot_video.player_id }}
+                   type={{ module.video.video_hubspot_video.player_type || 'scriptV4' }}
+                   full_width={{ module.video.video_hubspot_video.size_type == 'auto_full_width' }},
+                   conversion_asset={{ module.video.video_hubspot_video.conversion_asset|tojson|safe }}
+                %}
+
+              </div>
+              {% endif %}
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+        {% if module.enable_video == 'below' %}
+        {{ module.content_below_video }}
+        {% endif %}
+        {% if module.show_share_links %}
+        <div class="section--leftrightform--share portable-visuallyhidden margin--tall--top">
+          {% if module.share_links.share_type == "custom" %}
+          {% set urlToShare = module.share_links.url_of_page_to_share.url %}
+          {% else %}
+          {% set urlToShare = content.absolute_url %}
+          {% endif %}
+          <a class="section--leftrightform--share--icon section--leftrightform--share--icon--facebook" target="_blank" title="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ urlToShare }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+          </a>
+          <a class="section--leftrightform--share--icon section--leftrightform--share--icon--twitter" target="_blank" title="Share on Twitter" href="https://twitter.com/intent/tweet?url={{ urlToShare }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+          </a>
+          <a class="section--leftrightform--share--icon section--leftrightform--share--icon--linkedin" target="_blank" title="Share on LinkedIn" href="https://www.linkedin.com/shareArticle?url={{ urlToShare }}&title={{ content.html_title|urlencode }}&summary={{ content.meta_description|urlencode }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+          </a>
+        </div>
+        {% endif %}
+      </div>
+      <div class="grid__item {{ formClasses }} short">
+        <div class="section--leftrightform--form border-radius background--white box-shadow">
+          <div class="block tall padding--tall all--btn all--btn--{% if module.form.form_ghost_transparent_button %}transparent--{% endif %}{{ module.form.form_button_color }} all--btn--{{ module.layout_controls.form_button_alignment }} palm-all--btn--{{ module.layout_controls.form_button_alignment_mobile }}">
+            {% if module.form.form_header %}
+            <span class="first--hard--top section--leftrightform--form--header text--{{ module.layout_controls.form_title_alignment }} palm-text--{{ module.layout_controls.form_title_alignment_mobile }}">
+              {{ module.form.form_header }}
+            </span>
+            {% endif %}
+
+            {% form
+              form_to_use="{{ module.form.form.form_id }}"
+              response_response_type="{{ module.form.form.response_type }}"
+              response_message="{{ module.form.form.message }}"
+              response_redirect_id="{{ module.form.form.redirect_id }}"
+              response_redirect_url="{{ module.form.form.redirect_url }}"
+              gotowebinar_webinar_key="{{ module.form.form.gotowebinar_webinar_key }}"
+              follow_up_type_simple="{{ module.form.send_a_follow_up_email }}"
+              simple_email_for_live_id="{{ module.form.email }}"
+              notifications_are_overridden="{{ module.form.send_form_notifications_to_specified_email_addresses_instead_of_the_form_defaults }}"
+              notifications_override_email_addresses="{{ module.form.email_addresses }}"
+              no_title=True
+            %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% if (module.video.video_type == "vidyard")&&(module.show_video_below_content) %}
+    <script type="text/javascript" async src="https://play.vidyard.com/embed/v4.js"></script>
+    <div class="visuallyhidden">
+      <img class="vidyard-player-embed" alt="{{ module.video.vidyard_video_image_alt_tag }}" data-uuid="{{ module.video.vidyard_video_uuid|trim }}" data-type="lightbox" data-v="4">
+    </div>
+    <script>
+      function launchLightbox_{{ name }}(uuid) {
+        var players = VidyardV4.api.getPlayersByUUID(uuid);
+        var player = players[0];
+        player.showLightbox();
+      }
+    </script>
+    {% endif %}
+    <div class="block gridspacer--bottom {{ snippets.sectionPadding(module.section_controls.spacing,"bottom") }}">
+
+    </div>
+    {{ snippets.swoopSpacerBottom(module.background) }}
+  </div>
+  {{ snippets.sectionPaddingCustomStyles(name,module.section_controls.spacing,".gridspacer--top",".gridspacer--bottom") }}
+</div>

@@ -1,0 +1,707 @@
+[ {
+  "id" : "010f968e-9b16-b03a-0d59-d5d913fe96d5",
+  "name" : "section_controls",
+  "label" : "Section Controls",
+  "help_text" : "This group contains inputs which affect various parts of this section such as device visibility, spacing, color override, or other miscellaneous settings related to the entire section.",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "06b3428d-0244-3077-686b-8ceb97544fcc",
+    "name" : "anchor_id",
+    "label" : "Anchor ID",
+    "help_text" : "Adding an anchor to this section will allow you to link to this section from this or other pages. Anchor links which point to a section on the current page will scroll the user to that section while anchors links to a different page will load the page with the user already scrolled to it.",
+    "inline_help_text" : "Add a unique ID to allow anchor links to this section. Only alphanumeric characters, hyphens, and underscores are permitted and this must begin with a letter. (Example: section-name) When linking to this section in an inline hyperlink, place a hashtag before the anchor ID.",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  }, {
+    "id" : "ad545f18-34c5-1195-d0ae-816b9e3a0f16",
+    "name" : "lazy_load_images",
+    "label" : "Lazy Load Images",
+    "help_text" : "Lazy loading images can help improve page load times by telling the browser to load certain images last. This feature is only supported by modern browsers and any unsupported browsers will load the images as normal.",
+    "inline_help_text" : "Enable this to lazy load imagery to defer loading them initially. Depending on the section and how things are built, this input may not necessarily affect all images in this section. WARNING: This input should only be enabled for sections which appear below the fold. Not supported by all browsers.",
+    "required" : false,
+    "locked" : true,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "6bda5543-1d75-2780-3fda-ea2c659ed181",
+    "name" : "spacing",
+    "label" : "Spacing",
+    "help_text" : "",
+    "inline_help_text" : "Use these inputs to configure the top and bottom spacing of your section. This can be useful to increase or decrease the height of a section, reduce spacing between sections which share the same background color, or scale this spacing based on screen size when using certain types of backgrounds.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "8e03260c-7788-14d0-d620-b4e37b24dfad",
+      "name" : "top_padding_desktop",
+      "label" : "Top Padding (Desktop)",
+      "help_text" : "",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "hard", "None" ], [ "short", "Extra Small" ], [ "tall", "Small" ], [ "grande", "Medium" ], [ "venti", "Large (Default)" ], [ "trenta", "Extra Large" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "venti"
+    }, {
+      "id" : "fc1867f1-dca1-f7b9-78a2-6d09b14e4c99",
+      "name" : "top_padding_desktop_custom",
+      "label" : "Top Padding: Custom Padding (Desktop)",
+      "inline_help_text" : "",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "8e03260c-7788-14d0-d620-b4e37b24dfad",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "69afd11f-7070-505e-cc0a-69a6c2276421",
+        "name" : "top_padding_desktop_custom",
+        "label" : "Top Padding: Custom Padding Amount (Desktop)",
+        "help_text" : "",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "text",
+        "min" : 0,
+        "step" : 0.1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 26
+      }, {
+        "id" : "94c9024f-3f0a-fc38-6aba-6e64bc1b0935",
+        "name" : "top_padding_desktop_custom_measurement_unit",
+        "label" : "Top Padding: Custom Padding Measurement Unit (Desktop)",
+        "help_text" : "",
+        "inline_help_text" : "This input determines the significance of the Top Padding: Custom Padding Amount input. This can be set to a static number of pixels, a percentage based on screen width, or a percentage based on screen height.",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "px", "Pixels" ], [ "vw", "Percentage of Screen Width" ], [ "vh", "Percentage of Screen Height" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "vw"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "top_padding_desktop_custom" : 26,
+        "top_padding_desktop_custom_measurement_unit" : "vw"
+      }
+    }, {
+      "id" : "2bb531b9-7ba6-7caf-be80-16339a11b72a",
+      "name" : "top_padding_laptop",
+      "label" : "Top Padding (Laptop)",
+      "help_text" : "",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "inherit", "Same as Desktop (Default)" ], [ "hard", "None" ], [ "short", "Extra Small" ], [ "tall", "Small" ], [ "grande", "Medium" ], [ "venti", "Large" ], [ "trenta", "Extra Large" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "inherit"
+    }, {
+      "id" : "a3b16349-e3c7-20d6-a86d-34344832aae5",
+      "name" : "top_padding_laptop_custom",
+      "label" : "Top Padding: Custom Padding (Laptop)",
+      "help_text" : "",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "2bb531b9-7ba6-7caf-be80-16339a11b72a",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "11f8ff07-64af-2af5-fabd-8446993c5eb4",
+        "name" : "top_padding_laptop_custom",
+        "label" : "Top Padding: Custom Padding Amount (Laptop)",
+        "help_text" : "",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "text",
+        "min" : 0,
+        "step" : 0.1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 26
+      }, {
+        "id" : "085a5607-7dd3-c04a-a005-791be7c7b1ce",
+        "name" : "top_padding_laptop_custom_measurement_unit",
+        "label" : "Top Padding: Custom Padding Measurement Unit (Laptop)",
+        "help_text" : "This is useful when the background of this section requires a specific amount of space that should either be a static amount of space or scale based on screen width or height.",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "px", "Pixels" ], [ "vw", "Percentage of Screen Width" ], [ "vh", "Percentage of Screen Height" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "vw"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "top_padding_laptop_custom" : 26,
+        "top_padding_laptop_custom_measurement_unit" : "vw"
+      }
+    }, {
+      "id" : "2e27489e-5436-ebdd-a722-be01d0dc16c9",
+      "name" : "top_padding_tablet",
+      "label" : "Top Padding (Tablet)",
+      "help_text" : "",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "inherit", "Same as Laptop" ], [ "hard", "None" ], [ "short", "Extra Small" ], [ "tall", "Small (Default)" ], [ "grande", "Medium" ], [ "venti", "Large" ], [ "trenta", "Extra Large" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "tall"
+    }, {
+      "id" : "3002286e-c25a-72d0-9453-848e1b48366d",
+      "name" : "top_padding_tablet_custom",
+      "label" : "Top Padding: Custom Padding (Tablet)",
+      "inline_help_text" : "",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "2e27489e-5436-ebdd-a722-be01d0dc16c9",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "6c724aae-e878-014a-f386-af074aeafc14",
+        "name" : "top_padding_tablet_custom",
+        "label" : "Top Padding: Custom Padding Amount (Tablet)",
+        "help_text" : "",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "text",
+        "min" : 0,
+        "step" : 0.1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 26
+      }, {
+        "id" : "444f790c-3108-3ee5-339c-a4d00f2d9795",
+        "name" : "top_padding_tablet_custom_measurement_unit",
+        "label" : "Top Padding: Custom Padding Measurement Unit (Tablet)",
+        "help_text" : "",
+        "inline_help_text" : "This input determines the significance of the Top Padding: Custom Padding Amount (Tablet) input. This can be set to a static number of pixels, a percentage based on screen width, or a percentage based on screen height.",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "px", "Pixels" ], [ "vw", "Percentage of Screen Width" ], [ "vh", "Percentage of Screen Height" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "vw"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "top_padding_tablet_custom" : 26,
+        "top_padding_tablet_custom_measurement_unit" : "vw"
+      }
+    }, {
+      "id" : "5c21cccf-fce1-ab0d-8682-b1e8c9bd6a5e",
+      "name" : "top_padding_mobile",
+      "label" : "Top Padding (Mobile)",
+      "help_text" : "",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "inherit", "Same as Tablet (Default)" ], [ "hard", "None" ], [ "short", "Extra Small" ], [ "tall", "Small" ], [ "grande", "Medium" ], [ "venti", "Large" ], [ "trenta", "Extra Large" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "inherit"
+    }, {
+      "id" : "de3fb341-8f38-76ff-ad1d-808ee8752c01",
+      "name" : "top_padding_mobile_custom",
+      "label" : "Top Padding: Custom Padding (Mobile)",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "5c21cccf-fce1-ab0d-8682-b1e8c9bd6a5e",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "04f69a1d-5825-e743-42cc-fc33f3d6fbcc",
+        "name" : "top_padding_mobile_custom",
+        "label" : "Top Padding: Custom Padding Amount (Mobile)",
+        "help_text" : "",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "text",
+        "min" : 0,
+        "step" : 0.1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 26
+      }, {
+        "id" : "690ee351-05f4-58d3-0b97-d517499251c5",
+        "name" : "top_padding_mobile_custom_measurement_unit",
+        "label" : "Top Padding: Custom Padding Measurement Unit (Mobile)",
+        "help_text" : "",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "px", "Pixels" ], [ "vw", "Percentage of Screen Width" ], [ "vh", "Percentage of Screen Height" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "vw"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "top_padding_mobile_custom" : 26,
+        "top_padding_mobile_custom_measurement_unit" : "vw"
+      }
+    }, {
+      "id" : "93d7a4a9-d8b3-f3d9-9e8d-23ee1037658f",
+      "name" : "bottom_padding_desktop",
+      "label" : "Bottom Padding (Desktop)",
+      "help_text" : "",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "hard", "None" ], [ "short", "Extra Small" ], [ "tall", "Small" ], [ "grande", "Medium" ], [ "venti", "Large (Default)" ], [ "trenta", "Extra Large" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "venti"
+    }, {
+      "id" : "9b2b9de8-8d02-a4ac-6a5f-c89b20469697",
+      "name" : "bottom_padding_desktop_custom",
+      "label" : "Bottom Padding: Custom Padding (Desktop)",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "93d7a4a9-d8b3-f3d9-9e8d-23ee1037658f",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "0fcbfc06-166f-4ef4-35e8-da4761fe0543",
+        "name" : "bottom_padding_desktop_custom",
+        "label" : "Bottom Padding: Custom Padding Amount (Desktop)",
+        "help_text" : "",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "text",
+        "min" : 0,
+        "step" : 0.1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 26
+      }, {
+        "id" : "e9173a48-901a-b720-d9f0-421f4eae5282",
+        "name" : "bottom_padding_desktop_custom_measurement_unit",
+        "label" : "Bottom Padding: Custom Padding Measurement Unit (Desktop)",
+        "help_text" : "This is useful when the background of this section requires a specific amount of space that should either be a static amount of space or scale based on screen width or height.",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "px", "Pixels" ], [ "vw", "Percentage of Screen Width" ], [ "vh", "Percentage of Screen Height" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "vw"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "bottom_padding_desktop_custom" : 26,
+        "bottom_padding_desktop_custom_measurement_unit" : "vw"
+      }
+    }, {
+      "id" : "1f3e555b-24ba-2e8e-1440-ebbef398ce46",
+      "name" : "bottom_padding_laptop",
+      "label" : "Bottom Padding (Laptop)",
+      "help_text" : "",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "inherit", "Same as Desktop (Default)" ], [ "hard", "None" ], [ "short", "Extra Small" ], [ "tall", "Small" ], [ "grande", "Medium" ], [ "venti", "Large" ], [ "trenta", "Extra Large" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "inherit"
+    }, {
+      "id" : "8adc397f-82ac-717e-65cf-5778d02f9d97",
+      "name" : "bottom_padding_laptop_custom",
+      "label" : "Bottom Padding: Custom Padding (Laptop)",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "1f3e555b-24ba-2e8e-1440-ebbef398ce46",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "817ea951-2340-752b-f8d7-9d4363ac3621",
+        "name" : "bottom_padding_laptop_custom",
+        "label" : "Bottom Padding: Custom Padding Amount (Laptop)",
+        "help_text" : "",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "text",
+        "min" : 0,
+        "step" : 0.1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 26
+      }, {
+        "id" : "103aa013-77b4-5027-d329-5d986a91842f",
+        "name" : "bottom_padding_laptop_custom_measurement_unit",
+        "label" : "Bottom Padding: Custom Padding Measurement Unit (Laptop)",
+        "help_text" : "",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "px", "Pixels" ], [ "vw", "Percentage of Screen Width" ], [ "vh", "Percentage of Screen Height" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "vw"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "bottom_padding_laptop_custom" : 26,
+        "bottom_padding_laptop_custom_measurement_unit" : "vw"
+      }
+    }, {
+      "id" : "22f058ba-a296-bbcc-c360-8d2203aa0565",
+      "name" : "bottom_padding_tablet",
+      "label" : "Bottom Padding (Tablet)",
+      "help_text" : "",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "inherit", "Same as Laptop" ], [ "hard", "None" ], [ "short", "Extra Small" ], [ "tall", "Small (Default)" ], [ "grande", "Medium" ], [ "venti", "Large" ], [ "trenta", "Extra Large" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "tall"
+    }, {
+      "id" : "183d6c70-a41c-5bb2-7dc7-5ac3a7605a20",
+      "name" : "bottom_padding_tablet_custom",
+      "label" : "Bottom Padding: Custom Padding (Tablet)",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "22f058ba-a296-bbcc-c360-8d2203aa0565",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "b5f15ca5-3642-6ec3-6011-d3eb639571b9",
+        "name" : "bottom_padding_tablet_custom",
+        "label" : "Bottom Padding: Custom Padding Amount (Tablet)",
+        "help_text" : "",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "text",
+        "min" : 0,
+        "step" : 0.1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 26
+      }, {
+        "id" : "81e59bb5-6383-35ea-226e-0b669a089d1e",
+        "name" : "bottom_padding_tablet_custom_measurement_unit",
+        "label" : "Bottom Padding: Custom Padding Measurement Unit (Tablet)",
+        "help_text" : "This is useful when the background of this section requires a specific amount of space that should either be a static amount of space or scale based on screen width or height.",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "px", "Pixels" ], [ "vw", "Percentage of Screen Width" ], [ "vh", "Percentage of Screen Height" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "vw"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "bottom_padding_tablet_custom" : 26,
+        "bottom_padding_tablet_custom_measurement_unit" : "vw"
+      }
+    }, {
+      "id" : "0cc99aad-a9d0-43d5-ef77-6f82d448cd5e",
+      "name" : "bottom_padding_mobile",
+      "label" : "Bottom Padding (Mobile)",
+      "help_text" : "",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "inherit", "Same as Tablet (Default)" ], [ "hard", "None" ], [ "short", "Extra Small" ], [ "tall", "Small" ], [ "grande", "Medium" ], [ "venti", "Large" ], [ "trenta", "Extra Large" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "inherit"
+    }, {
+      "id" : "2b025eb1-10d1-12aa-df60-4d69013986d0",
+      "name" : "bottom_padding_mobile_custom",
+      "label" : "Bottom Padding: Custom Padding (Mobile)",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "0cc99aad-a9d0-43d5-ef77-6f82d448cd5e",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "bc95e219-3a18-83ee-16c2-75b6e6bdcfd6",
+        "name" : "bottom_padding_mobile_custom",
+        "label" : "Bottom Padding: Custom Padding Amount (Mobile)",
+        "help_text" : "",
+        "inline_help_text" : "The significance of this number is determined by the Bottom Padding: Custom Padding Measurement Unit (Mobile) input.",
+        "required" : true,
+        "locked" : false,
+        "display" : "text",
+        "min" : 0,
+        "step" : 0.1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 26
+      }, {
+        "id" : "6f103824-1239-6af5-0521-228bc8a8770b",
+        "name" : "bottom_padding_mobile_custom_measurement_unit",
+        "label" : "Bottom Padding: Custom Padding Measurement Unit (Mobile)",
+        "help_text" : "",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "px", "Pixels" ], [ "vw", "Percentage of Screen Width" ], [ "vh", "Percentage of Screen Height" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "vw"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "bottom_padding_mobile_custom" : 26,
+        "bottom_padding_mobile_custom_measurement_unit" : "vw"
+      }
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "top_padding_desktop" : "venti",
+      "top_padding_desktop_custom" : {
+        "top_padding_desktop_custom" : 26,
+        "top_padding_desktop_custom_measurement_unit" : "vw"
+      },
+      "top_padding_laptop" : "inherit",
+      "top_padding_laptop_custom" : {
+        "top_padding_laptop_custom" : 26,
+        "top_padding_laptop_custom_measurement_unit" : "vw"
+      },
+      "top_padding_tablet" : "tall",
+      "top_padding_tablet_custom" : {
+        "top_padding_tablet_custom" : 26,
+        "top_padding_tablet_custom_measurement_unit" : "vw"
+      },
+      "top_padding_mobile" : "inherit",
+      "top_padding_mobile_custom" : {
+        "top_padding_mobile_custom" : 26,
+        "top_padding_mobile_custom_measurement_unit" : "vw"
+      },
+      "bottom_padding_desktop" : "venti",
+      "bottom_padding_desktop_custom" : {
+        "bottom_padding_desktop_custom" : 26,
+        "bottom_padding_desktop_custom_measurement_unit" : "vw"
+      },
+      "bottom_padding_laptop" : "inherit",
+      "bottom_padding_laptop_custom" : {
+        "bottom_padding_laptop_custom" : 26,
+        "bottom_padding_laptop_custom_measurement_unit" : "vw"
+      },
+      "bottom_padding_tablet" : "tall",
+      "bottom_padding_tablet_custom" : {
+        "bottom_padding_tablet_custom" : 26,
+        "bottom_padding_tablet_custom_measurement_unit" : "vw"
+      },
+      "bottom_padding_mobile" : "inherit",
+      "bottom_padding_mobile_custom" : {
+        "bottom_padding_mobile_custom" : 26,
+        "bottom_padding_mobile_custom_measurement_unit" : "vw"
+      }
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "lazy_load_images" : true,
+    "spacing" : {
+      "top_padding_desktop" : "venti",
+      "top_padding_desktop_custom" : {
+        "top_padding_desktop_custom" : 26,
+        "top_padding_desktop_custom_measurement_unit" : "vw"
+      },
+      "top_padding_laptop" : "inherit",
+      "top_padding_laptop_custom" : {
+        "top_padding_laptop_custom" : 26,
+        "top_padding_laptop_custom_measurement_unit" : "vw"
+      },
+      "top_padding_tablet" : "tall",
+      "top_padding_tablet_custom" : {
+        "top_padding_tablet_custom" : 26,
+        "top_padding_tablet_custom_measurement_unit" : "vw"
+      },
+      "top_padding_mobile" : "inherit",
+      "top_padding_mobile_custom" : {
+        "top_padding_mobile_custom" : 26,
+        "top_padding_mobile_custom_measurement_unit" : "vw"
+      },
+      "bottom_padding_desktop" : "venti",
+      "bottom_padding_desktop_custom" : {
+        "bottom_padding_desktop_custom" : 26,
+        "bottom_padding_desktop_custom_measurement_unit" : "vw"
+      },
+      "bottom_padding_laptop" : "inherit",
+      "bottom_padding_laptop_custom" : {
+        "bottom_padding_laptop_custom" : 26,
+        "bottom_padding_laptop_custom_measurement_unit" : "vw"
+      },
+      "bottom_padding_tablet" : "tall",
+      "bottom_padding_tablet_custom" : {
+        "bottom_padding_tablet_custom" : 26,
+        "bottom_padding_tablet_custom_measurement_unit" : "vw"
+      },
+      "bottom_padding_mobile" : "inherit",
+      "bottom_padding_mobile_custom" : {
+        "bottom_padding_mobile_custom" : 26,
+        "bottom_padding_mobile_custom_measurement_unit" : "vw"
+      }
+    }
+  }
+}, {
+  "id" : "dcc37ec7-166f-5109-9684-7c166bca8eaa",
+  "name" : "layout_controls",
+  "label" : "Layout Controls",
+  "inline_help_text" : "This group contains inputs which are unique to this section for controlling the overall layout or style. Depending on the section, some inputs outside of this section may change based on the configuration here.",
+  "required" : false,
+  "locked" : false,
+  "children" : [ ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+} ]

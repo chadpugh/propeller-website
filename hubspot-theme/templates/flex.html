@@ -1,0 +1,30 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Flex DND Page
+  screenshotPath: ../images/template-previews/about.png
+-->
+{% extends "../templates/layouts/base.html" %}
+
+{% set body_class_array = [] %}
+{% do body_class_array.append('pagetype--{{ widget_data.controls.page_type }}') %}
+{% do body_class_array.append('header--{{ widget_data.controls.header_design }}') %}
+{% if widget_data.controls.header_design == "transparent" %}
+  {% do body_class_array.append('header--notfixed header--isanchored') %}
+{% endif %}
+{% if widget_data.controls.hide_navigation %}
+  {% do body_class_array.append('no--navigation header--static') %}
+{% elif widget_data.controls.disable_sticky_header %}
+  {% do body_class_array.append('header--static') %}
+{% endif %}
+
+{% set body_classes = body_class_array|join(' ') %}
+
+{% block body %}
+  {% dnd_area "dnd_area"
+    label="Main section",
+    class="body-container body-container--flex"
+    id="blog subscription form"
+  %}
+  {% end_dnd_area %}
+{% endblock body %}

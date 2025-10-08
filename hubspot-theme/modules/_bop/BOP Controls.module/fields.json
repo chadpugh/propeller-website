@@ -1,0 +1,692 @@
+[ {
+  "id" : "78f7de86-ec14-c59a-10ef-68c967285afc",
+  "name" : "keywords",
+  "label" : "Keyword(s)",
+  "required" : false,
+  "locked" : true,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Blog"
+}, {
+  "id" : "82fa7c5c-5b7c-f40a-dcb1-9d552165e9a6",
+  "name" : "featured_topics_menu",
+  "label" : "Featured Topics Menu",
+  "required" : false,
+  "locked" : true,
+  "type" : "menu",
+  "display_width" : null
+}, {
+  "id" : "97aeab7a-d163-3eae-dab0-cf72604a971f",
+  "name" : "default_featured_image",
+  "label" : "Default Featured Image",
+  "required" : false,
+  "locked" : true,
+  "responsive" : false,
+  "resizable" : false,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "src" : "",
+    "alt" : null,
+    "size_type" : null,
+    "width" : null,
+    "height" : null,
+    "max_width" : null,
+    "max_height" : null,
+    "loading" : "disabled"
+  }
+}, {
+  "id" : "55ea8c5a-76c8-8979-1be1-f5c29771be8d",
+  "name" : "show_back_button",
+  "label" : "Show Back Button on Post Pages",
+  "required" : false,
+  "locked" : true,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "b23e2834-c92d-148f-c7b5-2955e0481de9",
+  "name" : "back_button_hyperlink_url",
+  "label" : "Back Button: Hyperlink URL (leave blank to use main listing page)",
+  "required" : false,
+  "locked" : true,
+  "visibility" : {
+    "controlling_field" : "55ea8c5a-76c8-8979-1be1-f5c29771be8d",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "supported_types" : [ "EXTERNAL", "CONTENT", "BLOG" ],
+  "type" : "url",
+  "display_width" : null,
+  "default" : {
+    "content_id" : null,
+    "href" : "",
+    "type" : "EXTERNAL"
+  }
+}, {
+  "id" : "14477b2e-7b47-2ebd-5f87-5c1f36ec5672",
+  "name" : "hide_featured_image_from_post_content",
+  "label" : "Hide Featured Image from Post Content",
+  "help_text" : "This will hide the featured image from within the post contents. The featured image will only display as the banner, and any instances of the image within the contents of the post will be hidden.",
+  "required" : false,
+  "locked" : true,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "d4c0d636-dbf5-a533-9818-adeff89eb742",
+  "name" : "lead_magnet",
+  "label" : "Lead Magnet",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "21c2cf86-b1f9-2711-133a-2af5bcb9e068",
+    "name" : "lead_magnet_inline_enabled",
+    "label" : "Lead Magnet: Inline Enabled",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "66e7d7c7-d72e-c4ff-5198-2e87430f31e5",
+    "name" : "lead_magnet_popup_enabled",
+    "label" : "Lead Magnet: Exit Intent Enabled",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "701d4405-3e66-bc84-45ff-ca4fbc630785",
+    "name" : "lead_magnet_preheader",
+    "label" : "Lead Magnet: Preheader",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : ""
+  }, {
+    "id" : "f0ae6057-d836-09f1-1649-503cbaea699a",
+    "name" : "lead_magnet_header",
+    "label" : "Lead Magnet: Header",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Enter a headline that is enticing and encourages the user to complete your CTA."
+  }, {
+    "id" : "14e5313b-5158-662e-eba5-3216369e22f1",
+    "name" : "lead_magnet_subheader",
+    "label" : "Lead Magnet: Subheader",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Write about a sentence or two explaining the value of this offer and what the user will get by subscribing."
+  }, {
+    "id" : "dc1d0f0c-c8ab-e5de-b636-97bee7c65d6e",
+    "name" : "lead_magnet_image",
+    "label" : "Lead Magnet: Image",
+    "required" : false,
+    "locked" : false,
+    "responsive" : false,
+    "resizable" : false,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "src" : "",
+      "alt" : null,
+      "size_type" : null,
+      "width" : null,
+      "height" : null,
+      "max_width" : null,
+      "max_height" : null,
+      "loading" : "disabled"
+    }
+  }, {
+    "id" : "ad03fc9a-1c58-0edc-b695-95780dafaae4",
+    "name" : "lead_magnet_form",
+    "label" : "Lead Magnet: Form",
+    "required" : false,
+    "locked" : false,
+    "embed_versions" : [ "v2", "v4" ],
+    "type" : "form",
+    "display_width" : null,
+    "default" : {
+      "form_id" : "6d51aa57-782b-456d-827d-b924a4e9c645",
+      "response_type" : "redirect",
+      "message" : "Thanks for submitting the form.",
+      "gotowebinar_webinar_key" : null,
+      "form_type" : "HUBSPOT",
+      "redirect_id" : null,
+      "redirect_url" : "https://www.propellervc.com"
+    }
+  }, {
+    "id" : "10aa6d4d-d5e4-d92a-16e4-181b0c94ca29",
+    "name" : "lead_magnet_popup_close_text",
+    "label" : "Lead Magnet: Popup Close Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "No thanks, I am not interested."
+  }, {
+    "id" : "8ad6e571-5e0e-1c06-b59e-b365cb07910f",
+    "name" : "is_inline_thank_you_message",
+    "label" : "This Form Uses an Inline Thank-You Message (Hide Pop-Up Content on Submission)",
+    "inline_help_text" : "If using a form with an inline thank-you message instead of a redirect, enable this input to hide all other pop-up content after the form is submitted. This will only display the contents of your thank-you message and the close button(s).",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "lead_magnet_inline_enabled" : true,
+    "lead_magnet_popup_enabled" : true,
+    "lead_magnet_preheader" : "",
+    "lead_magnet_header" : "Enter a headline that is enticing and encourages the user to complete your CTA.",
+    "lead_magnet_subheader" : "Write about a sentence or two explaining the value of this offer and what the user will get by subscribing.",
+    "lead_magnet_form" : {
+      "form_id" : "6d51aa57-782b-456d-827d-b924a4e9c645",
+      "response_type" : "redirect",
+      "message" : "Thanks for submitting the form.",
+      "gotowebinar_webinar_key" : null,
+      "form_type" : "HUBSPOT",
+      "redirect_id" : null,
+      "redirect_url" : "https://www.propellervc.com"
+    },
+    "lead_magnet_popup_close_text" : "No thanks, I am not interested.",
+    "is_inline_thank_you_message" : false
+  }
+}, {
+  "id" : "69d3dc07-4af6-dbd9-0844-c501745a0e9b",
+  "name" : "show_social",
+  "label" : "Show Social",
+  "required" : false,
+  "locked" : true,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "05491604-d7ee-4382-3993-746847a44418",
+  "name" : "social",
+  "label" : "Social",
+  "required" : false,
+  "locked" : true,
+  "visibility" : {
+    "controlling_field" : "69d3dc07-4af6-dbd9-0844-c501745a0e9b",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "children" : [ {
+    "id" : "4a956a72-923f-e6e2-0572-a59702ef7770",
+    "name" : "facebook_url",
+    "label" : "Facebook URL",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "https://www.facebook.com/impactbnd/"
+  }, {
+    "id" : "3cdd06d6-3376-d041-7105-3695b043d45a",
+    "name" : "twitter_url",
+    "label" : "Twitter URL",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "https://twitter.com/impactbnd?lang=en"
+  }, {
+    "id" : "f60d008f-e347-4c4b-6054-b20a35cdda46",
+    "name" : "linkedin_url",
+    "label" : "LinkedIn URL",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "https://www.linkedin.com/company/impact-branding-&-design-llc/"
+  }, {
+    "id" : "bb011f44-d275-3e23-29bf-a7bb6503af7b",
+    "name" : "youtube_url",
+    "label" : "Youtube URL",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : ""
+  }, {
+    "id" : "c54d3cbc-771d-3e2b-9e09-778340ff3ca3",
+    "name" : "instagram_url",
+    "label" : "Instagram URL",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : ""
+  }, {
+    "id" : "ca9809db-b2ca-bad3-d18b-1c420935a982",
+    "name" : "pinterest_url",
+    "label" : "Pinterest URL",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : ""
+  }, {
+    "id" : "322cb385-8e8c-c3b6-2073-917e3881f6cd",
+    "name" : "dribbble_url",
+    "label" : "Dribbble URL",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : ""
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "facebook_url" : "https://www.facebook.com/impactbnd/",
+    "twitter_url" : "https://twitter.com/impactbnd?lang=en",
+    "linkedin_url" : "https://www.linkedin.com/company/impact-branding-&-design-llc/",
+    "youtube_url" : "",
+    "instagram_url" : "",
+    "pinterest_url" : "",
+    "dribbble_url" : ""
+  }
+}, {
+  "id" : "7d69398d-42d7-fa83-ca17-5b7b3b7acab2",
+  "name" : "search_method",
+  "label" : "Search Method",
+  "required" : true,
+  "locked" : true,
+  "display" : "select",
+  "choices" : [ [ "none", "None (Hide Search)" ], [ "hubspot", "HubSpot Search" ], [ "googlecse", "Google Custom Search" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "hubspot"
+}, {
+  "id" : "59154ffd-1515-cae9-5e92-3de40633ac92",
+  "name" : "search",
+  "label" : "Search",
+  "required" : false,
+  "locked" : true,
+  "visibility" : {
+    "controlling_field" : "7d69398d-42d7-fa83-ca17-5b7b3b7acab2",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "none",
+    "property" : null,
+    "operator" : "NOT_EQUAL",
+    "access" : null
+  },
+  "children" : [ {
+    "id" : "830b806d-99fb-f910-5031-01f11039b8c6",
+    "name" : "search_input_placeholder_text",
+    "label" : "Search Input Placeholder Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Search"
+  }, {
+    "id" : "5acd6244-3bd8-16ef-2f3f-bb338f2b2141",
+    "name" : "google_custom_search",
+    "label" : "Google Custom Search",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "7d69398d-42d7-fa83-ca17-5b7b3b7acab2",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "googlecse",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "children" : [ {
+      "id" : "8753460b-2ba9-b81a-6060-3ad2ed64a881",
+      "name" : "google_custom_search_id",
+      "label" : "Google Custom Search ID",
+      "help_text" : "This will look something like 0100100100100100100100:AABAABAABAA",
+      "required" : false,
+      "locked" : true,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : ""
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "google_custom_search_id" : ""
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "search_input_placeholder_text" : "Search",
+    "google_custom_search" : {
+      "google_custom_search_id" : ""
+    }
+  }
+}, {
+  "id" : "d02a82c8-d5eb-760c-27f6-571369156ab5",
+  "name" : "subscriber_information",
+  "label" : "Subscriber Information",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "75112551-7471-b8d1-0299-5f33714db9f8",
+    "name" : "subscriber_lists",
+    "label" : "Subscriber List(s)",
+    "help_text" : "Add any number of lists which contain subscribers. If the viewer is in at least one of these lists the subscribe sections will be hidden.",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : null,
+      "max" : null,
+      "sorting_label_field" : "c40540c0-9995-2d45-b3e1-f9c32668ef5f",
+      "default" : 4
+    },
+    "children" : [ {
+      "id" : "c40540c0-9995-2d45-b3e1-f9c32668ef5f",
+      "name" : "list_id",
+      "label" : "List ID",
+      "help_text" : "Enter the internal ID of the list. This is a number which can be found at the end of the page URL when editing the list.",
+      "required" : true,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "1"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ {
+      "list_id" : "1"
+    }, {
+      "list_id" : "2"
+    }, {
+      "list_id" : "3"
+    }, {
+      "list_id" : "4"
+    } ]
+  }, {
+    "id" : "73ad7639-351b-e336-3b95-0eaf7366f699",
+    "name" : "subscribe_url",
+    "label" : "Subscribe LP URL",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "#"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "subscriber_lists" : [ {
+      "list_id" : "1"
+    }, {
+      "list_id" : "2"
+    }, {
+      "list_id" : "3"
+    }, {
+      "list_id" : "4"
+    } ],
+    "subscribe_url" : "#"
+  }
+}, {
+  "id" : "7a15c94b-515e-8945-7d60-af231030ab93",
+  "name" : "branding",
+  "label" : "Colors & Branding",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "09707c54-f27c-215c-4b73-7f1fb8b1e0d5",
+    "name" : "menu_text_color",
+    "label" : "Desktop Menu: Text Color",
+    "required" : true,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#000000",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "a3943512-1b76-1a04-b2bb-8b1881dcf629",
+    "name" : "menu_dropdown_background_color",
+    "label" : "Desktop Menu: Dropdown Background Color",
+    "required" : true,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#f0f7f7",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "d36c91d8-2231-bfc2-4b97-86a7c6a9c156",
+    "name" : "menu_dropdown_text_color",
+    "label" : "Desktop Menu: Dropdown Text Color",
+    "required" : true,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#5d6769",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "f09f94a5-3260-70f8-7ed9-a2060e3b8e92",
+    "name" : "menu_dropdown_text_hover_color",
+    "label" : "Desktop Menu: Dropdown Text Hover Color",
+    "required" : true,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#232323",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "447582cd-52d6-a3ba-e5c2-18c1aefd37ae",
+    "name" : "mobile_menu_background_color",
+    "label" : "Mobile Menu: Background Color",
+    "required" : true,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#1082c1",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "c7f7823f-ebcf-0f06-4704-baeb36d64243",
+    "name" : "mobile_menu_text_color",
+    "label" : "Mobile Menu: Text Color",
+    "required" : true,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#ffffff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "652e94ce-1949-3a37-a7c6-4627cf642932",
+    "name" : "mobile_menu_dropdown_background_color",
+    "label" : "Mobile Menu: Dropdown Background Color",
+    "required" : true,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#f0f7f7",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "8479d261-f463-744a-2488-d28a6029c9f9",
+    "name" : "mobile_menu_dropdown_text_color",
+    "label" : "Mobile Menu: Dropdown Text Color",
+    "required" : true,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#5d6769",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "749682cd-b983-e8f0-f05d-fe6bb3a90879",
+    "name" : "mobile_menu_dropdown_text_hover_color",
+    "label" : "Mobile Menu: Dropdown Text Hover Color",
+    "required" : true,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#1082c1",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "efc0f748-068d-ddcc-71cb-57c2b76982bc",
+    "name" : "subscribe_button_color",
+    "label" : "Subscribe Button Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "transparent--primary", "Primary (transparent)" ], [ "secondary", "Secondary" ], [ "transparent--secondary", "Secondary (transparent)" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "primary"
+  }, {
+    "id" : "21291f04-5f31-7770-2295-83badfa4b1cd",
+    "name" : "post_button_color",
+    "label" : "Read More Button Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "transparent--primary", "Primary (transparent)" ], [ "secondary", "Secondary" ], [ "transparent--secondary", "Secondary (transparent)" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "secondary"
+  }, {
+    "id" : "06c55956-9e34-bf1d-e33e-87defbe40830",
+    "name" : "comment_button_color",
+    "label" : "Comment Button Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "transparent--primary", "Primary (transparent)" ], [ "secondary", "Secondary" ], [ "transparent--secondary", "Secondary (transparent)" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "secondary"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "menu_text_color" : {
+      "color" : "#000000",
+      "opacity" : 100
+    },
+    "menu_dropdown_background_color" : {
+      "color" : "#f0f7f7",
+      "opacity" : 100
+    },
+    "menu_dropdown_text_color" : {
+      "color" : "#5d6769",
+      "opacity" : 100
+    },
+    "menu_dropdown_text_hover_color" : {
+      "color" : "#232323",
+      "opacity" : 100
+    },
+    "mobile_menu_background_color" : {
+      "color" : "#1082c1",
+      "opacity" : 100
+    },
+    "mobile_menu_text_color" : {
+      "color" : "#ffffff",
+      "opacity" : 100
+    },
+    "mobile_menu_dropdown_background_color" : {
+      "color" : "#f0f7f7",
+      "opacity" : 100
+    },
+    "mobile_menu_dropdown_text_color" : {
+      "color" : "#5d6769",
+      "opacity" : 100
+    },
+    "mobile_menu_dropdown_text_hover_color" : {
+      "color" : "#1082c1",
+      "opacity" : 100
+    },
+    "subscribe_button_color" : "primary",
+    "post_button_color" : "secondary",
+    "comment_button_color" : "secondary"
+  }
+} ]

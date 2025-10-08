@@ -1,0 +1,66 @@
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# IMPORT CONFIG #}
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ***************************** BASE & CUSTOM CSS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+
+.section--bloglcfeed--wrapper {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: -{{ short }};
+  margin-right: -{{ short }};
+}
+.section--bloglcfeed--item--inner {
+  padding: {{ short }};
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+.section--bloglcfeed--item--body {
+  display: flex;
+  height: 100%;
+  flex-flow: column;
+}
+.section--bloglcfeed--item--body--wrapper {
+  display: flex;
+  height: 100%;
+  flex-flow: column;
+}
+.section--bloglcfeed--item--lower {
+  margin-top: auto;
+}
+
+.section--bloglcfeed--item--tag {
+  background-color:{{ color('white') }};
+  border-radius: 15px 0px 0px 0px;
+  padding:3px 17px;
+}
+
+.section--bloglcfeed a .box-shadow.box--hover {
+  {{ transition("all .3s ease-out") }}
+}
+.section--bloglcfeed a:hover .box-shadow.box--hover {
+  {{ boxShadow(config.default_HoverBoxShadow) }}
+}
+{% call mediaQuery("palm") %}
+.section--bloglcfeed--item {
+  max-width:450px;
+  margin:0 auto;
+}
+{% endcall %}

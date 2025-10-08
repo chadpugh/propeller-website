@@ -1,0 +1,72 @@
+[ {
+  "id" : "bf635a7d-1427-8f15-d07f-892b0dcec33f",
+  "name" : "header_design",
+  "label" : "Header Design",
+  "inline_help_text" : "This option determines which design variation of your global header is used for this page. When using the Transparent option, ensure the first section of your page has a darker background on which white text would be legible. Otherwise, use the Solid option.",
+  "required" : true,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "transparent", "Transparent" ], [ "solid", "Solid" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "transparent"
+}, {
+  "id" : "4a0418cc-1720-1212-a1f5-3350b4ca3e67",
+  "name" : "hide_navigation",
+  "label" : "Hide Navigation",
+  "help_text" : "This module allows you to hide the header, footer, and mobile navigation menus. It's suggested that you remove the navigation menus on any Landing Pages that aren't in the navigation menus. If your global header has sticky functionality, enabling this input will disable the sticky functionality on this page as well.",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "48e63743-d1e7-b432-32b1-a6064f1c4bc3",
+  "name" : "disable_sticky_header",
+  "label" : "Disable Sticky Header",
+  "help_text" : "This module allows you to disable the sticky functionality of the global header on this page. This input will not affect the functionality of other sticky elements.",
+  "required" : false,
+  "locked" : true,
+  "visibility" : {
+    "controlling_field" : "4a0418cc-1720-1212-a1f5-3350b4ca3e67",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "NOT_EQUAL",
+    "access" : null
+  },
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "aff08c83-eb31-1989-9c08-7d2805b30c98",
+  "name" : "disable_hello_bar_on_this_page",
+  "label" : "Disable Hello Bar on this Page",
+  "help_text" : "You can disable the Hello Bar for specific content types within the Hello Bar's global settings which is in the global Header.",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "f5bad649-577b-fe0f-4370-10cd33394752",
+  "name" : "page_type",
+  "label" : "Page Type",
+  "help_text" : "This is used for internal organization purposes to make it easy to retroactively add global scripts or settings based on page type. You can ignore this on pages with a predetermined template, such as a blog.",
+  "required" : true,
+  "locked" : false,
+  "display" : "radio",
+  "choices" : [ [ "other", "Other" ], [ "about", "About" ], [ "casestudies--outer", "Case Studies (Outer)" ], [ "casestudies--inner", "Case Studies (Inner)" ], [ "homepage", "Homepage" ], [ "industry", "Industry" ], [ "lp", "Landing Page" ], [ "partners", "Partners" ], [ "product--outer", "Product (Outer)" ], [ "product--inner", "Product (Inner)" ], [ "resources", "Resources" ], [ "services--outer", "Services (Outer)" ], [ "services--inner", "Services (Inner)" ], [ "solutions--outer", "Solutions (Outer)" ], [ "solutions--inner", "Solutions (Inner)" ], [ "team--outer", "Team (Outer)" ], [ "team--inner", "Team (Inner)" ], [ "typ", "Thank You Page" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "other"
+} ]

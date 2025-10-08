@@ -1,0 +1,49 @@
+<!--
+  templateType: search_results_page
+  isAvailableForNewContent: true
+  label: PRO-HubUI-2022 - search results
+  screenshotPath: ../../images/template-previews/search-results.png
+-->
+{% set template_css = "/PRO-HubUI-2022/css/templates/search.css" %}
+{% extends "../layouts/base.html" %}
+
+{#
+  pageTitle is used on system templates for
+  setting a value for the title tag
+#}
+{% set pageTitle    = "Search results" %}
+{% set body_classes = "pagetype--search" %}
+
+{% block body %}
+  <section class="content-wrapper">
+    <div class="systems-page systems-page--search-results">
+      <div class="header--anchor"></div>
+      <div class="relative">
+        <span class="background">
+          <span class="background--layer" style="background:#111555;"></span>
+        </span>
+        <div class="grid relative z-index--2 basic palm-tall">
+          <div class="grid__item one-whole hard--ends text--left" style="font-size:16px;">
+            <div class="short lap-and-up-padding--trenta all--text--center all--color--white">
+              {% module_block module "module_1564415165464116" module_id=1155639, overrideable=True, path='@hubspot/rich_text', per_widget_wrapper_html='', widget_name='Rich Text', wrapping_html='', label='Rich Text' %}
+                {% module_attribute "html" %}
+                  <div class="header--rule"></div>
+                  <h1 class="hard--bottom">Search Results</h1>
+                {% end_module_attribute %}
+              {% end_module_block %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="relative">
+        <span class="background">
+          <span class="background--layer" style="background:#ffffff;"></span>
+        </span>
+        <div class="block relative z-index--5">
+          {% module "module_1653672652660105" path="/PRO-HubUI-2022/modules/_system/Search Input", label="Search Input" %}
+          {% module "module_1653672667492106" path="/PRO-HubUI-2022/modules/_system/Search Results", label="Search Results" %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock body %}

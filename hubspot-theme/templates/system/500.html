@@ -1,0 +1,39 @@
+<!--
+  templateType: error_page
+  isAvailableForNewContent: true
+  label: PRO-HubUI-2022 - 500 error
+  screenshotPath: ../../images/template-previews/500.png
+-->
+{% set template_css = "../../css/templates/system.css" %}
+{% extends "../layouts/base.html" %}
+
+{# pageTitle is used on system templates for setting a value for the title tag #}
+{% set pageTitle    = "500 - Error Loading Page" %}
+{% set body_classes = 'pagetype--fourohfour header--static' %}
+
+{% block body %}
+  <div class="header--anchor"></div>
+  <section class="content-wrapper">
+    <div class="error-page" data-error="500">
+      <div class="block relative">
+        <span class="background">
+          <span class="background--layer" style="background:#ffffff;"></span>
+        </span>
+        <div class="grid relative z-index--2 basic palm-tall">
+          <div class="grid__item one-whole short text--left" style="font-size:16px;">
+            <div class="short lap-and-up-padding--trenta all--text--center">
+              {% module_block module "module_1564415165464116" module_id=1155639, overrideable=True, path='@hubspot/rich_text', per_widget_wrapper_html='', widget_name='Rich Text', wrapping_html='', label='Rich Text' %}
+                {% module_attribute "html" %}
+                  <h1>500: Failed to Load Page</h1>
+                  <h4>We're sorry, this content is temporarily unavailable.</h4>
+                  <h4>Please try refreshing the page or waiting a few minutes.</h4>
+                {% end_module_attribute %}
+              {% end_module_block %}
+            </div>
+          </div>
+        </div>
+        <span class="clear"></span>
+      </div>
+    </div>
+  </section>
+{% endblock body %}

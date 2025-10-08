@@ -1,0 +1,73 @@
+
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ********************************* CUSTOM CSS ******************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+
+body .hs-tools-menu {
+  top:140px !important
+}
+
+.header--rule {
+  display: inline-block;
+  height: 5px;
+  width: 100px;
+  background: {{ color('primary') }};
+  margin-bottom: {{ config.short }};
+}
+.all--color--white .header--rule {
+  background: {{ color('white') }};
+}
+
+{% call mediaLoop() %}
+  .{{ media }}all--color--white .header-rule:before {
+    background:{{ color("white") }}!important;
+  }
+{% endcall %}
+
+{# LEFT-RIGHT BULLETS #}
+.section--leftright--bullets .section--leftright--bullet--icon {
+  flex: 0 0 auto;
+}
+.section--leftright--bullets .section--leftright--bullet--content {
+  flex: 1;
+}
+.section--leftright--bullets .section--leftright--bullet--item {
+  border-color: {{ color('grey') }};
+}
+.section--leftright--bullets .section--leftright--bullet--divider {
+  background-color: {{ color('midgrey') }};
+  height: 1px;
+  opacity: .3;
+}
+.all--color--white .section--leftright--bullets .section--leftright--bullet--divider {
+  background-color: {{ color('white') }};
+  height: 1px;
+  opacity: .1;
+}
+
+.h3 strong,
+h3 strong {
+  color: {{ color('purple') }}!important;
+}
+
+
+{% call mediaQuery(">tablet") %}
+.custom--padding--left {
+  padding-left: 40px;
+}
+.custom--padding--right {
+  padding-right: 40px;
+}
+{% endcall %}
+
+{% call mediaLoop() %}
+  .{{ media }}all--color--white .h3 strong,
+  .{{ media }}all--color--white h3 strong {
+    color: {{ color('purple') }}!important;
+  }
+{% endcall %}

@@ -1,0 +1,43 @@
+<!--
+  templateType: error_page
+  isAvailableForNewContent: true
+  label: PRO-HubUI-2022 - 404 error
+  screenshotPath: ../../images/template-previews/404.png
+-->
+
+{% set template_css = "/PRO-HubUI-2022/css/templates/404.css" %}
+{% extends "../layouts/base.html" %}
+
+{# pageTitle is used on system templates for setting a value for the title tag #}
+{% set pageTitle    = "404 - Page Not Found" %}
+{% set body_classes = 'pagetype--fourohfour header--static' %}
+
+{% block body %}
+  <div class="header--anchor"></div>
+  <section class="content-wrapper">
+    <div class="error-page" data-error="404">
+      <div class="block relative">
+        <span class="background">
+          <span class="background--layer" style="background:#ffffff;"></span>
+        </span>
+        <div class="grid relative z-index--2 basic palm-tall">
+          <div class="grid__item one-whole short text--left" style="font-size:16px;">
+            <div class="short lap-and-up-padding--trenta all--text--center">
+              {% module_block module "module_1564415165464116" module_id=1155639, overrideable=True, path='@hubspot/rich_text', per_widget_wrapper_html='', widget_name='Rich Text', wrapping_html='', label='Rich Text' %}
+                {% module_attribute "html" %}
+                  <h1>404: Page Not Found</h1>
+                  <h4>We're sorry, the page you are looking for is missing or has moved.</h4>
+                  <p>Please use the buttons below to return to the site or try searching for what you were looking for.</p>
+                {% end_module_attribute %}
+              {% end_module_block %}
+            </div>
+            <div class="fourohfour--menu short--bottom">
+              {% menu "four_oh_four_menu" id=55750573210, site_map_name='404 Menu', flyouts='False', max_levels='0', flow='horizontal' %}
+            </div>
+          </div>
+        </div>
+        <span class="clear"></span>
+      </div>
+    </div>
+  </section>
+{% endblock body %}

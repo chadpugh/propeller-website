@@ -1,0 +1,200 @@
+<!--
+  templateType: blog_post
+  isAvailableForNewContent: true
+  label: PRO-HubUI-2022 - blog post
+  screenshotPath: ../images/template-previews/blog-post.png
+-->
+{% set template_css = "../../css/templates/blog.css" %}
+
+{% extends "./layouts/base.html" %}
+
+{% set body_classes = 'pagetype--blog' %}
+
+{% block body %}
+  <div class="header--anchor"></div>
+  <div class="body-container body-container--blog-post">
+
+    {# Blog post #}
+
+    <div class="content-wrapper">
+      {% choice "featuredImageVerticalAlignment" label="Featured Image: Vertical Position", choices="[[\"0%\", \"Top\"], [\"25%\", \"Top-Center\"], [\"50%\", \"Center\"], [\"75%\", \"Bottom-Center\"], [\"100%\", \"Bottom\"]]", value="50%", export_to_template_context=True %}
+
+      {% if (content.post_list_summary_featured_image)&&(widget_data.bop.hide_featured_image_from_post_content) %}
+        {% set featuredImageSlug = content.post_list_summary_featured_image|split('//') %}
+        {% set featuredImageSlug = featuredImageSlug[1] %}
+        {% set featuredImageSlug = featuredImageSlug|join("/") %}
+        {% set featuredImageSlug = featuredImageSlug|split('/') %}
+        {% set featuredImageDomain = featuredImageSlug[0] %}
+        {% set featuredImageSlug = featuredImageSlug|join("/") %}
+        {% set featuredImageSlug = featuredImageSlug|replace(featuredImageDomain,"") %}
+
+        <style>
+          .bop--single--body img[src*="{{ featuredImageSlug }}"],
+          .bop--single--body img[src*="{{ featuredImageSlug|replace('/hubfs/','/hs-fs/') }}"] {display:none!important;}
+        </style>
+      {% endif %}
+
+      <script charset="utf-8" src="https://js.hscta.net/cta/current.js"></script>
+
+      <article class="bop--single">
+        <div class="grid short hard--bottom">
+          <div class="grid__item one-whole palm-eleven-twelfths hard--ends text--left">
+            {% if widget_data.bop.show_back_button %}
+              <p class="hard--top text--left font--14 bop--single--back margin--short--bottom">
+                <a href="{% if widget_data.bop.back_button_hyperlink_url.href %}{{ widget_data.bop.back_button_hyperlink_url.href }}{% else %}{{ group.absolute_url }}{% endif %}" class="no--underline">«&nbsp; View All Posts</a>
+              </p>
+            {% endif %}
+
+            {% if content.topic_list %}
+              <p class="bop--single--topics">
+                {% for topic in content.topic_list %}
+                <a class="topic-link" href="{{ group.absolute_url }}/topic/{{ topic.slug }}">{{ topic.name }}</a>{% if not loop.last %}<span class="separator"> | </span>{% endif %}
+                {% endfor %}
+              </p>
+            {% endif %}
+
+            <h1>
+              <span class="h1">
+                {{ content.name }}
+              </span>
+            </h1>
+
+            <div class="bop--single--meta--uppercontent grid__item one-whole hard">
+              <div class="grid__item one-half  palm-one-whole  valign--middle text--left hard">
+                {% set daySuffix = {"01":"1st","02":"2nd","03":"3rd","04":"4th","05":"5th","06":"6th","07":"7th","08":"8th","09":"9th","10":"10th","11":"11th","12":"12th","13":"13th","14":"14th","15":"15th","16":"16th","17":"17th","18":"18th","19":"19th","20":"20th","21":"21st","22":"22nd","23":"23rd","24":"24th","25":"25th","26":"26th","27":"27th","28":"28th","29":"29th","30":"30th","31":"31st"} %}
+                <p class="hard--ends">
+                  <span class="blog--single--meta--date">{{ content.publish_date_local_time.strftime('%B') }} {{ daySuffix[content.publish_date_local_time.strftime('%d')] }}, {{ content.publish_date_local_time.strftime('%Y') }} | {{ content.post_body|wordcount|divide(300) }} min. read</span>
+                </p>
+              </div>
+              <div class="grid__item one-half palm-one-whole valign--middle text--right palm-text--left hard palm-margin--short--top">
+                <ul class="bop--single--social">
+                  <li>Share This Article</li>
+                  <li class="share--facebook">
+                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ content.absolute_url }}" title="Share on Facebook" class="background--facebook">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                        <path fill="currentColor" d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                      </svg>
+                    </a>
+                  </li>
+                  <li class="share--twitter">
+                    <a target="_blank" href="https://twitter.com/intent/tweet?text={{ content.html_title|urlencode }}&url={{ content.absolute_url }}&via=" title="Share on Twitter" class="background--twitter">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+                    </a>
+                  </li>
+                  <li class="share--linkedin">
+                    <a target="_blank" href="https://www.linkedin.com/shareArticle?url={{ content.absolute_url }}&title={{ content.html_title|urlencode }}&summary={{ content.meta_description|urlencode }}" title="Share on Linkedin" class="background--linkedin">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+                    </a>
+                  </li>
+                  <li class="share--mail-to">
+                    <a target="_blank" href="mailto:?body={{ content.absolute_url }}" title="Share via Email" class="background--email">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z"/></svg>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            {% if content.post_list_summary_featured_image or widget_data.bop.default_featured_image.src %}
+            <div class="bop--single--featuredimage" style="background-image: url('{% if content.post_list_summary_featured_image %}{{ content.post_list_summary_featured_image }}{% else %}{{ widget_data.bop.default_featured_image.src }}{% endif %}'); background-size: cover; {% if content.post_list_summary_featured_image %}background-position:center {{ widget_data.featuredImageVerticalAlignment.value }}{% else %}background-position: center;{% endif %}; background-repeat:no-repeat">
+              {% if content.post_list_summary_featured_image %}
+                <img src="{{ content.post_list_summary_featured_image|replace("http:","")|replace("https:","") }}" alt="{{ content.name|striptags }}" style="position:absolute!important;height:0px!important;width:0px!important;overflow:hidden;" />
+              {% endif %}
+              {{ snippets.aspectSpacer("3x1") }}
+              {% if isSubscriber %}
+              {% elif (widget_data.bop.subscriber_information.subscribe_url) %}
+                <a target="_blank" class="btn btn--{{ widget_data.bop.branding.subscribe_button_color }} bop--single--subscribe portable-visuallyhidden" href="{{ widget_data.bop.subscriber_information.subscribe_url }}">Subscribe</a>
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="grid short hard--top hard--sides">
+            <div class="">
+              <div class="bop--single--wrapper">
+                <div class="section grid__item ten-twelfths palm-eleven-twelfths hard--bottom short--top palm-eleven-twelfths lap-and-up-left tablet-left">
+                  <div class="bop--single--author-social table all--valign--top text--left">
+                    <div class="bop--single--author--avatar table-cell">
+                      {% if content.blog_post_author.avatar %}
+                        <a class="bop--single--meta--avatar" href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}" title="{{ content.blog_post_author.display_name }}" style="background-image:url('{{ content.blog_post_author.avatar }}');"></a>
+                        <img src="{{ content.blog_post_author.avatar }}" class="featured--print--author--image" alt="{{ content.blog_post_author.display_name }}" title="{{ content.blog_post_author.display_name }}" >
+                      {% endif %}
+                    </div>
+                    <div class="post-single--blog--author-details table-cell">
+                      <p class="hard--ends" data-hubspot-form-id="author_data" data-hubspot-name="Blog Author">
+                        <a class="bop--single--meta--author no--underline" href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}">{{ content.blog_post_author.display_name }}</a>
+                      </p>
+                      {% if content.blog_post_author.bio %}
+                        <p class="post-single--blog--author-bio hard--ends">{{ content.blog_post_author.bio }}</p>
+                      {% endif %}
+                      {% if content.blog_post_author.has_social_profiles %}
+                        <ul class="bop--single--author--social no--bullets hard">
+                          {% if content.blog_post_author.facebook %}
+                            <li>
+                              <a href="{{ content.blog_post_author.facebook }}" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+                              </a>
+                            </li>
+                          {% endif %}
+                          {% if content.blog_post_author.linkedin %}
+                            <li>
+                              <a href="{{ content.blog_post_author.linkedin }}" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+                              </a>
+                            </li>
+                          {% endif %}
+                          {% if content.blog_post_author.twitter %}
+                            <li>
+                              <a href="{{ content.blog_post_author.twitter }}" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+                              </a>
+                            </li>
+                          {% endif %}
+                          {% if content.blog_post_author.email %}
+                            <li>
+                              <a href="mailto:{{ content.blog_post_author.email }}" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z"/></svg>
+                              </a>
+                            </li>
+                          {% endif %}
+                        </ul>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="clear"></div>
+
+                <div class="section grid__item ten-twelfths hard--top lap-and-up-padding--short palm-eleven-twelfths grande--bottom portable-short--bottom bop--single--body text--left">
+                  <p class="bop--single--meta--print portable-visuallyhidden"><a href="javascript:window.print()" class="post-print"><i class="fa fa-print relative" aria-hidden="true"></i> Print/Save as PDF</a></p>
+                  {% if content.post_body %}
+                    {{ content.post_body }}
+                  {% endif %}
+                </div>
+              </div>
+
+              {% if group.allow_comments %}
+                <div class="bop--single--comments text--center">
+                  <div class="grid__item ten-twelfths hard--top lap-and-up-padding--short palm-eleven-twelfths tall--bottom short--top all--btn all--btn--{{ widget_data.bop.branding.comment_button_color }} text--left">
+                    {% blog_comments "blog_comments" overrideable=False, label='Blog Comments', title='', no_title=True %}
+                  </div>
+                </div>
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <script>
+        /* Social Sharing - Adding the author twitter handle using the Author Twitter URL*/
+        $(document).ready(function() {
+          $('.bop--single--author--social').find('li.background--twitter a').each(function () {
+            var checkTwitter = $(this).attr("href").split(".com/")[1];
+            $('.bop--single--social li.background--twitter a').attr("href", $('.bop--single--social li.background--twitter a').attr("href") + checkTwitter);
+          });
+
+        });
+      </script>
+    </div>
+</div>
+{% endblock body %}

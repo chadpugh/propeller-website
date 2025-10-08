@@ -1,0 +1,89 @@
+
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+
+{# ******************** DEVELOPER NOTES ******************** #}
+{#
+
+  Write your custom notes here ...
+
+#}
+
+{# ************************************************************************** #}
+{# ************************************************************************** #}
+{# ******************** DO NOT EDIT CODE BELOW THIS LINE ******************** #}
+{# ************************************************************************** #}
+{# ************************************************************************** #}
+
+{#
+Production™ Framework © 2022 IMPACT Branding & Design LLC. ALL RIGHTS RESERVED.
+IMPACT Branding & Design LLC grants you a nonexclusive, nontransferable, limited right to access and use this
+installation of Production™ Framework. By using this installation of Production™ Framework, you agree not
+to modify, reverse engineer, disassemble, or decompile the Production™ Framework or any portion thereof.
+Any unauthorized copying, reproduction, republishing, uploading, posting, distribution, transmission, display
+or other use of this material without the express written permission of IMPACT Branding & Design is prohibited.
+#}
+
+{# ******************** VERSION ******************** #}
+
+{# Production™ Framework v4.001 #}
+
+{#
+  MODIFIED = FALSE
+
+  If the variable MODIFIED above is FALSE it means the framework core has not been modified and is able to be updated without issue.
+  Update the value of MODIFIED to TRUE once the framework core has been modified to ensure your changes are not overwritten.
+  Please leave a comment about what modifications were made in the DEVELOPER NOTES area above to keep track of all changes.
+  When updating the framework core always check the variable MODIFIED and DEVELOPER NOTES to confirm the core can be updated without issue.
+
+  Please note that there is a separate MODIFIED variable and DEVELOPER NOTES for each of the files in /assets/.
+#}
+
+{# ******************** FUNCTIONS ******************** #}
+
+{# ***** Mixin for individual color ***** #}
+{% macro color(name) -%}{% if name == 'primary' %}{% set name = config.color_Primary %}{% elif name == 'secondary' %}{% set name = config.color_Secondary %}{% endif %}{% for key,value in config.color_List.items() %}{% if name == key %}{{ value }}{% endif %}{% endfor %}{% for key,value in config.social_List.items() %}{% if name == key %}{{ value }}{% endif %}{% endfor %}{%- endmacro %}
+
+{# ***** Loop for generating colors ***** #}
+{% macro colorLoop() -%}{% set color = "" %}{% set name = "" %}{% for key,value in config.color_List.items() %}{% set color = value %}{% set name = key %}{{ caller() }}{% endfor %}{% set color = "" %}{% set name = "" %}{%- endmacro %}
+{% macro btnColorLoop() -%}{% set color = "" %}{% set name = "" %}{% for key,value in config.btnColor_List.items() %}{% set color = value %}{% set name = key %}{{ caller() }}{% endfor %}{% set color = "" %}{% set name = "" %}{%- endmacro %}
+
+{# ***** Loop for generating social colors ***** #}
+{% macro socialLoop() -%}{% set color = "" %}{% set name = "" %}{% for key,value in config.social_List.items() %}{% set color = value %}{% set name = key %}{{ caller() }}{% endfor %}{% set color = "" %}{% set name = "" %}{%- endmacro %}
+
+{# ***** Darken or lighten HEX, RGB, or RGBA colors ***** #}
+{% macro colorShade(color,percent) -%}{% if percent %}{% set percent = percent|replace("%","")|float %}{% else %}{% if config.btn_HoverShadingPercent %}{% set percent = config.btn_HoverShadingPercent|replace("%","")|float %}{% else %}{% set percent = 10 %}{% endif %}{% endif %}{% set percent = percent|float/100 + 1 %}{% macro colorNumberAdjust(number,multiplier) -%}{% set number = number|int %}{% set number = (number * multiplier)|round %}{% if number > 255 %}{% set number = 255 %}{% endif %}{% if number < 0 %}{% set number = 0 %}{% endif %}{{ number }}{%- endmacro %}{% set colorPrefix = "rgb" %}{% if "#" in color %}{% set colorData = color|convert_rgb %}{% elif "rgba" in color %}{% set colorPrefix = "rgb" %}{% set colorData = color|replace("rgb","")|replace("(","")|replace(")","") %}{% elif "rgb" in color %}{% set colorData = color|replace("rgb","")|replace("(","")|replace(")","") %}{% else %}{% set colorData = "0,0,0" %}{% endif %}{% set colorDataSplit = colorData|split(",") %}{% if colorDataSplit|length == 4 %}{% set colorDataUpdated = [colorNumberAdjust(colorDataSplit[0],percent),colorNumberAdjust(colorDataSplit[1],percent),colorNumberAdjust(colorDataSplit[2],percent),colorDataSplit[3]]  %}{% else %}{% set colorDataUpdated = [colorNumberAdjust(colorDataSplit[0],percent),colorNumberAdjust(colorDataSplit[1],percent),colorNumberAdjust(colorDataSplit[2],percent)]  %}{% endif %}{{ colorPrefix }}({{ colorDataUpdated|join(", ") }}){%- endmacro %}
+
+{# ***** Loop for returning the fonts list. ***** #}
+{% macro font(name) -%}{% for key,value in config.font_List.items() %}{% if name == key %}{{ value }}{% endif %}{% endfor %}{%- endmacro %}
+
+{# ***** Mixin for individual Media Query ***** #}
+{% macro mediaMin(name) -%}{% for key,value in config.media_List.items() %}{% if name|replace("<","")|replace(">","") == key %}{% if config.media_List[name][1] %}(min-width: {{ config.media_List[name][1] }}px){% endif %}{% endif %}{% endfor %}{%- endmacro %}
+{% macro mediaMax(name) -%}{% for key,value in config.media_List.items() %}{% if name|replace("<","")|replace(">","") == key %}{% if config.media_List[name][0] %}(max-width: {{ config.media_List[name][0] }}px){% endif %}{% endif %}{% endfor %}{%- endmacro %}
+{% macro mediaQuery(name) -%}{{ ('@media {% if (name|list|first != "<") %}{{ mediaMin(name|replace("<","")|replace(">","")) }}{% endif %} {% if mediaMin(name|replace("<","")|replace(">","")) && mediaMax(name|replace("<","")|replace(">","")) && (name|list|first != "<") && (name|list|first != ">") %}and{% endif %} {% if (name|list|first != ">") %}{{ mediaMax(name|replace("<","")|replace(">","")) }}{% endif %} {') if (name|replace("<","")|replace(">","") != "default") }}{{ caller() }}{{ '}' if (name|replace("<","")|replace(">","") != "default") }}{%- endmacro %}
+
+{# ***** Loop for generating Media Queries ***** #}
+{% macro mediaLoop() -%}{% set important = "" %}{% set media = "" %}{% for key,value in config.media_List.items() %}{{ '@media {{ mediaMin(key) }}{% if mediaMin(key) && mediaMax(key) %} and {% endif %}{{ mediaMax(key) }} {' if (key != "default") }}{% if key != "default" %}{% set important = "!important" %}{% endif %}{% set media = (key!="default"?key+"-":"") %}{{ caller() }}{{ '}' if (key != "default") }}
+{% endfor %}{% set important = "" %}{% set media = "" %}{%- endmacro %}
+
+{# ***** Strip letters from string ***** #}
+{% macro parseInt(value) -%}{{ value|replace("e","")|replace("m","")|replace("p","")|replace("x","")|int }}{%- endmacro %}
+{% macro parseFloat(value) -%}{{ value|replace("e","")|replace("m","")|replace("p","")|replace("x","")|float }}{%- endmacro %}
+
+{# ***** Function for converting grid integer to corresponding word ***** #}
+{% set gridNumConversion = ["one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve"] %}
+{% macro gridNumToString(value) -%}{{ gridNumConversion[(value|int-1)] }}{%- endmacro %}
+
+{# ***** Button Mixin ***** #}
+{% macro button(selector,suffix) -%}.{{ media }}btn{{ (selector?"--":"") }}{{ selector }}{{ suffix }}, .{{ media }}all--btn{{ (selector?"--":"") }}{{ selector }} .hs-cta-wrapper a{{ suffix }}, .{{ media }}all--btn{{ (selector?"--":"") }}{{ selector }} form.hs-form .hs_submit input.hs-button{{ suffix }} { {{ caller() }} }{%- endmacro %}
+
+{# ***** Transition Mixin ***** #}
+{% macro transition(value) -%}-webkit-transition: {{ value }};-moz-transition: {{ value }};-ms-transition: {{ value }};-o-transition: {{ value }};transition: {{ value }};{%- endmacro %}
+
+{# ***** Box Sizing Mixin ***** #}
+{% macro boxSizing(value) -%}-moz-box-sizing:{{ value }};-webkit-box-sizing:{{ value }};box-sizing:{{ value }};{%- endmacro %}
+
+{# ***** Box Shadow Mixin ***** #}
+{% macro boxShadow(value) -%}-moz-box-shadow:{{ value }};-webkit-box-shadow:{{ value }};box-shadow:{{ value }};{%- endmacro %}
+
+{# ***** Text Shadow Mixin ***** #}
+{% macro textShadow(value) -%}-moz-text-shadow:{{ value }};-webkit-text-shadow:{{ value }};text-shadow:{{ value }};{%- endmacro %}

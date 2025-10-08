@@ -1,0 +1,960 @@
+[ {
+  "id" : "adc8e806-219d-abe7-f137-b73f0b649929",
+  "name" : "hide_footer_top",
+  "label" : "Hide Footer (Top)",
+  "inline_help_text" : "Toggle this \"On\" to hide the top of the footer. The copyright bar and its contents will still be displayed.",
+  "required" : false,
+  "locked" : true,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "8ed37161-1f9a-6403-9132-84e5ce041061",
+  "name" : "quicklinks_menu_columns",
+  "label" : "Quicklinks Menu Column(s)",
+  "required" : false,
+  "locked" : true,
+  "occurrence" : {
+    "min" : 0,
+    "max" : 4,
+    "sorting_label_field" : "db07ae8d-082a-0da5-9397-55954bd6fbad",
+    "default" : 4
+  },
+  "children" : [ {
+    "id" : "8bd32a94-a0d8-1719-9dbb-2995dc45ef10",
+    "name" : "column_span",
+    "label" : "Column Span (Desktop)",
+    "help_text" : "This input allows you to control the number of columns each Content Group within this column should span. This will also affect how many columns are used for all menus in this column. Rich Text content is not affected. This does not affect the mobile version of your footer.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "1", "1" ], [ "2", "2" ], [ "3", "3" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "1"
+  }, {
+    "id" : "db07ae8d-082a-0da5-9397-55954bd6fbad",
+    "name" : "column_content_group",
+    "label" : "Column Content Group",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 1,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : 1
+    },
+    "children" : [ {
+      "id" : "967833f7-1604-a245-a6fa-5be86c7a2643",
+      "name" : "group_header_label",
+      "label" : "Group Header / Label",
+      "inline_help_text" : "If this group contains a menu, this input is required.",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : ""
+    }, {
+      "id" : "d0b9de0f-7eef-1346-4373-2d4b7633cc26",
+      "name" : "group_header_label_link",
+      "label" : "Group Header / Label: Link",
+      "required" : false,
+      "locked" : false,
+      "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+      "show_advanced_rel_options" : false,
+      "type" : "link",
+      "display_width" : null,
+      "default" : {
+        "url" : {
+          "content_id" : null,
+          "type" : "EXTERNAL",
+          "href" : ""
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      }
+    }, {
+      "id" : "ca80b63d-c2a1-ae0d-4f07-1176b9d66569",
+      "name" : "group_header_label_link_title_attribute",
+      "label" : "Group Header / Label: Link Title Attribute",
+      "inline_help_text" : "Link title attribute gives additional information about the page being linked to.",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "d0b9de0f-7eef-1346-4373-2d4b7633cc26",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : null,
+        "property" : null,
+        "operator" : "NOT_EMPTY",
+        "access" : null
+      },
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Link Text"
+    }, {
+      "id" : "ae1d030b-1d22-6fb6-5b94-84a468b6c443",
+      "name" : "disable_mobile_accordion",
+      "label" : "Disable Mobile Accordion",
+      "inline_help_text" : "check this box if you wish to disable the accordion functionality on mobile.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "a9dd6c7a-ed8a-5fcf-63c6-1fce7ba77ca6",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "links",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "16496f83-e63c-1b21-9887-45e852a0d60e",
+      "name" : "social_group_content",
+      "label" : "Social Group Content?",
+      "inline_help_text" : "check this box if this content type contains social content.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "a9dd6c7a-ed8a-5fcf-63c6-1fce7ba77ca6",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "links",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "a9dd6c7a-ed8a-5fcf-63c6-1fce7ba77ca6",
+      "name" : "content_type",
+      "label" : "Content Type",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "menu", "Menu" ], [ "richtext", "Rich Text" ], [ "links", "Custom Links with Icons" ], [ "logo", "Logo" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "richtext"
+    }, {
+      "id" : "05121572-2efd-8b17-d58a-97e7a12788ab",
+      "name" : "menu",
+      "label" : "Menu",
+      "help_text" : "This menu will only display top-level links.",
+      "required" : true,
+      "locked" : true,
+      "visibility" : {
+        "controlling_field" : "a9dd6c7a-ed8a-5fcf-63c6-1fce7ba77ca6",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "menu",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "menu",
+      "display_width" : null,
+      "default" : 23989121608
+    }, {
+      "id" : "90a71a50-7b4d-14be-85e7-adbf98b2c383",
+      "name" : "richtext",
+      "label" : "Rich Text",
+      "required" : false,
+      "locked" : false,
+      "occurrence" : {
+        "min" : null,
+        "max" : null,
+        "sorting_label_field" : null,
+        "default" : 1
+      },
+      "visibility" : {
+        "controlling_field" : "a9dd6c7a-ed8a-5fcf-63c6-1fce7ba77ca6",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "richtext",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "12d5f38d-f63a-8847-bbaa-cf4dcfd72f9d",
+        "name" : "icon_code",
+        "label" : "Icon",
+        "required" : false,
+        "locked" : false,
+        "icon_set" : "fontawesome-5.14.0",
+        "type" : "icon",
+        "display_width" : null,
+        "default" : {
+          "name" : "angle-right",
+          "unicode" : "f105",
+          "type" : "SOLID"
+        }
+      }, {
+        "id" : "b58c1895-aa94-5c1c-5346-d422c153d2d2",
+        "name" : "text_content",
+        "label" : "Text Content",
+        "required" : false,
+        "locked" : false,
+        "type" : "richtext",
+        "display_width" : null,
+        "default" : "<p>470 James St</p>\n<p>Suite 10</p>\n<p>New Haven, CT 06513</p>\n<p>Phone: <a href=\"tel:12032654377\">(203) 265-4377</a></p>\n<p>Email: <a href=\"mailto:contact@impactbnd.com\">contact@impactbnd.com</a></p>"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : [ {
+        "icon_code" : {
+          "name" : "angle-right",
+          "unicode" : "f105",
+          "type" : "SOLID"
+        },
+        "text_content" : "<p>470 James St</p>\n<p>Suite 10</p>\n<p>New Haven, CT 06513</p>\n<p>Phone: <a href=\"tel:12032654377\">(203) 265-4377</a></p>\n<p>Email: <a href=\"mailto:contact@impactbnd.com\">contact@impactbnd.com</a></p>"
+      } ]
+    }, {
+      "id" : "df56f400-6208-3583-b1ae-c2c5397822bf",
+      "name" : "links",
+      "label" : "Custom Links with Icons",
+      "required" : false,
+      "locked" : false,
+      "occurrence" : {
+        "min" : null,
+        "max" : null,
+        "sorting_label_field" : null,
+        "default" : null
+      },
+      "visibility" : {
+        "controlling_field" : "a9dd6c7a-ed8a-5fcf-63c6-1fce7ba77ca6",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "links",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "b085c7f1-aea0-474a-8e23-5f7f385404b7",
+        "name" : "icon_code",
+        "label" : "Icon",
+        "required" : true,
+        "locked" : false,
+        "icon_set" : "fontawesome-5.14.0",
+        "type" : "icon",
+        "display_width" : null,
+        "default" : {
+          "name" : "angle-right",
+          "unicode" : "f105",
+          "type" : "SOLID"
+        }
+      }, {
+        "id" : "bc3ecb3f-f0a4-04a8-1d41-43c56c2f255f",
+        "name" : "link",
+        "label" : "Link",
+        "required" : true,
+        "locked" : false,
+        "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+        "show_advanced_rel_options" : false,
+        "type" : "link",
+        "display_width" : null,
+        "default" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "https://www.propellervc.com",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "id" : "cc932860-3296-827e-b41a-037af80f0613",
+        "name" : "link_text",
+        "label" : "Link: Text",
+        "required" : true,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "Link Text"
+      }, {
+        "id" : "6a1e34a8-718c-5a4a-23c5-805fe2ab191c",
+        "name" : "link_title_attribute",
+        "label" : "Link: Title Attribute",
+        "inline_help_text" : "Link title attribute gives additional information about the page being linked to.",
+        "required" : true,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "Link Title Attribute"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "icon_code" : {
+          "name" : "angle-right",
+          "unicode" : "f105",
+          "type" : "SOLID"
+        },
+        "link" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "https://www.propellervc.com",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        },
+        "link_text" : "Link Text",
+        "link_title_attribute" : "Link Title Attribute"
+      }
+    }, {
+      "id" : "0a40bfb1-f4c9-c161-2a3c-0a16650f5256",
+      "name" : "logo",
+      "label" : "Logo",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "a9dd6c7a-ed8a-5fcf-63c6-1fce7ba77ca6",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "logo",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "c9bc7c72-fb38-add0-ee8d-7b206e16b176",
+        "name" : "logo_png",
+        "label" : "Logo (PNG)",
+        "help_text" : "Add both a PNG and SVG version of your logo. The SVG will be used when the browser supports it, otherwise the PNG is used as a fallback. For consistency, ensure both logos are visually identical.",
+        "required" : true,
+        "locked" : true,
+        "responsive" : true,
+        "resizable" : true,
+        "show_loading" : false,
+        "type" : "image",
+        "display_width" : null,
+        "default" : {
+          "src" : "https://cdn2.hubspot.net/hubfs/298890/assets/images/logo.png",
+          "alt" : "logo",
+          "width" : 190,
+          "height" : 40
+        }
+      }, {
+        "id" : "f64b7bce-c234-20f7-18b0-a349ebb3fc17",
+        "name" : "logo",
+        "label" : "Logo (SVG)",
+        "help_text" : "Add both a PNG and SVG version of your logo. The SVG will be used when the browser supports it, otherwise the PNG is used as a fallback. For consistency, ensure both logos are visually identical.",
+        "required" : false,
+        "locked" : true,
+        "responsive" : false,
+        "resizable" : true,
+        "show_loading" : false,
+        "type" : "image",
+        "display_width" : null,
+        "default" : {
+          "size_type" : "exact"
+        }
+      }, {
+        "id" : "8a39d0e7-a3c0-28a9-b7c9-6cf4ae7e79ba",
+        "name" : "logo_hyperlink_url",
+        "label" : "Logo: Hyperlink URL",
+        "required" : false,
+        "locked" : false,
+        "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+        "show_advanced_rel_options" : false,
+        "type" : "link",
+        "display_width" : null,
+        "default" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "https://www.propellervc.com",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "logo_png" : {
+          "src" : "https://cdn2.hubspot.net/hubfs/298890/assets/images/logo.png",
+          "alt" : "logo",
+          "width" : 190,
+          "height" : 40
+        },
+        "logo" : {
+          "size_type" : "exact"
+        },
+        "logo_hyperlink_url" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "https://www.propellervc.com",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ {
+      "group_header_label" : "",
+      "group_header_label_link" : {
+        "url" : {
+          "content_id" : null,
+          "type" : "EXTERNAL",
+          "href" : ""
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      },
+      "group_header_label_link_title_attribute" : "Link Text",
+      "disable_mobile_accordion" : false,
+      "social_group_content" : false,
+      "content_type" : "richtext",
+      "menu" : 23989121608,
+      "richtext" : [ {
+        "icon_code" : {
+          "name" : "angle-right",
+          "unicode" : "f105",
+          "type" : "SOLID"
+        },
+        "text_content" : "<p>470 James St</p>\n<p>Suite 10</p>\n<p>New Haven, CT 06513</p>\n<p>Phone: <a href=\"tel:12032654377\">(203) 265-4377</a></p>\n<p>Email: <a href=\"mailto:contact@impactbnd.com\">contact@impactbnd.com</a></p>"
+      } ],
+      "links" : {
+        "icon_code" : {
+          "name" : "angle-right",
+          "unicode" : "f105",
+          "type" : "SOLID"
+        },
+        "link" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "https://www.propellervc.com",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        },
+        "link_text" : "Link Text",
+        "link_title_attribute" : "Link Title Attribute"
+      },
+      "logo" : {
+        "logo_png" : {
+          "src" : "https://cdn2.hubspot.net/hubfs/298890/assets/images/logo.png",
+          "alt" : "logo",
+          "width" : 190,
+          "height" : 40
+        },
+        "logo" : {
+          "size_type" : "exact"
+        },
+        "logo_hyperlink_url" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "https://www.propellervc.com",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }
+    } ]
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "column_span" : "1",
+    "column_content_group" : [ {
+      "group_header_label" : "",
+      "group_header_label_link" : {
+        "url" : {
+          "content_id" : null,
+          "type" : "EXTERNAL",
+          "href" : ""
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      },
+      "group_header_label_link_title_attribute" : "Link Text",
+      "disable_mobile_accordion" : false,
+      "social_group_content" : false,
+      "content_type" : "richtext",
+      "menu" : 23989121608,
+      "richtext" : [ {
+        "icon_code" : {
+          "name" : "angle-right",
+          "unicode" : "f105",
+          "type" : "SOLID"
+        },
+        "text_content" : "<p>470 James St</p>\n<p>Suite 10</p>\n<p>New Haven, CT 06513</p>\n<p>Phone: <a href=\"tel:12032654377\">(203) 265-4377</a></p>\n<p>Email: <a href=\"mailto:contact@impactbnd.com\">contact@impactbnd.com</a></p>"
+      } ],
+      "links" : {
+        "icon_code" : {
+          "name" : "angle-right",
+          "unicode" : "f105",
+          "type" : "SOLID"
+        },
+        "link" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "https://www.propellervc.com",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        },
+        "link_text" : "Link Text",
+        "link_title_attribute" : "Link Title Attribute"
+      },
+      "logo" : {
+        "logo_png" : {
+          "src" : "https://cdn2.hubspot.net/hubfs/298890/assets/images/logo.png",
+          "alt" : "logo",
+          "width" : 190,
+          "height" : 40
+        },
+        "logo" : {
+          "size_type" : "exact"
+        },
+        "logo_hyperlink_url" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "https://www.propellervc.com",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }
+    } ]
+  }, {
+    "column_span" : "1",
+    "column_content_group" : [ {
+      "group_header_label" : "",
+      "group_header_label_link" : {
+        "url" : {
+          "content_id" : null,
+          "type" : "EXTERNAL",
+          "href" : ""
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      },
+      "group_header_label_link_title_attribute" : "Link Text",
+      "disable_mobile_accordion" : false,
+      "social_group_content" : false,
+      "content_type" : "richtext",
+      "menu" : 23989121608,
+      "richtext" : [ {
+        "icon_code" : {
+          "name" : "angle-right",
+          "unicode" : "f105",
+          "type" : "SOLID"
+        },
+        "text_content" : "<p>470 James St</p>\n<p>Suite 10</p>\n<p>New Haven, CT 06513</p>\n<p>Phone: <a href=\"tel:12032654377\">(203) 265-4377</a></p>\n<p>Email: <a href=\"mailto:contact@impactbnd.com\">contact@impactbnd.com</a></p>"
+      } ],
+      "links" : {
+        "icon_code" : {
+          "name" : "angle-right",
+          "unicode" : "f105",
+          "type" : "SOLID"
+        },
+        "link" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "https://www.propellervc.com",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        },
+        "link_text" : "Link Text",
+        "link_title_attribute" : "Link Title Attribute"
+      },
+      "logo" : {
+        "logo_png" : {
+          "src" : "https://cdn2.hubspot.net/hubfs/298890/assets/images/logo.png",
+          "alt" : "logo",
+          "width" : 190,
+          "height" : 40
+        },
+        "logo" : {
+          "size_type" : "exact"
+        },
+        "logo_hyperlink_url" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "https://www.propellervc.com",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }
+    } ]
+  }, {
+    "column_span" : "1",
+    "column_content_group" : [ {
+      "group_header_label" : "",
+      "group_header_label_link" : {
+        "url" : {
+          "content_id" : null,
+          "type" : "EXTERNAL",
+          "href" : ""
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      },
+      "group_header_label_link_title_attribute" : "Link Text",
+      "disable_mobile_accordion" : false,
+      "social_group_content" : false,
+      "content_type" : "richtext",
+      "menu" : 23989121608,
+      "richtext" : [ {
+        "icon_code" : {
+          "name" : "angle-right",
+          "unicode" : "f105",
+          "type" : "SOLID"
+        },
+        "text_content" : "<p>470 James St</p>\n<p>Suite 10</p>\n<p>New Haven, CT 06513</p>\n<p>Phone: <a href=\"tel:12032654377\">(203) 265-4377</a></p>\n<p>Email: <a href=\"mailto:contact@impactbnd.com\">contact@impactbnd.com</a></p>"
+      } ],
+      "links" : {
+        "icon_code" : {
+          "name" : "angle-right",
+          "unicode" : "f105",
+          "type" : "SOLID"
+        },
+        "link" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "https://www.propellervc.com",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        },
+        "link_text" : "Link Text",
+        "link_title_attribute" : "Link Title Attribute"
+      },
+      "logo" : {
+        "logo_png" : {
+          "src" : "https://cdn2.hubspot.net/hubfs/298890/assets/images/logo.png",
+          "alt" : "logo",
+          "width" : 190,
+          "height" : 40
+        },
+        "logo" : {
+          "size_type" : "exact"
+        },
+        "logo_hyperlink_url" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "https://www.propellervc.com",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }
+    } ]
+  }, {
+    "column_span" : "1",
+    "column_content_group" : [ {
+      "group_header_label" : "",
+      "group_header_label_link" : {
+        "url" : {
+          "content_id" : null,
+          "type" : "EXTERNAL",
+          "href" : ""
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      },
+      "group_header_label_link_title_attribute" : "Link Text",
+      "disable_mobile_accordion" : false,
+      "social_group_content" : false,
+      "content_type" : "richtext",
+      "menu" : 23989121608,
+      "richtext" : [ {
+        "icon_code" : {
+          "name" : "angle-right",
+          "unicode" : "f105",
+          "type" : "SOLID"
+        },
+        "text_content" : "<p>470 James St</p>\n<p>Suite 10</p>\n<p>New Haven, CT 06513</p>\n<p>Phone: <a href=\"tel:12032654377\">(203) 265-4377</a></p>\n<p>Email: <a href=\"mailto:contact@impactbnd.com\">contact@impactbnd.com</a></p>"
+      } ],
+      "links" : {
+        "icon_code" : {
+          "name" : "angle-right",
+          "unicode" : "f105",
+          "type" : "SOLID"
+        },
+        "link" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "https://www.propellervc.com",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        },
+        "link_text" : "Link Text",
+        "link_title_attribute" : "Link Title Attribute"
+      },
+      "logo" : {
+        "logo_png" : {
+          "src" : "https://cdn2.hubspot.net/hubfs/298890/assets/images/logo.png",
+          "alt" : "logo",
+          "width" : 190,
+          "height" : 40
+        },
+        "logo" : {
+          "size_type" : "exact"
+        },
+        "logo_hyperlink_url" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "https://www.propellervc.com",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }
+    } ]
+  } ]
+}, {
+  "id" : "87040893-3a96-6bad-20be-4350dc526066",
+  "name" : "show_review",
+  "label" : "Show Review",
+  "required" : false,
+  "locked" : true,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "4f62eca5-f0cb-d790-9e6b-0db6ab05af86",
+  "name" : "review",
+  "label" : "Review",
+  "required" : false,
+  "locked" : true,
+  "visibility" : {
+    "controlling_field" : "87040893-3a96-6bad-20be-4350dc526066",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "children" : [ {
+    "id" : "73acdaba-5933-6c82-eb51-6bd5bd19b0fb",
+    "name" : "review",
+    "label" : "Review",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  }, {
+    "id" : "c732f7cf-c0b3-ba85-20e4-5ec5d33bde8a",
+    "name" : "review_byline",
+    "label" : "Review Byline",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+}, {
+  "id" : "ac0e26bf-6af4-391a-6287-34cc3972d203",
+  "name" : "legal_links",
+  "label" : "Legal Links (Line 1)",
+  "required" : false,
+  "locked" : true,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : "5ead2276-2e68-c741-719e-0e264d3c52fe",
+    "default" : 1
+  },
+  "children" : [ {
+    "id" : "5ead2276-2e68-c741-719e-0e264d3c52fe",
+    "name" : "link_text",
+    "label" : "Link: Text",
+    "required" : true,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Privacy Policy"
+  }, {
+    "id" : "a6030cb5-e1ba-521b-2a5c-f6a649ead4d5",
+    "name" : "link",
+    "label" : "Link",
+    "required" : true,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "type" : "EXTERNAL",
+        "href" : "https://www.propellervc.com",
+        "content_id" : null
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "38dcda0f-7faa-1e84-a959-5156f40fefaf",
+    "name" : "link_title_attribute",
+    "label" : "Link: Title Attribute",
+    "inline_help_text" : "Link title attribute gives additional information about the page being linked to.",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "link_text" : "Privacy Policy",
+    "link" : {
+      "url" : {
+        "type" : "EXTERNAL",
+        "href" : "https://www.propellervc.com",
+        "content_id" : null
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    }
+  } ]
+}, {
+  "id" : "65369768-eb93-6499-9726-eb0ee556229a",
+  "name" : "legal_links_line_2",
+  "label" : "Legal Links (Line 2)",
+  "required" : false,
+  "locked" : true,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : "5ead2276-2e68-c741-719e-0e264d3c52fe",
+    "default" : 1
+  },
+  "children" : [ {
+    "id" : "19797d9d-619b-f389-9989-c45b3fbbe3f3",
+    "name" : "link_text",
+    "label" : "Link: Text",
+    "required" : true,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Privacy Policy"
+  }, {
+    "id" : "4415d1dc-d29c-5191-4362-528d76e07b44",
+    "name" : "link",
+    "label" : "Link",
+    "required" : true,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "type" : "EXTERNAL",
+        "href" : "https://www.propellervc.com",
+        "content_id" : null
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "7bef76c7-4558-ae84-ac3b-d07f13d4e222",
+    "name" : "link_title_attribute",
+    "label" : "Link: Title Attribute",
+    "inline_help_text" : "Link title attribute gives additional information about the page being linked to.",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "link_text" : "Privacy Policy",
+    "link" : {
+      "url" : {
+        "type" : "EXTERNAL",
+        "href" : "https://www.propellervc.com",
+        "content_id" : null
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    }
+  } ]
+}, {
+  "id" : "94534242-c528-a9fb-45a5-ddfc3600e51a",
+  "name" : "company_name",
+  "label" : "Company Name",
+  "inline_help_text" : "Enter the company name which should be displayed next to the copyright. Leave this blank to use your HubSpot portal's company name.",
+  "required" : false,
+  "locked" : true,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null
+}, {
+  "id" : "09b0656d-0ac8-00e2-963e-924f3c5a7233",
+  "name" : "company_location",
+  "label" : "Company Location",
+  "inline_help_text" : "",
+  "required" : false,
+  "locked" : true,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null
+} ]

@@ -1,0 +1,248 @@
+
+{% import '../tools/_config.css' as config %}
+
+{# ******************** DEVELOPER NOTES ******************** #}
+{#
+
+  Write your custom notes here ...
+
+#}
+
+{# ************************************************************************** #}
+{# ************************************************************************** #}
+{# ******************** DO NOT EDIT CODE BELOW THIS LINE ******************** #}
+{# ************************************************************************** #}
+{# ************************************************************************** #}
+
+{#
+Production™ Framework © 2020 IMPACT Branding & Design LLC. ALL RIGHTS RESERVED.
+IMPACT Branding & Design LLC grants you a nonexclusive, nontransferable, limited right to access and use this
+installation of Production™ Framework. By using this installation of Production™ Framework, you agree not
+to modify, reverse engineer, disassemble, or decompile the Production™ Framework or any portion thereof.
+Any unauthorized copying, reproduction, republishing, uploading, posting, distribution, transmission, display
+or other use of this material without the express written permission of IMPACT Branding & Design is prohibited.
+#}
+
+{# ******************** VERSION ******************** #}
+
+{# Production™ Framework v3.424 #}
+
+{#
+  MODIFIED = FALSE
+
+  If the variable MODIFIED above is FALSE it means the framework core has not been modified and is able to be updated without issue.
+  Update the value of MODIFIED to TRUE once the framework core has been modified to ensure your changes are not overwritten.
+  Please leave a comment about what modifications were made in the DEVELOPER NOTES area above to keep track of all changes.
+  When updating the framework core always check the variable MODIFIED and DEVELOPER NOTES to confirm the core can be updated without issue.
+
+  Please note that there is a separate MODIFIED variable and DEVELOPER NOTES for each of the files in /assets/.
+#}
+
+{# ******************** PATHS ******************** #}
+
+{% set path = config.path %}
+
+{% set spacer_Path = config.spacer_Path %}
+{% set spacer_Extension = config.spacer_Extension %}
+
+{# ******************** VARS ******************** #}
+{% set default_BorderRadius = config.default_BorderRadius %}
+{% set default_BoxShadow = config.default_BoxShadow %}
+{% set default_TextShadow = config.default_TextShadow %}
+
+{# ******************** CORE SNIPPETS ******************** #}
+
+{# ***** Snippet for generating text color override classes ***** #}
+{% macro textColorOverride(input) %}{% if input %}{% if input.override_color is defined %}{% set overrideColor = input.override_color %}{% else %}{% set overrideColor = "white" %}{% endif %}{% if input.override_on_all_screen_sizes %}all--color--{{ overrideColor }}{% else %}{% if input.override_on_desktop %}desk-all--color--{{ overrideColor }} {% endif %}{% if input.override_on_laptop %}lap-all--color--{{ overrideColor }} {% endif %}{% if input.override_on_tablet %}tablet-all--color--{{ overrideColor }} {% endif %}{% if input.override_on_mobile %}palm-all--color--{{ overrideColor }}{% endif %}{% endif %}{% endif %}{% endmacro %}
+
+{# ***** Snippet for generating device visibility classes ***** #}
+{% macro deviceVisibility(input) %}{% if input %}{% if input.hide_on_desktop %}desk-visuallyhidden {% endif %}{% if input.hide_on_laptop %}lap-visuallyhidden {% endif %}{% if input.hide_on_tablet %}tablet-visuallyhidden {% endif %}{% if input.hide_on_mobile %}palm-visuallyhidden{% endif %}{% endif %}{% endmacro %}
+
+{# ***** Snippet for generating background layers ***** #}
+{% macro background(input,controls) %}{% if input %}
+<div class="background {{ name }}">
+  {% for layer in input %}
+    {% if layer.background_type == 'swoop' %}
+
+      {% if ( layer.swoop_controls.swoop_color is defined ) && ( 'custom' != layer.swoop_controls.swoop_color ) %}
+        {% set swoop_color = functions.color(layer.swoop_controls.swoop_color) %}
+      {% elif layer.swoop_controls.swoop_custom_color.color is defined %}
+        {% set swoop_color = layer.swoop_controls.swoop_custom_color.color %}
+      {% else %}
+        {% set swoop_color = '#ffffff' %}
+      {% endif %}
+
+      {##############################################################################################################################################################################
+        SVG Snippet Process
+        Go Here: https://yoksel.github.io/url-encoder/
+        Step 1: copying your SVG into the "Insert SVG" text area
+        Step 2: grab the "Take encoded" value by clicking copy
+        Step 3: Replace the "swoop_code" value below with that value
+        Step 4: Look for the fill attribute in the swoop_code path and replace as follows --> fill='%23"+swoop_color|replace('#','')+"'
+        Step 5: If the fill attribute does not exist, feel free to add between the word ...path and d=... so it looks like ...%3Cpath fill='%23"+swoop_color|replace('#','')+"' d=...
+        Step 6: Take a look at the svg code and use the width="" and height="" values that come over to fill in the svg_height and svg_width values below. These should be no more than 3000px wide.
+      ##############################################################################################################################################################################}
+      {% set swoop_code = "%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 26.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 2500 100' style='enable-background:new 0 0 2500 100;' xml:space='preserve'%3E%3Cpath class='st0' d='M2498.7,75.5c-264.9,16-576.3,25.2-909.4,25.2C883.7,100.7,275.8,59.4,0,0h2500' fill='%23"+swoop_color|replace('#','')+"' /%3E%3C/svg%3E%0A" %}
+      {% set svg_height = '122px' %}
+      {% set svg_width  = '3000px' %}
+      <style>
+        .{{ name }} .svg--container--{{ loop.index }}::after {
+          content: '';
+          display: block;
+          height: {{ svg_height }};
+          min-width: {{ svg_width }};
+          pointer-events: none;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%) {% if 'bottom' == layer.swoop_controls.swoop_orientation %}scaleY(-1){% endif %};
+          width: 100%;
+          z-index: 10;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+          background-image: url("data:image/svg+xml,{{swoop_code}}");
+        }
+        @media screen and (max-width:768px) {
+        .{{ name }} .svg--container--{{ loop.index }}::after {
+          height: {{ svg_height|replace("px", "")|int / 2 }}px;
+          min-width: {{ svg_width|replace("px", "")|int / 2 }}px;
+        }
+        }
+      </style>
+      <div class="background--layer svg--container svg--container--{{ loop.index }} {% if 'top' == layer.swoop_controls.swoop_orientation %}top--orientation{% else %}bottom--orientation{% endif %} {{ deviceVisibility(layer.device_visibility) }} z-index--{{ loop.index }}">
+
+      </div>
+    {% else %}
+      <div {% if layer.background_type == 'image' %}role="img" aria-label="{{ layer.background_image.background_image.alt }}"{% endif %} class="background--layer {% if layer.background_image.featured_image_layer && widget_data.controls.header_design == "transparent" %}background--layer--featured{% endif %} {% if layer.background_type == 'video' %}background--layer--hasvideo{% endif %} {{ deviceVisibility(layer.device_visibility) }} z-index--{{ loop.index }} opacity--{{ layer.background_opacity }} {% if (layer.background_type == 'color')&&(layer.background_color.background_color != 'custom') %}background--{{ layer.background_color.background_color }}{% elif layer.background_type == 'image' %}{{ layer.background_image.background_image_size }} {{ layer.background_image.background_image_repeat }} {{ controls == 'true' ? 'lozad' : '' }}{% endif %}" {{ controls == 'true' && layer.background_type == 'image' ? 'data-background-image="{{ layer.background_image.background_image.src }}"' : '' }} style="{% if (layer.background_type == 'color')&&(layer.background_color.background_color == 'custom') %}background-color:rgba({{ layer.background_color.background_custom_color.color|convert_rgb }}, {{ layer.background_color.background_custom_color.opacity|int/100 }});{% elif layer.background_type == 'image' %}{{ controls != 'true' ? 'background:url(\'{{ layer.background_image.background_image.src }}\');' : '' }}background-position:{{ layer.background_image.background_image_horizontal_alignment }} {{ layer.background_image.background_image_vertical_alignment }};{% if layer.background_image.background_image_parallax_fixed_when_scrolling %}background-attachment:fixed;{% endif %}{% elif layer.background_type == 'video' %}background:url('{{ layer.background_video.background_fallback_background_image.src }}') no-repeat center center;background-size:cover;{% elif layer.background_type == 'gradient' %}background: {% if layer.background_gradient.background_gradient_start_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_start_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_start_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_start_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_start_color_opacity|int/100 }}){% endif %};background: -moz-{{ layer.background_gradient.background_gradient_type }}-gradient({% if layer.background_gradient.background_gradient_type == 'linear' %}{{ layer.background_gradient.background_linear_gradient_direction}}deg, {% endif %}{% if layer.background_gradient.background_gradient_start_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_start_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_start_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_start_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_start_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_start_color_position }}%, {% if layer.background_gradient.background_gradient_end_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_end_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_end_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_end_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_end_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_end_color_position }}%);background: -ms-{{ layer.background_gradient.background_gradient_type }}-gradient({% if layer.background_gradient.background_gradient_type == 'linear' %}{{ layer.background_gradient.background_linear_gradient_direction}}deg, {% endif %}{% if layer.background_gradient.background_gradient_start_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_start_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_start_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_start_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_start_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_start_color_position }}%, {% if layer.background_gradient.background_gradient_end_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_end_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_end_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_end_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_end_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_end_color_position }}%);background: -webkit-{{ layer.background_gradient.background_gradient_type }}-gradient({% if layer.background_gradient.background_gradient_type == 'linear' %}{{ layer.background_gradient.background_linear_gradient_direction}}deg, {% endif %}{% if layer.background_gradient.background_gradient_start_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_start_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_start_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_start_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_start_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_start_color_position }}%, {% if layer.background_gradient.background_gradient_end_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_end_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_end_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_end_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_end_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_end_color_position }}%);background: {{ layer.background_gradient.background_gradient_type }}-gradient({% if layer.background_gradient.background_gradient_type == 'linear' %}{{ layer.background_gradient.background_linear_gradient_direction}}deg, {% endif %}{% if layer.background_gradient.background_gradient_start_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_start_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_start_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_start_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_start_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_start_color_position }}%, {% if layer.background_gradient.background_gradient_end_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_end_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_end_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_end_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_end_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_end_color_position }}%);{% if layer.background_gradient.background_gradient_type == 'linear' %}{% if layer.background_gradient.background_linear_gradient_direction|int == 0 %}filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{% if layer.background_gradient.background_gradient_start_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_start_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_start_color) }}{% endif %}', endColorstr='{% if layer.background_gradient.background_gradient_end_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_end_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_end_color) }}{% endif %}',GradientType=0 );{% elif layer.background_gradient.background_linear_gradient_direction|int == 180 %}filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{% if layer.background_gradient.background_gradient_end_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_end_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_end_color) }}{% endif %}', endColorstr='{% if layer.background_gradient.background_gradient_start_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_start_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_start_color) }}{% endif %}',GradientType=0 );{% elif layer.background_gradient.background_linear_gradient_direction|int < 180 %}filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{% if layer.background_gradient.background_gradient_start_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_start_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_start_color) }}{% endif %}', endColorstr='{% if layer.background_gradient.background_gradient_end_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_end_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_end_color) }}{% endif %}',GradientType=1 );{% else %}filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{% if layer.background_gradient.background_gradient_end_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_end_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_end_color) }}{% endif %}', endColorstr='{% if layer.background_gradient.background_gradient_start_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_start_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_start_color) }}{% endif %}',GradientType=1);{% endif %}{% endif %}{% endif %}top:{{ layer.background_offset.background_top_offset_percentage||0 }}%;bottom:{{ layer.background_offset.background_bottom_offset_percentage||0 }}%;right:{{ layer.background_offset.background_right_offset_percentage||0 }}%;left:{{ layer.background_offset.background_left_offset_percentage||0 }}%;" {% if layer.background_type == 'video' %}data-videosrc="{{ layer.background_video.background_url_of_video_file_mp4.href }}" data-videowidth="{{ layer.background_video.background_fallback_background_image.width }}" data-videoheight="{{ layer.background_video.background_fallback_background_image.height }}"{% endif %}>
+        {% if layer.background_type == "video" %}
+        <video class="background--video" data-src="{{ layer.background_video.background_url_of_video_file_mp4.href }}" data-width="{{ layer.background_video.background_fallback_background_image.width }}" data-height="{{ layer.background_video.background_fallback_background_image.height }}" autoplay="true" loop="true" muted="true" playesinline="true" preload="true">
+          <source type="video/mp4">
+        </video>
+        {% endif %}
+
+        {% if layer.background_image.enable_background_image_image_label_text %}
+        <div class="background--layer--image--label background--layer--image--label--{{ layer.background_image.background_image_image_label.background_image_image_label_text_position }} palm-visuallyhidden">
+          <p class="hard--ends">
+            {{ layer.background_image.background_image_image_label.background_image_image_label_text }}
+          </p>
+        </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endif %}{% endmacro %}
+
+{# ***** Snippet for generating grid spacing classes ***** #}
+{% macro sectionPadding(input,direction) %}{% if (input) %}{% if (direction|lower == "top")||(direction|lower == "bottom") %}{% set paddingDirection = direction|lower %}{% else %}{% set paddingDirection = "both" %}{% endif %}{% if (paddingDirection == "top")||(paddingDirection == "both") %}{% if (input.top_padding_desktop != "custom") %}desk-{{ input.top_padding_desktop }}--top {% endif %}{% set inheritedBreakpoint = "desktop" %}{% if (input.top_padding_laptop != "custom")&&(input.top_padding_laptop != "inherit") %}lap-{{ input.top_padding_laptop }}--top {% elif (input.top_padding_laptop == "inherit") %}lap-{{ input["top_padding_"+inheritedBreakpoint] }}--top {% endif %}{% if (input.top_padding_laptop != "inherit") %}{% set inheritedBreakpoint = "laptop" %}{% endif %}{% if (input.top_padding_tablet != "custom")&&(input.top_padding_tablet != "inherit") %}tablet-{{ input.top_padding_tablet }}--top {% elif (input.top_padding_tablet == "inherit") %}tablet-{{ input["top_padding_"+inheritedBreakpoint] }}--top {% endif %}{% if (input.top_padding_tablet != "inherit") %}{% set inheritedBreakpoint = "tablet" %}{% endif %}{% if (input.top_padding_mobile != "custom")&&(input.top_padding_mobile != "inherit") %}palm-{{ input.top_padding_mobile }}--top {% elif (input.top_padding_mobile == "inherit") %}palm-{{ input["top_padding_"+inheritedBreakpoint] }}--top {% endif %}{% endif %}{% if (paddingDirection == "bottom")||(paddingDirection == "both") %}{% if (input.bottom_padding_desktop != "custom") %}desk-{{ input.bottom_padding_desktop }}--bottom {% endif %}{% set inheritedBreakpoint = "desktop" %}{% if (input.bottom_padding_laptop != "custom")&&(input.bottom_padding_laptop != "inherit") %}lap-{{ input.bottom_padding_laptop }}--bottom {% elif (input.bottom_padding_laptop == "inherit") %}lap-{{ input["bottom_padding_"+inheritedBreakpoint] }}--bottom {% endif %}{% if (input.bottom_padding_laptop != "inherit") %}{% set inheritedBreakpoint = "laptop" %}{% endif %}{% if (input.bottom_padding_tablet != "custom")&&(input.bottom_padding_tablet != "inherit") %}tablet-{{ input.bottom_padding_tablet }}--bottom {% elif (input.bottom_padding_tablet == "inherit") %}tablet-{{ input["bottom_padding_"+inheritedBreakpoint] }}--bottom {% endif %}{% if (input.bottom_padding_tablet != "inherit") %}{% set inheritedBreakpoint = "tablet" %}{% endif %}{% if (input.bottom_padding_mobile != "custom")&&(input.bottom_padding_mobile != "inherit") %}palm-{{ input.bottom_padding_mobile }}--bottom {% elif (input.bottom_padding_mobile == "inherit") %}palm-{{ input["bottom_padding_"+inheritedBreakpoint] }}--bottom {% endif %}{% endif %}{% endif %}{% endmacro %}
+
+{# ***** Snippet for generating custom grid spacing CSS ***** #}
+{% macro sectionPaddingCustomStyles(moduleName,input,gridTopSpacer,gridBottomSpacer) %}{% if (moduleName)&&(gridTopSpacer)&&(gridBottomSpacer) %}
+{% if (input.top_padding_desktop == "custom")||(input.top_padding_laptop == "custom")||(input.top_padding_tablet == "custom")||(input.top_padding_mobile == "custom")||(input.bottom_padding_desktop == "custom")||(input.bottom_padding_laptop == "custom")||(input.bottom_padding_tablet == "custom")||(input.bottom_padding_mobile == "custom") %}
+<style>
+	{% if (input.top_padding_desktop == "custom") %}{% call functions.mediaQuery("desk") %}#hs_cos_wrapper_{{ moduleName }} {{ gridTopSpacer }} {padding-top:{{ input.top_padding_desktop_custom.top_padding_desktop_custom }}{{ input.top_padding_desktop_custom.top_padding_desktop_custom_measurement_unit }};}{% endcall %}{% endif %}{% set inheritedBreakpoint = "desktop" %}{% if (input.top_padding_laptop == "custom") %}{% call functions.mediaQuery("lap") %}#hs_cos_wrapper_{{ moduleName }} {{ gridTopSpacer }} {padding-top:{{ input.top_padding_laptop_custom.top_padding_laptop_custom }}{{ input.top_padding_laptop_custom.top_padding_laptop_custom_measurement_unit }};}{% endcall %}{% elif (input.top_padding_laptop == "inherit")&&(input["top_padding_"+inheritedBreakpoint] == "custom") %}{% call functions.mediaQuery("lap") %}#hs_cos_wrapper_{{ moduleName }} {{ gridTopSpacer }} {padding-top:{{ input["top_padding_"+inheritedBreakpoint+"_custom"]["top_padding_"+inheritedBreakpoint+"_custom"] }}{{ input["top_padding_"+inheritedBreakpoint+"_custom"]["top_padding_"+inheritedBreakpoint+"_custom_measurement_unit"] }};}{% endcall %}{% endif %}{% if (input.top_padding_laptop != "inherit") %}{% set inheritedBreakpoint = "laptop" %}{% endif %}{% if (input.top_padding_tablet == "custom") %}{% call functions.mediaQuery("tablet") %}#hs_cos_wrapper_{{ moduleName }} {{ gridTopSpacer }} {padding-top:{{ input.top_padding_tablet_custom.top_padding_tablet_custom }}{{ input.top_padding_tablet_custom.top_padding_tablet_custom_measurement_unit }};}{% endcall %}{% elif (input.top_padding_tablet == "inherit")&&(input["top_padding_"+inheritedBreakpoint] == "custom") %}{% call functions.mediaQuery("tablet") %}#hs_cos_wrapper_{{ moduleName }} {{ gridTopSpacer }} {padding-top:{{ input["top_padding_"+inheritedBreakpoint+"_custom"]["top_padding_"+inheritedBreakpoint+"_custom"] }}{{ input["top_padding_"+inheritedBreakpoint+"_custom"]["top_padding_"+inheritedBreakpoint+"_custom_measurement_unit"] }};}{% endcall %}{% endif %}{% if (input.top_padding_tablet != "inherit") %}{% set inheritedBreakpoint = "tablet" %}{% endif %}{% if (input.top_padding_mobile == "custom") %}{% call functions.mediaQuery("palm") %}#hs_cos_wrapper_{{ moduleName }} {{ gridTopSpacer }} {padding-top:{{ input.top_padding_mobile_custom.top_padding_mobile_custom }}{{ input.top_padding_mobile_custom.top_padding_mobile_custom_measurement_unit }};}{% endcall %}{% elif (input.top_padding_mobile == "inherit")&&(input["top_padding_"+inheritedBreakpoint] == "custom") %}{% call functions.mediaQuery("palm") %}#hs_cos_wrapper_{{ moduleName }} {{ gridTopSpacer }} {padding-top:{{ input["top_padding_"+inheritedBreakpoint+"_custom"]["top_padding_"+inheritedBreakpoint+"_custom"] }}{{ input["top_padding_"+inheritedBreakpoint+"_custom"]["top_padding_"+inheritedBreakpoint+"_custom_measurement_unit"] }};}{% endcall %}{% endif %}{% if (input.bottom_padding_desktop == "custom") %}{% call functions.mediaQuery("desk") %}#hs_cos_wrapper_{{ moduleName }} {{ gridBottomSpacer }} {padding-bottom:{{ input.bottom_padding_desktop_custom.bottom_padding_desktop_custom }}{{ input.bottom_padding_desktop_custom.bottom_padding_desktop_custom_measurement_unit }};}{% endcall %}{% endif %}{% set inheritedBreakpoint = "desktop" %}{% if (input.bottom_padding_laptop == "custom") %}{% call functions.mediaQuery("lap") %}#hs_cos_wrapper_{{ moduleName }} {{ gridBottomSpacer }} {padding-bottom:{{ input.bottom_padding_laptop_custom.bottom_padding_laptop_custom }}{{ input.bottom_padding_laptop_custom.bottom_padding_laptop_custom_measurement_unit }};}{% endcall %}{% elif (input.bottom_padding_laptop == "inherit")&&(input["bottom_padding_"+inheritedBreakpoint] == "custom") %}{% call functions.mediaQuery("lap") %}#hs_cos_wrapper_{{ moduleName }} {{ gridBottomSpacer }} {padding-bottom:{{ input["bottom_padding_"+inheritedBreakpoint+"_custom"]["bottom_padding_"+inheritedBreakpoint+"_custom"] }}{{ input["bottom_padding_"+inheritedBreakpoint+"_custom"]["bottom_padding_"+inheritedBreakpoint+"_custom_measurement_unit"] }};}{% endcall %}{% endif %}{% if (input.bottom_padding_laptop != "inherit") %}{% set inheritedBreakpoint = "laptop" %}{% endif %}{% if (input.bottom_padding_tablet == "custom") %}{% call functions.mediaQuery("tablet") %}#hs_cos_wrapper_{{ moduleName }} {{ gridBottomSpacer }} {padding-bottom:{{ input.bottom_padding_tablet_custom.bottom_padding_tablet_custom }}{{ input.bottom_padding_tablet_custom.bottom_padding_tablet_custom_measurement_unit }};}{% endcall %}{% elif (input.bottom_padding_tablet == "inherit")&&(input["bottom_padding_"+inheritedBreakpoint] == "custom") %}{% call functions.mediaQuery("tablet") %}#hs_cos_wrapper_{{ moduleName }} {{ gridBottomSpacer }} {padding-bottom:{{ input["bottom_padding_"+inheritedBreakpoint+"_custom"]["bottom_padding_"+inheritedBreakpoint+"_custom"] }}{{ input["bottom_padding_"+inheritedBreakpoint+"_custom"]["bottom_padding_"+inheritedBreakpoint+"_custom_measurement_unit"] }};}{% endcall %}{% endif %}{% if (input.bottom_padding_tablet != "inherit") %}{% set inheritedBreakpoint = "tablet" %}{% endif %}{% if (input.bottom_padding_mobile == "custom") %}{% call functions.mediaQuery("palm") %}#hs_cos_wrapper_{{ moduleName }} {{ gridBottomSpacer }} {padding-bottom:{{ input.bottom_padding_mobile_custom.bottom_padding_mobile_custom }}{{ input.bottom_padding_mobile_custom.bottom_padding_mobile_custom_measurement_unit }};}{% endcall %}{% elif (input.bottom_padding_mobile == "inherit")&&(input["bottom_padding_"+inheritedBreakpoint] == "custom") %}{% call functions.mediaQuery("palm") %}#hs_cos_wrapper_{{ moduleName }} {{ gridBottomSpacer }} {padding-bottom:{{ input["bottom_padding_"+inheritedBreakpoint+"_custom"]["bottom_padding_"+inheritedBreakpoint+"_custom"] }}{{ input["bottom_padding_"+inheritedBreakpoint+"_custom"]["bottom_padding_"+inheritedBreakpoint+"_custom_measurement_unit"] }};}{% endcall %}{% endif %}
+</style>
+{% endif %}
+{% endif %}{% endmacro %}
+
+{# ***** Snippet for generating CTA button ***** #}
+{% macro button(input) %}{% if ((input.cta_type == "cta")&&(input.cta))||((input.cta_type == "link")&&(input.cta_hyperlink.href)&&(input.cta_button_text))||((input.cta_type == "anchor")&&(input.cta_section_anchor_id)&&(input.cta_button_text)) %}
+<p class="all--btn all--btn--{% if (input.cta_ghost_transparent_button)&&(input.cta_button_color != 'simple') %}transparent--{% endif %}{{ input.cta_button_color }} {% if input.cta_button_color != 'simple' %}hard--top{% endif %}">
+  {% if input.cta_type == "cta" %}
+  {{ cta(input.cta) }}
+  {% elif (input.cta_type == "link")||(input.cta_type == "anchor") %}
+  <a role="button" title="{% if input.cta_title_attribute %}{{ input.cta_title_attribute }}{% else %}{{ input.cta_button_text }}{% endif %}" class="btn btn--{% if (input.cta_ghost_transparent_button)&&(input.cta_button_color != 'simple') %}transparent--{% endif %}{{ input.cta_button_color }}" href="{% if input.cta_type == 'anchor' %}#{{ input.cta_section_anchor_id|replace('#','') }}{% else %}{% if input.cta_hyperlink.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{ input.cta_hyperlink.href }}{% endif %}" {% if (input.cta_type == "link")&&(input.cta_open_in_new_tab) %}target="_blank"{% endif %}>{{ input.cta_button_text }}</a>
+  {% endif %}
+</p>
+{% endif %}{% endmacro %}
+
+{# ***** Snippet for generating multiple CTA buttons (CTAs which use a repeater group) ***** #}
+{% macro multiButton(buttonGroup,customBtnClasses) %}{% if buttonGroup|length > 0 %}<span class="block"></span><span class="hard--top block--multibutton {% if buttonGroup|length > 1 %}block--multibuttons{% endif %}">{% for input in buttonGroup %}
+{% if ((input.cta_type == "cta")&&(input.cta))||((input.cta_type == "link")&&(input.cta_hyperlink.href)&&(input.cta_button_text))||((input.cta_type == "anchor")&&(input.cta_section_anchor_id)&&(input.cta_button_text))||((input.cta_type == "modal")&&(input.cta_url_of_iframe_embeddable_file.href)) %}
+<span class="block--multibutton--btn all--btn all--btn--{% if (input.cta_ghost_transparent_button)&&(input.cta_button_color != 'simple') %}transparent--{% endif %}{{ input.cta_button_color }} {% if customBtnClasses|length > 0 %}{% for i in customBtnClasses %} all--btn--{{ i }}{% endfor %}{% endif %}">
+  {% if input.cta_type == "cta" %}
+  {{ cta(input.cta) }}
+  {% elif (input.cta_type == "link")||(input.cta_type == "anchor")||(input.cta_type == "modal") %}
+  <a role="button" title="{% if input.cta_title_attribute %}{{ input.cta_title_attribute }}{% else %}{{ input.cta_button_text }}{% endif %}" class="btn btn--{% if (input.cta_ghost_transparent_button)&&(input.cta_button_color != 'simple') %}transparent--{% endif %}{{ input.cta_button_color }} {% if customBtnClasses|length > 0 %}{% for i in customBtnClasses %} btn--{{ i }}{% endfor %}{% endif %} {% if input.cta_type == 'modal' %}fancybox{% endif %}" href="{% if input.cta_type == 'anchor' %}#{{ input.cta_section_anchor_id|replace('#','') }}{% elif input.cta_type == 'modal' %}{{ input.cta_url_of_iframe_embeddable_file.href }}{% else %}{% if input.cta_hyperlink.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{ input.cta_hyperlink.href }}{% endif %}" {% if (input.cta_type == "link")&&(input.cta_open_in_new_tab) %}target="_blank"{% endif %}>{{ input.cta_button_text }}</a>
+  {% endif %}
+</span>
+{% endif %}
+{% endfor %}</span>{% endif %}{% endmacro %}
+
+{# ***** Snippet for generating a DOM object or percentage (intended to be used as a padding-top CSS attribute) for forcing an element to maintain a certain aspect ratio ((width,height), ("width:height"), ("widthxheight"), ("width*height") ***** #}
+{% macro aspectSpacer(widthOrBoth,height) %}{% if ":" in widthOrBoth %}{% set aspectstring = widthOrBoth|split(":") %}{% set width = aspectstring[0]|trim|float %}{% set height = aspectstring[1]|trim|float %}{% elif "x" in widthOrBoth|lower %}{% set aspectstring = widthOrBoth|lower|split("x") %}{% set width = aspectstring[0]|trim|float %}{% set height = aspectstring[1]|trim|float %}{% elif "*" in widthOrBoth|lower %}{% set aspectstring = widthOrBoth|lower|split("*") %}{% set width = aspectstring[0]|trim|float %}{% set height = aspectstring[1]|trim|float %}{% else %}{% set height = height|float %}{% set width = widthOrBoth|float %}{% endif %}<span class="aspectspacer" style="display:block;width:100%;margin:0px;padding:{{ (((height)/(width)) * 100)|round(2,'ceil') }}% 0px 0px 0px;"></span>{% endmacro %}
+{% macro aspectPercent(widthOrBoth,height) %}{% if ":" in widthOrBoth %}{% set aspectstring = widthOrBoth|split(":") %}{% set width = aspectstring[0]|trim|float %}{% set height = aspectstring[1]|trim|float %}{% elif "x" in widthOrBoth|lower %}{% set aspectstring = widthOrBoth|lower|split("x") %}{% set width = aspectstring[0]|trim|float %}{% set height = aspectstring[1]|trim|float %}{% elif "*" in widthOrBoth|lower %}{% set aspectstring = widthOrBoth|lower|split("*") %}{% set width = aspectstring[0]|trim|float %}{% set height = aspectstring[1]|trim|float %}{% else %}{% set height = height|float %}{% set width = widthOrBoth|float %}{% endif %}{{ (((height)/(width)) * 100)|round(2,'ceil') }}%{% endmacro %}
+
+{# ***** Snippet for removing excessive line breaks from HTML markup and tabs or HubL ***** #}
+{% macro htmlMinify() -%}{{ caller()|regex_replace("[\n]", "")|regex_replace(" {5,}","") }}{%- endmacro %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ******************************* CUSTOM SNIPPETS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+
+{# ***** Old snippet for generating background layers (OLD VERSION FOR PRIOR FRAMEWORK VERSIONS -- DELETE IF NOT NEEDED) ***** #}
+{% macro backgroundOLD(input) %}{% if input %}
+<div class="background">
+  {% for layer in input %}
+  <div class="background--layer {{ layer.device_visibility }} z-index--{{ loop.index }} opacity--{{ layer.background_opacity }} {% if (layer.background_type == 'color')&&(layer.background_color.background_color != 'custom') %}background--{{ layer.background_color.background_color }}{% elif layer.background_type == 'image' %}{{ layer.background_image.background_image_size }} {{ layer.background_image.background_image_repeat }}{% endif %}" style="{% if (layer.background_type == 'color')&&(layer.background_color.background_color == 'custom') %}background-color:rgba({{ layer.background_color.background_custom_color.color|convert_rgb }}, {{ layer.background_color.background_custom_color.opacity|int/100 }});{% elif layer.background_type == 'image' %}background-image:url('{{ layer.background_image.background_image.src }}');background-position:{{ layer.background_image.background_image_horizontal_alignment }} {{ layer.background_image.background_image_vertical_alignment }};{% if layer.background_image.background_image_parallax_fixed_when_scrolling %}background-attachment:fixed;{% endif %}{% elif layer.background_type == 'video' %}background:url('{{ layer.background_video.background_fallback_background_image.src }}') no-repeat center center;background-size:cover;{% elif layer.background_type == 'gradient' %}background: {% if layer.background_gradient.background_gradient_start_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_start_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_start_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_start_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_start_color_opacity|int/100 }}){% endif %};background: -moz-{{ layer.background_gradient.background_gradient_type }}-gradient({% if layer.background_gradient.background_gradient_type == 'linear' %}{{ layer.background_gradient.background_linear_gradient_direction}}deg, {% endif %}{% if layer.background_gradient.background_gradient_start_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_start_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_start_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_start_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_start_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_start_color_position }}%, {% if layer.background_gradient.background_gradient_end_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_end_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_end_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_end_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_end_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_end_color_position }}%);background: -ms-{{ layer.background_gradient.background_gradient_type }}-gradient({% if layer.background_gradient.background_gradient_type == 'linear' %}{{ layer.background_gradient.background_linear_gradient_direction}}deg, {% endif %}{% if layer.background_gradient.background_gradient_start_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_start_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_start_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_start_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_start_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_start_color_position }}%, {% if layer.background_gradient.background_gradient_end_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_end_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_end_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_end_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_end_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_end_color_position }}%);background: -webkit-{{ layer.background_gradient.background_gradient_type }}-gradient({% if layer.background_gradient.background_gradient_type == 'linear' %}{{ layer.background_gradient.background_linear_gradient_direction}}deg, {% endif %}{% if layer.background_gradient.background_gradient_start_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_start_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_start_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_start_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_start_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_start_color_position }}%, {% if layer.background_gradient.background_gradient_end_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_end_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_end_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_end_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_end_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_end_color_position }}%);background: {{ layer.background_gradient.background_gradient_type }}-gradient({% if layer.background_gradient.background_gradient_type == 'linear' %}{{ layer.background_gradient.background_linear_gradient_direction}}deg, {% endif %}{% if layer.background_gradient.background_gradient_start_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_start_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_start_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_start_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_start_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_start_color_position }}%, {% if layer.background_gradient.background_gradient_end_color == 'custom' %}rgba({{ layer.background_gradient.background_gradient_custom_end_color.color|convert_rgb }}, {{ layer.background_gradient.background_gradient_custom_end_color.opacity|int/100 }}){% else %}rgba({{ functions.color(layer.background_gradient.background_gradient_end_color)|convert_rgb }}, {{ layer.background_gradient.background_gradient_end_color_opacity|int/100 }}){% endif %} {{ layer.background_gradient.background_gradient_end_color_position }}%);{% if layer.background_gradient.background_gradient_type == 'linear' %}{% if layer.background_gradient.background_linear_gradient_direction|int == 0 %}filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{% if layer.background_gradient.background_gradient_start_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_start_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_start_color) }}{% endif %}', endColorstr='{% if layer.background_gradient.background_gradient_end_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_end_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_end_color) }}{% endif %}',GradientType=0 );{% elif layer.background_gradient.background_linear_gradient_direction|int == 180 %}filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{% if layer.background_gradient.background_gradient_end_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_end_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_end_color) }}{% endif %}', endColorstr='{% if layer.background_gradient.background_gradient_start_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_start_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_start_color) }}{% endif %}',GradientType=0 );{% elif layer.background_gradient.background_linear_gradient_direction|int < 180 %}filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{% if layer.background_gradient.background_gradient_start_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_start_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_start_color) }}{% endif %}', endColorstr='{% if layer.background_gradient.background_gradient_end_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_end_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_end_color) }}{% endif %}',GradientType=1 );{% else %}filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{% if layer.background_gradient.background_gradient_end_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_end_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_end_color) }}{% endif %}', endColorstr='{% if layer.background_gradient.background_gradient_start_color == 'custom' %}{{ layer.background_gradient.background_gradient_custom_start_color.color }}{% else %}{{ functions.color(layer.background_gradient.background_gradient_start_color) }}{% endif %}',GradientType=1);{% endif %}{% endif %}{% endif %}top:{{ layer.background_offset.background_top_offset_percentage||0 }}%;bottom:{{ layer.background_offset.background_bottom_offset_percentage||0 }}%;right:{{ layer.background_offset.background_right_offset_percentage||0 }}%;left:{{ layer.background_offset.background_left_offset_percentage||0 }}%;">
+    {% if layer.background_type == "video" %}
+    <video class="background--video" data-src="{{ layer.background_video.background_url_of_video_file_mp4.href }}" data-width="{{ layer.background_video.background_fallback_background_image.width }}" data-height="{{ layer.background_video.background_fallback_background_image.height }}" autoplay="true" loop="true" muted="true" playesinline="true" preload="true">
+      <source type="video/mp4">
+    </video>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}{% endmacro %}
+
+{# ***** Old snippet for generating custom grid spacing CSS (OLD VERSION FOR PRIOR FRAMEWORK VERSIONS -- DELETE IF NOT NEEDED) ***** #}
+{% macro gridCustomSpacingCssOLD(moduleName,input,gridTopSpacer,gridBottomSpacer) -%}
+  {% if (moduleName)&&(gridTopSpacer)&&(gridBottomSpacer) %}
+    {% if (input.spacing.top_padding == "custom")||(input.spacing.top_padding_mobile == "custom")||(input.spacing.bottom_padding == "custom")||(input.spacing.bottom_padding_mobile == "custom") %}
+      <style>
+        {% if input.spacing.top_padding == "custom" %}{% call functions.mediaQuery(">tablet") %}#hs_cos_wrapper_{{ moduleName }} {{ gridTopSpacer }} {padding-top:{{ input.spacing.top_padding_custom }}{{ input.spacing.top_padding_custom_measurement_unit }};}{% endcall %}{% endif %}{% if input.spacing.top_padding_mobile == "custom" %}{% call functions.mediaQuery("palm") %}#hs_cos_wrapper_{{ moduleName }} {{ gridTopSpacer }} {padding-top:{{ input.spacing.top_padding_mobile_custom }}{{ input.spacing.top_padding_mobile_custom_measurement_unit }};}{% endcall %}{% endif %}{% if input.spacing.bottom_padding == "custom" %}{% call functions.mediaQuery(">tablet") %}#hs_cos_wrapper_{{ moduleName }} {{ gridBottomSpacer }} {padding-bottom:{{ input.spacing.bottom_padding_custom }}{{ input.spacing.bottom_padding_custom_measurement_unit }};}{% endcall %}{% endif %}{% if input.spacing.bottom_padding_mobile == "custom" %}{% call functions.mediaQuery("palm") %}#hs_cos_wrapper_{{ moduleName }} {{ gridBottomSpacer }} {padding-bottom:{{ input.spacing.bottom_padding_mobile_custom }}{{ input.spacing.bottom_padding_mobile_custom_measurement_unit }};}{% endcall %}{% endif %}
+      </style>
+    {% endif %}
+  {% endif %}
+{%- endmacro %}
+
+{# ***** Snippet for generating swoop spacers ***** #}
+{% macro swoopSpacerTop(input) %}{% if input %}
+  {% for layer in input %}
+  {% if layer.background_type == 'swoop' && 'top' == layer.swoop_controls.swoop_orientation %}
+      <div class="swoop--spacer--top"></div>
+  {% endif %}
+  {% endfor %}
+{% endif %}{% endmacro %}
+
+{% macro swoopSpacerBottom(input) %}{% if input %}
+  {% for layer in input %}
+  {% if layer.background_type == 'swoop' && 'bottom' == layer.swoop_controls.swoop_orientation %}
+      <div class="swoop--spacer--bottom"></div>
+  {% endif %}
+  {% endfor %}
+{% endif %}{% endmacro %}
+
+{% macro bulletsList(input) -%}
+  {% if input.bullets_list %}
+    <div class="section--leftright--bullets">
+      {% for item in input.bullets_list %}
+        <div class="flexgrid space--between valign--top section--leftright--bullet--item tall--bottom {% if not loop.first && not input.disable_divider %}tall--top{% endif %}">
+          {% if item.bullet_icon_image.src %}
+            <div class="section--leftright--bullet--icon relative" style="padding-right:15px;top:{{ item.bullet_icon_image_vertical_offset }}px;">
+              <img src="{{ item.bullet_icon_image.src }}" width="{{ item.bullet_icon_image.width }}" height="{{ item.bullet_icon_image.height }}" style="max-width:50px;height:auto;" alt="{{ item.bullet_icon_image.alt }}" {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} />
+            </div>
+          {% endif %}
+          <div class="section--leftright--bullet--content hard--ends first--hard--top last--hard--bottom">
+            <h3 class="h5">{{ item.bullet_header }}</h3>
+            {{ item.bullet_description }}
+            {{ snippets.button(item.bullet_cta) }}
+          </div>
+        </div>
+        {% if not input.disable_divider %}<div class="section--leftright--bullet--divider"></div>{% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+{%- endmacro %}

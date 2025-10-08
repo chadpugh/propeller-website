@@ -1,0 +1,209 @@
+<div {% if module.section_controls.anchor_id %}id="{{ module.section_controls.anchor_id|trim }}"{% endif %} class="section section--testimonialslider relative overflow--hidden {{ snippets.deviceVisibility(module.section_controls.device_visibility) }}">
+  {{ snippets.background(module.background) }}
+  <div class="block relative z-index--3">
+    {{ snippets.swoopSpacerTop(module.background) }}
+    <div class="block gridspacer--top {{ snippets.sectionPadding(module.section_controls.spacing,"top") }}">
+
+    </div>
+    {% if module.preheader %}
+    <div class="grid hard--ends {{ snippets.textColorOverride(module.section_controls.text_color_override) }} all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+      <div class="grid__item eight-twelfths tablet-ten-twelfths palm-one-whole hard--top tall--bottom palm-short--bottom first--hard--top last--hard--bottom all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+        {% if module.preheader %}
+          <span class="h6 preheader">{{ module.preheader }}</span>
+        {% endif %}
+        {% if module.enable_header_rule %}
+          <span class="header--rule"></span>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+    <div class="grid hard--ends">
+      <div class="grid__item one-whole hard--ends text--center">
+        <div class="section--testimonialslider--slider flexslider--slider flexslider--type--slide {{ snippets.textColorOverride(module.section_controls.text_color_override) }}" data-appendcontrols="false" data-slider="{{ name }}" data-loop="true">
+          <div class="flexslider--slide--outerwrapper">
+            <div class="flexslider--slide--wrapper">
+              <span>
+                {% for testimonial in module.testimonial_slider %}
+                <div class="flexslider--slide">
+                  <div class="flexslider--slide--container flexgrid {% if testimonial.featured_media_type == 'none' %}justify--center{% endif %} portable-justify--center {% if testimonial.featured_media_position_desktop == 'left' %}row--reverse{% endif %} {{ testimonial.featured_media_vertical_alignment }} {{ testimonial.featured_media_vertical_alignment }} {{ 'below' != testimonial.featured_media_position_mobile ? 'palm-column--reverse' : '' }}">
+                    <div class="flexslider--slide--content grid__item short {% if testimonial.featured_media_type == 'none' %}eight-twelfths tablet-ten-twelfths palm-one-whole text--center{% else %}one-half tablet-ten-twelfths palm-one-whole text--left palm-text--center{% endif %} first--hard--top last--hard--bottom">
+                      {{ testimonial.testimonial_quote_content }}
+
+                      {% if testimonial.testimonial_name_of_person || testimonial.testimonial_title_of_person || testimonial.testimonial_image.src || ((testimonial.cta.cta_type == "cta")&&(testimonial.cta.cta))||((testimonial.cta.cta_type == "link")&&(testimonial.cta.cta_hyperlink.href)&&(testimonial.cta.cta_button_text))||((testimonial.cta.cta_type == "anchor")&&(testimonial.cta.cta_section_anchor_id)&&(testimonial.cta.cta_button_text))||((testimonial.cta.cta_type == "modal")&&(testimonial.cta.cta_url_of_iframe_embeddable_video_file.href)) %}
+                      <div class="section--testimonialslider--byline flexgrid valign--middle {% if testimonial.featured_media_type == 'none' %}justify--center{% else %}justify--left{% endif %} {% if testimonial.testimonial_image.src %}text--left{% else %}text--center{% endif %} palm-text--center align--start palm-justify--center palm-direction--column">
+                        {% if testimonial.testimonial_image.src %}
+                        <div class="section--testimonialslider--image--container">
+                          <div class="section--testimonialslider--image" role="img" aria-label="{{ testimonial.testimonial_image.alt }}" style="background:url('{{ testimonial.testimonial_image.src }}') no-repeat center center;background-size:cover;">
+
+                          </div>
+                        </div>
+                        {% endif %}
+                        {% if testimonial.testimonial_name_of_person || testimonial.testimonial_title_of_person || ((testimonial.cta.cta_type == "cta")&&(testimonial.cta.cta))||((testimonial.cta.cta_type == "link")&&(testimonial.cta.cta_hyperlink.href)&&(testimonial.cta.cta_button_text))||((testimonial.cta.cta_type == "anchor")&&(testimonial.cta.cta_section_anchor_id)&&(testimonial.cta.cta_button_text))||((testimonial.cta.cta_type == "modal")&&(testimonial.cta.cta_url_of_iframe_embeddable_video_file.href)) %}
+                        <div class="section--testimonialslider--source">
+                          {% if testimonial.testimonial_name_of_person || testimonial.testimonial_title_of_person %}
+                          <p class="hard--ends">
+                            {% if testimonial.testimonial_name_of_person %}<span>{{ testimonial.testimonial_name_of_person }}</span>{% endif %}
+                            {% if testimonial.testimonial_title_of_person %}<span>{{ testimonial.testimonial_title_of_person }}</span>{% endif %}
+                          </p>
+                          {% endif %}
+                          {% if ((testimonial.cta.cta_type == "cta")&&(testimonial.cta.cta))||((testimonial.cta.cta_type == "link")&&(testimonial.cta.cta_hyperlink.href)&&(testimonial.cta.cta_button_text))||((testimonial.cta.cta_type == "anchor")&&(testimonial.cta.cta_section_anchor_id)&&(testimonial.cta.cta_button_text))||((testimonial.cta.cta_type == "modal")&&(testimonial.cta.cta_url_of_iframe_embeddable_video_file.href)) %}
+                          <p style="margin-top:8px!important;" class="hard--ends all--btn all--btn--{% if (testimonial.cta.cta_ghost_transparent_button)&&(testimonial.cta.cta_button_color != 'simple') %}transparent--{% endif %}{{ testimonial.cta.cta_button_color }}">
+                            {% if testimonial.cta.cta_type == "cta" %}
+                            {{ cta(testimonial.cta.cta) }}
+                            {% elif (testimonial.cta.cta_type == "link")||(testimonial.cta.cta_type == "anchor")||(testimonial.cta.cta_type == "modal") %}
+                            <a role="button" title="{% if testimonial.cta_title_attribute %}{{ testimonial.cta_title_attribute }}{% else %}{{ testimonial.cta.cta_button_text }}{% endif %}" class="btn btn--{% if (testimonial.cta.cta_ghost_transparent_button)&&(testimonial.cta.cta_button_color != 'simple') %}transparent--{% endif %}{{ testimonial.cta.cta_button_color }} {% if testimonial.cta.cta_type == 'modal' %}fancybox{% endif %}" href="{% if testimonial.cta.cta_type == 'anchor' %}#{{ testimonial.cta.cta_section_anchor_id|replace('#','') }}{% elif testimonial.cta.cta_type == 'modal' %}{{ testimonial.cta.cta_url_of_iframe_embeddable_file.href }}{% else %}{{ testimonial.cta.cta_hyperlink.href }}{% endif %}" {% if (testimonial.cta.cta_type == "link")&&(testimonial.cta.cta_open_in_new_tab) %}target="_blank"{% endif %}>{{ testimonial.cta.cta_button_text }}</a>
+                            {% endif %}
+                          </p>
+                          {% endif %}
+                        </div>
+                        {% endif %}
+                      </div>
+                      {% endif %}
+                    </div>
+                    {% if testimonial.featured_media_type != 'none' %}
+                    <div class="flexslider--slide--media grid__item short one-half palm-one-whole text--center {{ snippets.deviceVisibility(testimonial.featured_media_device_visibility) }}">
+                      {% if testimonial.featured_media_type == "image" %}
+                      <div class="block">
+                        {% if testimonial.image.image.src %}
+
+                        {% set sizeAttrs = 'width="{{ testimonial.image.image.width }}" height="{{ testimonial.image.image.height }}"' %}
+                        {% if testimonial.image.image.size_type == 'auto' %}
+                        {% set sizeAttrs = 'style="max-width: 100%; height: auto;"' %}
+                        {% elif testimonialimage.image.size_type == 'auto_custom_max' %}
+                        {% set sizeAttrs = 'width="{{ testimonial.image.image.max_width }}" height="{{ testimonial.image.image.max_height }}" style="max-width: 100%; height: auto;"' %}
+                        {% endif %}
+
+                        <img src="{{ testimonial.image.image.src }}" alt="{{ testimonial.image.image.alt }}" {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} {{ sizeAttrs }}>
+
+                        {% endif %}
+                        
+                        {% if testimonial.image.featured_image_label_text %}
+                        <div class="block short--top all--text--center {{ snippets.textColorOverride(module.section_controls.text_color_override) }}">
+                          <p class="hard--ends">
+                            {{ testimonial.image.featured_image_label_text }}
+                          </p>
+                        </div>
+                        {% endif %}
+                      </div>
+                      {% elif testimonial.featured_media_type == "video" %}
+                      <div class="block">
+                        {% if (testimonial.video.video_type == "modal")||(testimonial.video.video_type == "vidyard")||(testimonial.video.video_type == "hubspot") %}
+                        {% if (testimonial.video.video_thumbnail_type != 'none')||(testimonial.video.video_thumbnail_type_mobile != 'none') %}
+                        <div class="block {% if testimonial.video.video_thumbnail_type == 'none' %}lap-and-up-visuallyhidden tablet-visuallyhidden{% endif %} {% if testimonial.video.video_thumbnail_type_mobile == 'none' %}palm-visuallyhidden{% endif %}" style="{% if (testimonial.video.video_thumbnail_image.size_type == 'auto_custom_max') %}width:{{ testimonial.video.video_thumbnail_image.max_width }}px;max-width:100%;{% elif (testimonial.video.video_thumbnail_image.size_type == 'exact') %}width:{{ testimonial.video.video_thumbnail_image.width }}px;max-width:100%;{% endif %}margin:0 auto;">
+                          <a title="{% if testimonial.video.video_title_attribute %}{{ testimonial.video.video_title_attribute }}{% else %}Watch the Video{% endif %}" class="block block--video" {% if testimonial.video.video_type == "modal" %}href="{{ testimonial.video.video_url_of_iframe_embeddable_video_file.href }}"{% elif testimonial.video.video_type == 'hubspot' %}data-src="#{{ name }}--embed--{{ loop.index }}" data-fancybox{% elif testimonial.video.video_type == "vidyard" %}href="javascript:;" onclick="launchLightbox_{{ loop.index }}_{{ name }}('{{ testimonial.video.vidyard_video_uuid|trim }}');"{% endif %}>
+
+                            {% set sizeAttrs = 'width="{{ testimonial.video.video_thumbnail_image.width }}" height="{{ testimonial.video.video_thumbnail_image.height }}"' %}
+                            {% if testimonial.video.video_thumbnail_image.size_type == 'auto' %}
+                            {% set sizeAttrs = 'style="max-width: 100%; height: auto;"' %}
+                            {% elif testimonial.video.video_thumbnail_image.size_type == 'auto_custom_max' %}
+                            {% set sizeAttrs = 'width="{{ testimonial.video.video_thumbnail_image.max_width }}" height="{{ testimonial.video.video_thumbnail_image.max_height }}" style="max-width: 100%; height: auto;"' %}
+                            {% endif %}
+
+                            <img src="{{ testimonial.video.video_thumbnail_image.src }}" alt="{{ testimonial.video.video_thumbnail_image.alt }}" {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} {{ sizeAttrs }}>
+
+                          </a>
+                        </div>
+                        {% endif %}
+                        {% if (testimonial.video.video_thumbnail_type == 'none')||(testimonial.video.video_thumbnail_type_mobile == 'none') %}
+                        <div class="block {% if testimonial.video.video_thumbnail_type != 'none' %}lap-and-up-visuallyhidden tablet-visuallyhidden{% endif %} {% if testimonial.video.video_thumbnail_type_mobile != 'none' %}palm-visuallyhidden{% endif %}">
+                          <a title="{% if testimonial.video.video_title_attribute %}{{ testimonial.video.video_title_attribute }}{% else %}Watch the Video{% endif %}" class="inline-block no--underline" {% if testimonial.video.video_type == "modal" %}href="{{ testimonial.video.video_url_of_iframe_embeddable_video_file.href }}"{% elif testimonial.video.video_type == 'hubspot' %}data-src="#{{ name }}--embed--{{ loop.index }}" data-fancybox{% elif testimonial.video.video_type == "vidyard" %}href="javascript:;" onclick="launchLightbox_{{ loop.index }}_{{ name }}('{{ testimonial.video.vidyard_video_uuid|trim }}');"{% endif %} style="width:320px;max-width:100%;">
+                            <span class="block--video--icon"></span>
+                            {% if testimonial.video.video_label_text %}
+                            <span class="block short--top all--text--center block--video--label">
+                              <p class="hard--ends">
+                                {{ testimonial.video.video_label_text }}
+                              </p>
+                            </span>
+                            {% endif %}
+                          </a>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                        {% if testimonial.video.video_label_text %}
+                        <div class="block short--top all--text--center block--video--label {% if ((testimonial.video.video_type == "modal")||(testimonial.video.video_type == "vidyard"))&&(testimonial.video.video_thumbnail_type == 'none') %}lap-and-up-visuallyhidden tablet-visuallyhidden{% endif %} {% if ((testimonial.video.video_type == "modal")||(testimonial.video.video_type == "vidyard"))&&(testimonial.video.video_thumbnail_type_mobile == 'none') %}palm-visuallyhidden{% endif %}">
+                          <p class="hard--ends">
+                            {{ testimonial.video.video_label_text }}
+                          </p>
+                        </div>
+                        {% endif %}
+                      </div>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                  </div>
+                  <span class="clear"></span>
+                </div>
+                {% endfor %}
+              </span>
+            </div>
+            <span class="flexslider--prev {% if module.testimonial_slider|length <= 1 %}visuallyhidden{% endif %}" data-slider="{{ name }}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z"/></svg></span>
+            <span class="flexslider--next {% if module.testimonial_slider|length <= 1 %}visuallyhidden{% endif %}" data-slider="{{ name }}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"/></svg></span>
+          </div>
+          <ul class="flexslider--controls margin--tall--top hard--bottom {% if module.testimonial_slider|length <= 1 %}visuallyhidden{% endif %}" data-slider="{{ name }}">
+            {% for slide in module.testimonial_slider %}
+            <li class="{% if loop.first %}active{% endif %}"></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% if snippets.multiButton(module.cta) %}
+    <div class="grid hard--ends {{ snippets.textColorOverride(module.section_controls.text_color_override) }}">
+      <div class="grid__item one-whole tall--top palm-short--top hard--bottom first--hard--top last--hard--bottom {{ snippets.textColorOverride(module.section_controls.text_color_override) }} all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+        {{ snippets.multiButton(module.cta) }}
+      </div>
+    </div>
+    {% endif %}
+    {% for testimonial in module.testimonial_slider %}
+    {% if (testimonial.video.video_type == "hubspot")&&(testimonial.featured_media_type == "video") %}
+    {% if testimonial.video.video_hubspot_video.player_id %}
+    <div id="{{ name }}--embed--{{ loop.index }}" class="video--popover all--aspectratio" style="display:none;">
+
+      {% set max_width = testimonial.video.video_hubspot_video.size_type == 'auto_custom_max' ? testimonial.video.video_hubspot_video.max_width : testimonial.video.video_hubspot_video.width %}
+      {% set max_height = testimonial.video.video_hubspot_video.size_type == 'auto_custom_max' ? testimonial.video.video_hubspot_video.max_height : testimonial.video.video_hubspot_video.height %}
+
+      {% set playColor = testimonial.video.video_hubspot_play_button_color.color %}
+
+      {% video_player "embed_player"
+         placeholder_alt_text={{ testimonial.video.video_image_alt_tag }}
+         play_button_color={{ playColor }}
+         player_id={{ testimonial.video.video_hubspot_video.player_id }}
+         type={{ testimonial.video.video_hubspot_video.player_type || 'scriptV4' }}
+         full_width={{ testimonial.video.video_hubspot_video.size_type == 'auto_full_width' }},
+         conversion_asset={{ testimonial.video.video_hubspot_video.conversion_asset|tojson|safe }}
+      %}
+
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% set vidyardActive = { "value": "false" } %}
+    {% for testimonial in module.testimonial_slider %}
+    {% if (testimonial.featured_media_type == "video") && (testimonial.video.video_type == "vidyard") %}
+    {% do vidyardActive.update({ "value" : "true" }) %}
+    {% endif %}
+    {% endfor %}
+    {% if "true" == vidyardActive.value %}
+    <script type="text/javascript" async src="https://play.vidyard.com/embed/v4.js"></script>
+    {% endif %}
+    {% for testimonial in module.testimonial_slider %}
+    {% if (testimonial.video.video_type == "vidyard")&&(testimonial.featured_media_type == "video") %}
+    <div class="visuallyhidden">
+      <img class="vidyard-player-embed" alt="{{ testimonial.video.vidyard_video_image_alt_tag }}" data-uuid="{{ testimonial.video.vidyard_video_uuid|trim }}" data-type="lightbox" data-v="4">
+    </div>
+    <script>
+      function launchLightbox_{{ loop.index }}_{{ name }}(uuid) {
+        var players = VidyardV4.api.getPlayersByUUID(uuid);
+        var player = players[0];
+        player.showLightbox();
+      }
+    </script>
+    {% endif %}
+    {% endfor %}
+    <div class="block gridspacer--bottom {{ snippets.sectionPadding(module.section_controls.spacing,"bottom") }}">
+
+    </div>
+    {{ snippets.swoopSpacerBottom(module.background) }}
+  </div>
+  {{ snippets.sectionPaddingCustomStyles(name,module.section_controls.spacing,".gridspacer--top",".gridspacer--bottom") }}
+</div>

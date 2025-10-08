@@ -1,0 +1,41 @@
+<!--
+  templateType: email_subscriptions_confirmation_page
+  isAvailableForNewContent: true
+  label: PRO-HubUI-2022 - email subscriptions confirmation
+  screenshotPath: ../../images/template-previews/subscriptions-confirmation.png
+-->
+{% set template_css = "/PRO-HubUI-2022/css/templates/subscription.css" %}
+{% extends "../layouts/base.html" %}
+
+{#
+  pageTitle is used on system templates for
+  setting a value for the title tag
+#}
+{% set pageTitle    = "Confirm subscriptions" %}
+{% set body_classes = 'pagetype--subscription header--static'%}
+
+{% block body %}
+  <div class="header--anchor"></div>
+  <section class="content-wrapper">
+    <div class="systems-page">
+      <div class="block relative">
+        <span class="background">
+          <span class="background--layer" style="background:#ffffff;"></span>
+        </span>
+        <div class="grid relative z-index--2 basic palm-tall">
+          <div class="grid__item one-whole short text--left" style="font-size:16px;">
+            {% email_subscriptions_confirmation
+              "email_subscriptions_confirmation"
+              header='Email Unsubscribe',
+              subheader_text='<p>If this is not your email address, please ignore this page since the email associated with this page was most likely forwarded to you.</p>',
+              subscription_update_success='You have successfully updated your email preferences.',
+              unsubscribe_all_success='You have successfully unsubscribed from all email communications.',
+              label='Subscriptions Update Confirmation'
+            %}
+          </div>
+        </div>
+        <span class="clear"></span>
+      </div>
+    </div>
+  </section>
+{% endblock body %}

@@ -1,0 +1,91 @@
+<!-- Fixed background animation container -->
+<div id="background-animation"></div>
+
+<!-- Header -->
+<header class="header propeller-header">
+    <div class="container">
+        <div class="header-content">
+            <!-- Logo -->
+            <a href="https://propellervc.com/" class="logo">
+                <img src="{{ get_asset_url('/PRO-HubUI-CHAD EDIT/images/logo_propeller.svg') }}" alt="Propeller Logo" class="logo-icon">
+                <span class="logo-text">PROPELLER</span>
+            </a>
+            
+            <!-- Spacer -->
+            <div class="header-spacer"></div>
+            
+            <!-- Navigation -->
+            <nav class="nav">
+                {% for menu_item in module.main_navigation %}
+                <div class="nav-item{% if menu_item.nested_menu|length > 0 %} dropdown{% endif %}">
+                    {% if menu_item.add_a_hyperlink %}
+                        <a href="{% if menu_item.hyperlink.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{ menu_item.hyperlink.href }}" class="nav-text"{% if menu_item.open_hyperlink_in_new_tab %} target="_blank"{% endif %}>{{ menu_item.menu_item_label }}</a>
+                    {% else %}
+                        <span class="nav-text">{{ menu_item.menu_item_label }}</span>
+                    {% endif %}
+                    {% if menu_item.nested_menu|length > 0 %}
+                    <svg class="nav-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M4 6L8 10L12 6" stroke="#01092D" stroke-width="1.5"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        {% for child_item in menu_item.nested_menu %}
+                        <a href="{{ child_item.url }}" class="dropdown-link"{% if child_item.linkTarget == '_blank' %} target="_blank"{% endif %}>{{ child_item.linkLabel }}</a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </nav>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle">
+                <span class="mobile-menu-text">MENU</span>
+            </button>
+            
+            <!-- CTA Button -->
+            {% if module.cta_button_text && module.cta_hyperlink_url %}
+            <a href="{% if module.cta_hyperlink_url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{ module.cta_hyperlink_url.href }}" class="cta-button"{% if module.cta_open_hyperlink_in_new_tab %} target="_blank"{% endif %}>
+                <span>{{ module.cta_button_text }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M11.6253 1V9.125C11.6253 9.29076 11.5595 9.44973 11.4423 9.56694C11.3251 9.68415 11.1661 9.75 11.0003 9.75C10.8346 9.75 10.6756 9.68415 10.5584 9.56694C10.4412 9.44973 10.3753 9.29076 10.3753 9.125V2.50859L1.44254 11.4422C1.32526 11.5595 1.1662 11.6253 1.00035 11.6253C0.834495 11.6253 0.675435 11.5595 0.55816 11.4422C0.440885 11.3249 0.375 11.1659 0.375 11C0.375 10.8341 0.440885 10.6751 0.55816 10.5578L9.49175 1.625H2.87535C2.70959 1.625 2.55062 1.55915 2.43341 1.44194C2.3162 1.32473 2.25035 1.16576 2.25035 1C2.25035 0.83424 2.3162 0.675269 2.43341 0.558058C2.55062 0.440848 2.70959 0.375 2.87535 0.375H11.0003C11.1661 0.375 11.3251 0.440848 11.4423 0.558058C11.5595 0.675269 11.6253 0.83424 11.6253 1Z" fill="#1840EC"/>
+                </svg>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu-overlay" class="mobile-menu-overlay">
+    <div class="mobile-menu-content">
+        <div class="mobile-menu-header">
+            <a href="https://propellervc.com/" class="mobile-menu-logo">
+                <img src="{{ get_asset_url('/PRO-HubUI-CHAD EDIT/images/logo_propeller.svg') }}" alt="Propeller Logo" class="mobile-menu-logo-icon">
+                <span class="mobile-menu-logo-text">PROPELLER</span>
+            </a>
+            <button class="mobile-menu-close">
+                <span class="mobile-menu-close-text">CLOSE</span>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            {% for menu_item in module.main_navigation %}
+                {% if menu_item.nested_menu|length > 0 %}
+                    {% for child_item in menu_item.nested_menu %}
+                    <a href="{{ child_item.url }}" class="mobile-menu-item"{% if child_item.linkTarget == '_blank' %} target="_blank"{% endif %}>{{ child_item.linkLabel }}</a>
+                    {% endfor %}
+                {% else %}
+                    {% if menu_item.add_a_hyperlink %}
+                    <a href="{% if menu_item.hyperlink.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{ menu_item.hyperlink.href }}" class="mobile-menu-item"{% if menu_item.open_hyperlink_in_new_tab %} target="_blank"{% endif %}>{{ menu_item.menu_item_label }}</a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            {% if module.cta_button_text && module.cta_hyperlink_url %}
+            <a href="{% if module.cta_hyperlink_url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{ module.cta_hyperlink_url.href }}" class="mobile-menu-item mobile-menu-cta"{% if module.cta_open_hyperlink_in_new_tab %} target="_blank"{% endif %}>{{ module.cta_button_text }}</a>
+            {% endif %}
+        </div>
+        <!-- Background Logo -->
+        <div class="mobile-menu-bg-logo">
+            <img src="{{ get_asset_url('/PRO-HubUI-CHAD EDIT/images/logo_propeller.svg') }}" alt="Background Logo">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,233 @@
+{% set columnWidthsKey = {
+  "one-whole":1,
+  "one-half":2,
+  "one-third":3,
+  "one-fourth":4,
+  "one-fifth":5,
+  "one-sixth":6
+} %}
+{% set columnWidths = {
+  "desk":columnWidthsKey[module.layout_controls.number_of_columns_desktop],
+  "lap":columnWidthsKey[module.layout_controls.number_of_columns_laptop|replace("lap-","")],
+  "tablet":columnWidthsKey[module.layout_controls.number_of_columns_tablet|replace("tablet-","")],
+  "palm":columnWidthsKey[module.layout_controls.number_of_columns_mobile|replace("palm-","")]
+} %}
+
+{% if module.layout_controls.columns_background_color.columns_background_color == "custom" %}
+{% set backgroundColor = module.layout_controls.columns_background_color.columns_custom_background_color.color %}
+{% set backgroundOpacity = module.layout_controls.columns_background_color.columns_custom_background_color.opacity|int/100 %}
+{% set backgroundColorRgba = "rgba("+backgroundColor|convert_rgb+", "+backgroundOpacity+")" %}
+{% else %}
+{% set backgroundColor = functions.color(module.layout_controls.columns_background_color.columns_background_color) %}
+{% set backgroundOpacity = 1 %}
+{% set backgroundColorRgba = "rgba(" + ( backgroundColor ? backgroundColor|convert_rgb : '' ) + ", "+backgroundOpacity+")" %}
+{% endif %}
+
+{% if module.layout_controls.columns_highlight_price_in_a_different_color %}
+{% if module.layout_controls.columns_price_background_color.columns_price_background_color == "custom" %}
+{% set priceBackgroundColor = module.layout_controls.columns_price_background_color.columns_price_custom_background_color.color %}
+{% set priceBackgroundOpacity = module.layout_controls.columns_price_background_color.columns_price_custom_background_color.opacity|int/100 %}
+{% set priceBackgroundColorRgba = "rgba("+priceBackgroundColor|convert_rgb+", "+priceBackgroundOpacity+")" %}
+{% else %}
+{% set priceBackgroundColor = functions.color(module.layout_controls.columns_price_background_color.columns_price_background_color) %}
+{% set priceBackgroundOpacity = 1 %}
+{% set priceBackgroundColorRgba = "rgba("+priceBackgroundColor|convert_rgb+", "+priceBackgroundOpacity+")" %}
+{% endif %}
+{% else %}
+{% set priceBackgroundColor = backgroundColor %}
+{% set priceBackgroundOpacity = backgroundOpacity %}
+{% set priceBackgroundColorRgba = backgroundColorRgba %}
+{% endif %}
+
+{% if module.layout_controls.columns_border_color.columns_border_color == "custom" %}
+{% set borderColor = module.layout_controls.columns_border_color.columns_custom_border_color.color %}
+{% set borderOpacity = module.layout_controls.columns_border_color.columns_custom_border_color.opacity|int/100 %}
+{% set borderColorRgba = "rgba("+borderColor|convert_rgb+", "+borderOpacity+")" %}
+{% else %}
+{% set borderColor = functions.color(module.layout_controls.columns_border_color.columns_border_color) %}
+{% set borderOpacity = 1 %}
+{% set borderColorRgba = "rgba(" + ( borderColor ? borderColor|convert_rgb : '' ) + ", "+borderOpacity+")" %}
+{% endif %}
+
+{% set borderWidth = module.layout_controls.columns_border_width %}
+
+{% if module.layout_controls.columns_add_border_radius_around_columns %}
+{% if module.layout_controls.columns_border_radius.columns_border_radius_type == "custom" %}
+{% set borderRadius = module.layout_controls.columns_border_radius.columns_border_radius %}
+{% set borderRadiusClass = "border-radius--"+borderRadius %}
+{% else %}
+{% set borderRadius = snippets.default_BorderRadius|replace("px","")|replace("em","")|int %}
+{% set borderRadiusClass = "border-radius--"+borderRadius %}
+{% endif %}
+{% else %}
+{% set borderRadius = 0 %}
+{% set borderRadiusClass = "" %}
+{% endif %}
+
+<div {% if module.section_controls.anchor_id %}id="{{ module.section_controls.anchor_id|trim }}"{% endif %} class="section section--pricingcolumns relative overflow--hidden {{ snippets.deviceVisibility(module.section_controls.device_visibility) }}">
+  {{ snippets.background(module.background) }}
+  <div class="block relative z-index--3 section--pricingcolumns--outer">
+    <div class="section--pricingcolumns--inner">
+      {{ snippets.swoopSpacerTop(module.background) }}
+      <div class="block gridspacer--top {{ snippets.sectionPadding(module.section_controls.spacing,"top") }}">
+
+      </div>
+      {% if module.header || module.content || module.preheader %}
+      <div class="grid relative hard--ends {{ snippets.textColorOverride(module.section_controls.text_color_override) }}" data-columns--desk="{{ columnWidths['desk'] }}" data-columns--lap="{{ columnWidths['lap'] }}" data-columns--tablet="{{ columnWidths['tablet'] }}" data-columns--palm="{{ columnWidths['palm'] }}">
+        <div class="grid__item eight-twelfths tablet-ten-twelfths palm-one-whole hard--top tall--bottom palm-short--bottom first--hard--top last--hard--bottom all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+          {% if module.preheader %}
+          <span class="h6 preheader">{{ module.preheader }}</span>
+          {% endif %}
+          {% if module.enable_header_rule %}
+            <span class="header--rule"></span>
+          {% endif %}
+          {% if module.header %}
+          <h2>{{ module.header }}</h2>
+          {% endif %}
+          {{ module.content }}
+        </div>
+      </div>
+      {% endif %}
+      <div class="grid relative hard--ends {% if module.layout_controls.columns_width == 'wide' %}hard--sides{% endif %} overflow--visible">
+        <div class="grid__item one-whole hard--ends text--center overflow--visible">
+          <div class="section--pricingcolumns--column--wrapper">
+            {% for item in module.columns_content %}
+            <div class="section--pricingcolumns--column relative grid__item {{ module.layout_controls.number_of_columns_desktop }} {{ module.layout_controls.number_of_columns_laptop }} {{ module.layout_controls.number_of_columns_tablet }} {{ module.layout_controls.number_of_columns_mobile }} hard--ends palm-margin--short--bottom valign--top">
+              <div class="block section--pricingcolumns--column--inner">
+                <div class="block {% for key, value in columnWidths.items() %}{% if value != 1 %} {{ key }}-equalize--4{% endif %}{% endfor %}">
+                  {% if item.highlight_this_column %}
+                  {% if item.highlight_label_background_color.highlight_label_background_color == "custom" %}
+                  {% set highlightBackgroundColor = item.highlight_label_background_color.highlight_custom_label_background_color.color %}
+                  {% set highlightBackgroundOpacity = item.highlight_label_background_color.highlight_custom_label_background_color.opacity|int/100 %}
+                  {% set highlightBackgroundColorRgba = "rgba("+highlightBackgroundColor|convert_rgb+", "+highlightBackgroundOpacity+")" %}
+                  {% else %}
+                  {% set highlightBackgroundColor = functions.color(item.highlight_label_background_color.highlight_label_background_color) %}
+                  {% set highlightBackgroundOpacity = 1 %}
+                  {% set highlightBackgroundColorRgba = "rgba("+highlightBackgroundColor|convert_rgb+", "+highlightBackgroundOpacity+")" %}
+                  {% endif %}
+                  {% if item.highlight_label_text_color.highlight_label_text_color == "custom" %}
+                  {% set highlightTextColor = item.highlight_label_text_color.highlight_custom_label_text_color.color %}
+                  {% set highlightTextOpacity = item.highlight_label_text_color.highlight_custom_label_text_color.opacity|int/100 %}
+                  {% set highlightTextColorRgba = "rgba("+highlightTextColor|convert_rgb+", "+highlightTextOpacity+")" %}
+                  {% else %}
+                  {% set highlightTextColor = functions.color(item.highlight_label_text_color.highlight_label_text_color) %}
+                  {% set highlightTextOpacity = 1 %}
+                  {% set highlightTextColorRgba = "rgba("+highlightTextColor|convert_rgb+", "+highlightTextOpacity+")" %}
+                  {% endif %}
+                  <div class="block section--pricingcolumns--column--feature" style="background-color:{{ highlightBackgroundColor }};">
+                    <p class="hard--ends font--14 bolder" style="color:{{ highlightTextColorRgba }};">
+                      {{ item.highlight_label_text }}
+                    </p>
+                  </div>
+                  {% endif %}
+                </div>
+                <div class="block section--pricingcolumns--column--body overflow--hidden first--hard--top last--hard--bottom {{ borderRadiusClass }} border--{{ borderWidth }} {% if module.layout_controls.columns_box_shadow %}box-shadow{% endif %}" style="border-color:{{ borderColorRgba }};background-color:{{ backgroundColorRgba }};">
+                  <div class="block first--hard--top last--hard--bottom {{ module.layout_controls.columns_text_color_override }} all--text--center {% for key, value in columnWidths.items() %}{% if value != 1 %} {{ key }}-equalize{% endif %}{% endfor %}" style="padding:25px 25px 25px 25px;">
+                    {% if item.header_label||item.description_subheader %}
+                    {% if item.header_label %}
+                    <h3 class="hard--ends font--20 normalcase">
+                      {{ item.header_label }}
+                    </h3>
+                    {% endif %}
+                    {% if item.description_subheader %}
+                    <p class="hard--ends font--14">
+                      {{ item.description_subheader }}
+                    </p>
+                    {% endif %}
+                    {% endif %}
+                  </div>
+                  <div class="block {% for key, value in columnWidths.items() %}{% if value != 1 %} {{ key }}-equalize--1{% endif %}{% endfor %} {% if module.layout_controls.columns_highlight_price_in_a_different_color %}{{ module.layout_controls.columns_price_text_color_override }}{% else %}{{ module.layout_controls.columns_text_color_override }}{% endif %}" style="background-color:{{ priceBackgroundColorRgba }};">
+                    {% if 1==1 %}
+                    {% if item.price||item.price_label %}
+                    <div class="block first--hard--top last--hard--bottom" style="padding:{% if module.layout_controls.columns_highlight_price_in_a_different_color %}25px{% else %}0px{% endif %} 25px;">
+                      <p class="hard--ends">
+                        <span class="h2">
+                          {{ item.price }}
+                        </span>
+                      </p>
+                      <p class="hard--ends font--14">
+                        {{ item.price_label }}
+                      </p>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                  </div>
+                  <div class="block {{ module.layout_controls.columns_text_color_override }}" style="padding:25px 25px 25px 25px;">
+                    <div class="block {% for key, value in columnWidths.items() %}{% if value != 1 %} {{ key }}-equalize--2{% endif %}{% endfor %}">
+                      <div class="block first--hard--top last--hard--bottom text--left">
+                        {% if (item.pricing_information_content)&&(module.layout_controls.columns_pricing_information_content_type == "richtext") %}
+                        {{ item.pricing_information_content }}
+                        {% endif %}
+                        {% if (item.bullets_list_of_features|length > 0)&&(module.layout_controls.columns_pricing_information_content_type == "bullets") %}
+                        <div class="section--pricingcolumns--bullets">
+                          {% for feature in item.bullets_list_of_features %}
+                          <div class="section--pricingcolumns--bullet {% if feature.bullet_type == "xmark" %}section--pricingcolumns--bullet--type--xmark{% endif %}">
+                            <div class="flexgrid valign--top align--start no--wrap">
+                              <span class="section--pricingcolumns--bullet--icon relative" style="{% if feature.bullet_type == "fontawesome" %}top:{{ feature.bullet_image_vertical_offset }}px;{% endif %}">
+                                {% if feature.bullet_type == "xmark" %}
+                                <svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g transform="translate(-10.000000, -10.000000)">
+                                      <path d="M47.2534391,50 C46.5192334,50 45.8300274,49.7142237 45.3105572,49.1947739 L30.0003947,33.8852158 L14.6894428,49.1947739 C14.170762,49.7142237 13.4807666,50 12.7473503,50 C12.0139341,50 11.3239387,49.7142237 10.8044684,49.1947739 C10.2865771,48.6753242 10,47.9861454 10,47.2527581 C10,46.5193708 10.2865771,45.8294026 10.8044684,45.3107423 L26.1154203,30.0003947 L10.8044684,14.6892577 C10.2865771,14.1705974 10,13.4806292 10,12.7472419 C10,12.0138546 10.2865771,11.3246758 10.8044684,10.8052261 C11.3231492,10.2865658 12.0139341,10 12.7473503,10 C13.4807666,10 14.170762,10.2865658 14.6894428,10.8052261 L30.0003947,26.1155736 L45.3105572,10.8052261 C45.8300274,10.2865658 46.5192334,10 47.2534391,10 C47.9868553,10 48.6768508,10.2865658 49.1955316,10.8052261 C49.7142124,11.3246758 50,12.0138546 50,12.7472419 C50,13.4806292 49.7142124,14.1705974 49.1955316,14.6892577 L33.8853692,30.0003947 L49.1955316,45.3107423 C49.7142124,45.8294026 50,46.5193708 50,47.2527581 C50,47.9861454 49.7142124,48.6753242 49.1955316,49.1947739 C48.6768508,49.7150131 47.9876448,50 47.2534391,50" id="Fill-4" transform="translate(30.000000, 30.000000) rotate(-270.000000) translate(-30.000000, -30.000000) "></path>
+                                    </g>
+                                  </g>
+                                </svg>
+                                {% elif feature.bullet_type == "fontawesome" %}
+                                {% if feature.bullet_custom_icon.name is defined %}
+                                {% icon name="{{ feature.bullet_custom_icon.name }}" style="{{ feature.bullet_custom_icon.type }}" unicode="{{ feature.bullet_custom_icon.unicode }}" icon_set="{{ feature.bullet_custom_icon.icon_set }}" width="22" purpose="decorative" %}
+                                {% endif %}
+                                {% else %}
+                                <svg width="52px" height="38px" viewBox="0 0 52 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g transform="translate(-4.000000, -11.000000)">
+                                      <path d="M22.205726,49 C21.5063867,49 20.8490383,48.7155736 20.3543092,48.1993039 L4.7649978,31.9312311 C3.74500073,30.8668232 3.74500073,29.1331768 4.7649978,28.0679722 C5.25972691,27.5517024 5.91707532,27.2672761 6.61641462,27.2672761 C7.31499046,27.2672761 7.97233886,27.5517024 8.46706798,28.0679722 L21.3010131,41.4607095 C21.550668,41.7212345 21.878197,41.8510986 22.205726,41.8510986 C22.5324916,41.8510986 22.8600206,41.7212345 23.1096755,41.4607095 L51.532932,11.7998994 C52.0268977,11.2836297 52.6850095,11 53.3835854,11 C54.0829247,11 54.7402731,11.2836297 55.2350022,11.7998994 C56.2549993,12.865104 56.2549993,14.5987504 55.2350022,15.663955 L24.0563794,48.1993039 C23.5616503,48.7155736 22.9043019,49 22.205726,49" id="Fill-6"></path>
+                                    </g>
+                                  </g>
+                                </svg>
+                                {% endif %}
+                              </span>
+                              <span class="section--pricingcolumns--bullet--label one-whole first--hard--top last--hard--bottom p hard--ends">
+                                {{ feature.bullet_label }}
+                              </span>
+                            </div>
+                          </div>
+                          {% endfor %}
+                        </div>
+                        {% endif %}
+                      </div>
+                      {% if ((item.cta.cta_type == "cta")&&(item.cta.cta))||((item.cta.cta_type == "link")&&(item.cta.cta_hyperlink.href)&&(item.cta.cta_button_text))||((item.cta.cta_type == "anchor")&&(item.cta.cta_section_anchor_id)&&(item.cta.cta_button_text)) %}
+                      <div class="block" style="padding-top:25px;"></div>
+                      {% endif %}
+                    </div>
+                    <div class="block {% for key, value in columnWidths.items() %}{% if value != 1 %} {{ key }}-equalize--3{% endif %}{% endfor %}">
+                      <div class="equalize--bottom">
+                        {% if snippets.button(item.cta) %}
+                        <div class="block first--hard--top last--hard--bottom">
+                          {{ snippets.button(item.cta) }}
+                        </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% if snippets.multiButton(module.cta) %}
+      <div class="grid hard--ends {{ snippets.textColorOverride(module.section_controls.text_color_override) }}">
+        <div class="grid__item one-whole tall--top palm-short--top hard--bottom first--hard--top last--hard--bottom {{ snippets.textColorOverride(module.section_controls.text_color_override) }} all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+          {{ snippets.multiButton(module.cta) }}
+        </div>
+      </div>
+      {% endif %}
+      <div class="block gridspacer--bottom {{ snippets.sectionPadding(module.section_controls.spacing,"bottom") }}">
+
+      </div>
+      {{ snippets.swoopSpacerBottom(module.background) }}
+    </div>
+  </div>
+  {{ snippets.sectionPaddingCustomStyles(name,module.section_controls.spacing,".gridspacer--top",".gridspacer--bottom") }}
+</div>

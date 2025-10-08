@@ -1,0 +1,91 @@
+<!-- Footer -->
+<footer class="footer propeller-footer">
+    <div class="container">
+        <div class="footer-content">
+            {% unless module.hide_footer_top %}
+            <div class="footer-main">
+                <!-- Logo Column -->
+                <div class="footer-column">
+                    <a href="https://propellervc.com/" class="footer-logo">
+                        <img src="{{ get_asset_url('/PRO-HubUI-CHAD EDIT/images/logo_propeller.svg') }}" alt="Propeller Logo" class="footer-logo-icon">
+                        <span class="footer-logo-text">PROPELLER</span>
+                    </a>
+                    <div class="footer-legal">
+                        <p>&copy; {{ year }} {% if module.company_name %}{{ module.company_name }}{% else %}Propeller{% endif %} All Rights Reserved.</p>
+                        {% if module.legal_links|length > 0 %}
+                        <p>
+                            {% for legal_link in module.legal_links %}
+                                <a href="{% if legal_link.link.url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{ legal_link.link.url.href }}"{% if legal_link.link.open_in_new_tab %} target="_blank"{% endif %}{% if legal_link.link_title_attribute %} title="{{ legal_link.link_title_attribute }}"{% endif %}>{{ legal_link.link_text }}</a>{% unless forloop.last %} and {% endunless %}
+                            {% endfor %}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Dynamic Footer Columns -->
+                {% for column in module.quicklinks_menu_columns %}
+                    {% for content_group in column.column_content_group %}
+                        <div class="footer-column">
+                            {% if content_group.group_header_label %}
+                                <h4 class="footer-heading">{{ content_group.group_header_label }}</h4>
+                            {% endif %}
+                            
+                            {% if content_group.content_type == 'links' %}
+                                <ul class="footer-links{% if content_group.social_group_content %} social-links{% endif %}">
+                                    {% for link_item in content_group.links %}
+                                        <li>
+                                            <a href="{% if link_item.link.url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{ link_item.link.url.href }}"{% if link_item.link.open_in_new_tab %} target="_blank"{% endif %}{% if link_item.link_title_attribute %} title="{{ link_item.link_title_attribute }}"{% endif %}>{{ link_item.link_text }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                    
+                            {% elif content_group.content_type == 'richtext' %}
+                                {% for rich_item in content_group.richtext %}
+                                    <div class="footer-content-block">
+                                        {{ rich_item.text_content }}
+                                    </div>
+                                {% endfor %}
+                                    
+                            {% elif content_group.content_type == 'logo' %}
+                                <div class="footer-logo-block">
+                                    {% if content_group.logo.logo_hyperlink_url.url.href %}
+                                        <a href="{{ content_group.logo.logo_hyperlink_url.url.href }}"{% if content_group.logo.logo_hyperlink_url.open_in_new_tab %} target="_blank"{% endif %}>
+                                    {% endif %}
+                                    {% if content_group.logo.logo.src %}
+                                        <img src="{{ content_group.logo.logo.src }}" alt="{{ content_group.logo.logo.alt }}" width="{{ content_group.logo.logo.width }}" height="{{ content_group.logo.logo.height }}">
+                                    {% else %}
+                                        <img src="{{ content_group.logo.logo_png.src }}" alt="{{ content_group.logo.logo_png.alt }}" width="{{ content_group.logo.logo_png.width }}" height="{{ content_group.logo.logo_png.height }}">
+                                    {% endif %}
+                                    {% if content_group.logo.logo_hyperlink_url.url.href %}
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            {% endunless %}
+            
+            <div class="newsletter">
+                <h3>Subscribe to our monthly newsletter and stay up to date</h3>
+                <form class="newsletter-form">
+                    <label for="email" class="newsletter-label">Subscribe to our newsletter</label>
+                    <div class="newsletter-field">
+                        <input type="email" id="email" placeholder="your@email.com" class="newsletter-input">
+                        <button type="submit" class="newsletter-submit">
+                            <svg width="15" height="8" viewBox="0 0 15 8" fill="none">
+                                <path d="M14.5 4L0.5 4M14.5 4L11 0.5M14.5 4L11 7.5" stroke="#01092D" stroke-width="1.5"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Big Logo Background -->
+        <div class="footer-bg-logo">
+            <img src="{{ get_asset_url('/PRO-HubUI-CHAD EDIT/images/logo_propeller.svg') }}" alt="Background Logo">
+        </div>
+    </div>
+</footer>

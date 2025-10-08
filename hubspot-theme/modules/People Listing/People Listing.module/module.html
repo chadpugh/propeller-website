@@ -1,0 +1,344 @@
+{% set columnWidthsKey = {
+  "one-whole":1,
+  "one-half":2,
+  "one-third":3,
+  "one-fourth":4,
+  "one-fifth":5,
+  "one-sixth":6
+} %}
+{% set columnWidths = {
+  "desk":columnWidthsKey[module.layout_controls.number_of_columns_desktop],
+  "lap":columnWidthsKey[module.layout_controls.number_of_columns_laptop|replace("lap-","")],
+  "tablet":columnWidthsKey[module.layout_controls.number_of_columns_tablet|replace("tablet-","")],
+  "palm":columnWidthsKey[module.layout_controls.number_of_columns_mobile|replace("palm-","")]
+} %}
+
+{% if module.layout_controls.cards_background_color.cards_background_color == "custom" %}
+  {% set backgroundColor     = module.layout_controls.cards_background_color.cards_custom_background_color.color %}
+  {% set backgroundOpacity   = module.layout_controls.cards_background_color.cards_custom_background_color.opacity|int/100 %}
+  {% set backgroundColorRgba = "rgba(" + ( backgroundColor ? backgroundColor|convert_rgb : '' ) + ", "+backgroundOpacity+")" %}
+{% else %}
+  {% set backgroundColor     = functions.color(module.layout_controls.cards_background_color.cards_background_color) %}
+  {% set backgroundOpacity   = 1 %}
+  {% set backgroundColorRgba = "rgba(" + ( backgroundColor ? backgroundColor|convert_rgb : '' ) + ", "+backgroundOpacity+")" %}
+{% endif %}
+
+{% if module.layout_controls.cards_border_color.cards_border_color == "custom" %}
+  {% set borderColor     = module.layout_controls.cards_border_color.cards_custom_border_color.color %}
+  {% set borderOpacity   = module.layout_controls.cards_border_color.cards_custom_border_color.opacity|int/100 %}
+  {% set borderColorRgba = "rgba(" + ( borderColor ? borderColor|convert_rgb : '' ) + ", "+borderOpacity+")" %}
+{% else %}
+  {% set borderColor     = functions.color(module.layout_controls.cards_border_color.cards_border_color) %}
+  {% set borderOpacity   = 1 %}
+  {% set borderColorRgba = "rgba(" + ( borderColor ? borderColor|convert_rgb : '' ) + ", "+borderOpacity+")" %}
+{% endif %}
+
+{% set borderWidth = module.layout_controls.cards_border_width %}
+
+{% if module.layout_controls.cards_add_border_radius_around_cards %}
+{% if module.layout_controls.cards_border_radius.cards_border_radius_type == "custom" %}
+{% set borderRadius = module.layout_controls.cards_border_radius.cards_custom_border_radius %}
+{% set borderRadiusClass = "border-radius--"+borderRadius %}
+{% else %}
+{% set borderRadius = snippets.default_BorderRadius|replace("px","")|replace("em","")|int %}
+{% set borderRadiusClass = "border-radius--"+borderRadius %}
+{% endif %}
+{% else %}
+{% set borderRadius = 0 %}
+{% set borderRadiusClass = "" %}
+{% endif %}
+
+<div {% if module.section_controls.anchor_id %}id="{{ module.section_controls.anchor_id|trim }}"{% endif %} class="{{ name }} section section--peoplelisting relative overflow--hidden {{ snippets.deviceVisibility(module.section_controls.device_visibility) }}">
+  {{ snippets.background(module.background) }}
+  <div class="block relative z-index--3 section--peoplelisting--outer">
+    <div class="section--peoplelisting--inner">
+      {{ snippets.swoopSpacerTop(module.background) }}
+      <div class="block gridspacer--top {{ snippets.sectionPadding(module.section_controls.spacing,"top") }}">
+
+      </div>
+      {% if module.header || module.content || module.preheader %}
+      <div class="grid relative hard--ends {{ snippets.textColorOverride(module.section_controls.text_color_override) }} text--center all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}" data-columns--desk="{{ columnWidths['desk'] }}" data-columns--lap="{{ columnWidths['lap'] }}" data-columns--tablet="{{ columnWidths['tablet'] }}" data-columns--palm="{{ columnWidths['palm'] }}">
+        <div class="grid__item eight-twelfths tablet-ten-twelfths palm-one-whole hard--top tall--bottom palm-short--bottom first--hard--top last--hard--bottom all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+          {% if module.preheader %}
+          <span class="h6 preheader">{{ module.preheader }}</span>
+          {% endif %}
+          {% if module.enable_header_rule %}
+            <span class="header--rule"></span>
+          {% endif %}
+          {% if module.header %}
+          <h2>{{ module.header }}</h2>
+          {% endif %}
+          {{ module.content }}
+        </div>
+      </div>
+      {% endif %}
+
+
+      {% if module.layout_controls.enable_filtering %}
+
+      {% set filteringClasses = "mix" %}
+
+      <script>
+        var filterFilters = {}
+        filterFilters["Name"] = [];
+      </script>
+
+      <div class="grid hard--ends">
+        <div class="grid__item one-whole hard--top tall--bottom palm-short--bottom section--peoplelisting--filters">
+          <div class="section--peoplelisting--filters--input production--form grid__item one-third tablet-one-half palm-one-whole short section--peoplelisting--input valign--middle palm-hard--bottom">
+            <select rel='Name'>
+              <option data-filter='all' disabled selected>{{ module.layout_controls.filter_label }}</option>
+              <option data-filter='all'>
+                {{ module.layout_controls.filter_option_label_for_all }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        {% for item in module.peoplelisting_content %}
+          {% for filter in item.filter_name|split(";") %}
+            if (filterFilters["Name"].indexOf("{{ filter|trim }}") == -1) {
+              filterFilters["Name"].push("{{ filter|trim }}");
+            }
+          {% endfor %}
+        {% endfor %}
+      </script>
+
+      {% endif %}
+
+
+
+      <div class="grid relative hard--ends {% if module.layout_controls.cards_width == 'wide' %}hard--sides{% endif %} {{ module.layout_controls.cards_text_color_override }} overflow--visible">
+        <div class="grid__item one-whole hard text--center overflow--visible">
+          <div class="section--peoplelisting--cards--wrapper">
+            {% for item in module.peoplelisting_content %}
+            <div class="section--peoplelisting--card {{ filteringClasses }} relative filter--{{ item.filter_name|lower|replace(' ','-')|replace('&','and') }} grid__item tall {{ module.layout_controls.number_of_columns_desktop }} {{ module.layout_controls.number_of_columns_laptop }} {{ module.layout_controls.number_of_columns_tablet }} {{ module.layout_controls.number_of_columns_mobile }} valign--top">
+
+              <span class="section--peoplelisting--card--inner">
+                <span class="section--peoplelisting--card--body overflow--hidden first--hard--top last--hard--bottom text--{{ module.layout_controls.cards_content_alignment }} palm-text--{{ module.layout_controls.cards_content_alignment_mobile }} {% if module.layout_controls.cards_image_type == "native" %}tall--top{% endif %} {{ borderRadiusClass }} {% if (module.layout_controls.cards_image_type != 'full') %} border--{{ borderWidth }}{% endif %} {% if module.layout_controls.cards_box_shadow %}box-shadow box-hover{% endif %} {{ module.layout_controls.cards_text_color_override }}" style="{% if (module.layout_controls.cards_image_type != 'full') %}border-color:{{ borderColorRgba }};{% endif %}background-color:{{ backgroundColorRgba }};">
+
+                  {% if item.about_bio_link_type == 'link' %}
+                    {% set href = item.about_bio_hyperlink.url.href %}
+                    {% if item.about_bio_hyperlink.url.type is equalto "EMAIL_ADDRESS" %}
+                      {% set href = "mailto:" + href %}
+                    {% endif %}
+                    <a class="hover--pointer" title="{{ item.about_bio_title_attribute }}" href="{{ href }}" {% if item.about_bio_hyperlink.open_in_new_tab %}target="_blank"{% endif %} {% if item.about_bio_hyperlink.rel %}rel="{{ item.about_bio_hyperlink.rel }}"{% endif %}>
+                  {% elif item.about_bio_link_type == 'modal' %}
+                    <a class="hover--pointer" title="{{ item.about_bio_title_attribute }}" data-src="#{{ name }}--{{ loop.index }}" data-fancybox href="javascript:;">
+                  {% elif item.about_bio_link_type == 'video'  %}
+                    <a class="hover--pointer" title="{{ item.about_bio_title_attribute }}" {% if item.video.video_type == "modal" %}data-fancybox {% if '.mp4' in item.video.video_url_of_iframe_embeddable_video_file.href %}{% else %}data-type="iframe" data-width="936" data-height="636"{% endif %} href="{{ item.video.video_url_of_iframe_embeddable_video_file.href }}"{% elif item.video.video_type == 'hubspot' %}data-src="#{{ name }}--embed--{{ loop.index }}" data-fancybox{% elif item.video.video_type == "vidyard" %}href="javascript:;" onclick="launchLightbox_{{ loop.index }}_{{ name }}('{{ item.video.vidyard_video_uuid|trim }}');"{% endif %}>
+                  {% endif %}
+
+                    {% if module.layout_controls.cards_image_type == "native" %}
+                      <span class="block padding--short">
+                        <img class="inline-block" src="{{ item.image_native.image.src }}" alt="{{ item.image_native.image.alt }}" {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} width="{% if (item.image_native.image.size_type == 'auto_custom_max') %}{{ item.image_native.image.max_width }}{% elif (item.image_native.image.size_type == 'exact') %}{{ item.image_native.image.width }}{% else %}{{ item.image_native.image.width }}{% endif %}" height="{% if (item.image_native.image.size_type == 'auto_custom_max') %}{{ item.image_native.image.max_height }}{% else %}{{ item.image_native.image.height }}{% endif %}" style="width:auto;height:{{ module.layout_controls.cards_native_image_icon_max_height }}px;" />
+                      </span>
+                    {% elif module.layout_controls.cards_image_type == "full" %}
+                      <span class="block" style="background:url('{{ item.image_full.image.src }}') no-repeat {{ item.image_full.image_horizontal_alignment }} {{ item.image_full.image_vertical_alignment }};background-size:cover;">
+                        {{ snippets.aspectSpacer(module.layout_controls.cards_image_aspect_ratio) }}
+                      </span>
+                    {% endif %}
+
+                  {% if item.about_bio_link_type == 'link' %}
+                    </a>
+                  {% elif item.about_bio_link_type == 'modal'  %}
+                    </a>
+                  {% elif item.about_bio_link_type == 'video'  %}
+                    </a>
+                  {% endif %}
+
+                  <span class="section--peoplelisting--card--body--wrapper padding--short {% if module.layout_controls.cards_image_type == "native" %}short--top{% else %}tall--top{% endif %} tall--bottom {% if (module.layout_controls.cards_image_type == 'full') %}border-radius--{{ borderRadius }} border--{{ borderWidth }}{% endif %}" {% if (module.layout_controls.cards_image_type == 'full') %}style="border-color:{{ borderColorRgba }};border-top:0px;-webkit-border-top-left-radius: 0px;-webkit-border-top-right-radius: 0px;-moz-border-radius-topleft: 0px;-moz-border-radius-topright: 0px;border-top-left-radius: 0px;border-top-right-radius: 0px;"{% endif %}>
+                    <span class="section--peoplelisting--card--body--content block first--hard--top last--hard--bottom">
+                      {% if item.employee_name %}
+                        <h3>
+                          {% if item.about_bio_link_type == 'link' %}
+                            {% set href = item.about_bio_hyperlink.url.href %}
+                            {% if item.about_bio_hyperlink.url.type is equalto "EMAIL_ADDRESS" %}
+                              {% set href = "mailto:" + href %}
+                            {% endif %}
+                            <a class="hover--pointer" title="{{ item.about_bio_title_attribute }}" href="{{ href }}" {% if item.about_bio_hyperlink.open_in_new_tab %}target="_blank"{% endif %} {% if item.about_bio_hyperlink.rel %}rel="{{ item.about_bio_hyperlink.rel }}"{% endif %}>
+                          {% elif item.about_bio_link_type == 'modal'  %}
+                            <a class="hover--pointer" title="{{ item.about_bio_title_attribute }}" data-src="#{{ name }}--{{ loop.index }}" data-fancybox href="javascript:;">
+                          {% elif item.about_bio_link_type == 'video'  %}
+                            <a class="hover--pointer" title="{{ item.about_bio_title_attribute }}" {% if item.video.video_type == "modal" %}data-fancybox {% if '.mp4' in item.video.video_url_of_iframe_embeddable_video_file.href %}{% else %}data-type="iframe" data-width="936" data-height="636"{% endif %} href="{{ item.video.video_url_of_iframe_embeddable_video_file.href }}"{% elif item.video.video_type == 'hubspot' %}data-src="#{{ name }}--embed--{{ loop.index }}" data-fancybox{% elif item.video.video_type == "vidyard" %}href="javascript:;" onclick="launchLightbox_{{ loop.index }}_{{ name }}('{{ item.video.vidyard_video_uuid|trim }}');"{% endif %}>
+                          {% endif %}
+
+                            {{ item.employee_name }}
+
+                          {% if item.about_bio_link_type == 'link' %}
+                            </a>
+                          {% elif item.about_bio_link_type == 'modal' %}
+                            </a>
+                          {% elif item.about_bio_link_type == 'video'  %}
+                            </a>
+                          {% endif %}
+                        </h3>
+                      {% endif %}
+
+                      {% if item.employee_title %}
+                        <p>
+                          {{ item.employee_title }}
+                        </p>
+                      {% endif %}
+                    </span>
+
+                    <div class="section--peoplelisting--social flexgrid valign--baseline align--center">
+                      <div class="font--15 p hard--ends">
+
+                        {% if item.about_bio_link_type == 'link' %}
+                          {% set href = item.about_bio_hyperlink.url.href %}
+                          {% if item.about_bio_hyperlink.url.type is equalto "EMAIL_ADDRESS" %}
+                            {% set href = "mailto:" + href %}
+                          {% endif %}
+                          <a class="hover--pointer" title="{{ item.about_bio_title_attribute }}" href="{{ href }}" {% if item.about_bio_hyperlink.open_in_new_tab %}target="_blank"{% endif %} {% if item.about_bio_hyperlink.rel %}rel="{{ item.about_bio_hyperlink.rel }}"{% endif %}>
+                        {% elif item.about_bio_link_type == 'modal'  %}
+                          <a class="hover--pointer" title="{{ item.about_bio_title_attribute }}" data-src="#{{ name }}--{{ loop.index }}" data-fancybox href="javascript:;">
+                        {% elif item.about_bio_link_type == 'video'  %}
+                          <a class="hover--pointer" title="{{ item.about_bio_title_attribute }}" {% if item.video.video_type == "modal" %}data-fancybox {% if '.mp4' in item.video.video_url_of_iframe_embeddable_video_file.href %}{% else %}data-type="iframe" data-width="936" data-height="636"{% endif %} href="{{ item.video.video_url_of_iframe_embeddable_video_file.href }}"{% elif item.video.video_type == 'hubspot' %}data-src="#{{ name }}--embed--{{ loop.index }}" data-fancybox{% elif item.video.video_type == "vidyard" %}href="javascript:;" onclick="launchLightbox_{{ loop.index }}_{{ name }}('{{ item.video.vidyard_video_uuid|trim }}');"{% endif %}>
+                        {% endif %}
+
+                          {% if item.about_bio_link_type != 'none' %}
+                            {{ item.about_bio_text }}
+                          {% endif %}
+
+                        {% if item.about_bio_link_type == 'link' %}
+                          </a>
+                        {% elif item.about_bio_link_type == 'modal' %}
+                          </a>
+                        {% elif item.about_bio_link_type == 'video'  %}
+                          </a>
+                        {% endif %}
+
+                      </div>
+
+                      {% if item.connect|length > 0 %}
+                        <div class="font--15 p hard--ends">|</div>
+                        <div class="font--15 p hard--ends">Connect:</div>
+                      {% endif %}
+
+                      {% for social in item.connect %}
+                        {% set href = social.social_hyperlink.url.href %}
+                        {% if social.social_hyperlink.url.type is equalto "EMAIL_ADDRESS" %}
+                          {% set href = "mailto:" + href %}
+                        {% endif %}
+                        <div class="social--item font--15 p hard--ends">
+                          <a class="{% if 'facebook' in social.social_icon.name|lower %}section--peoplelisting--social--icon--fb{% else %}section--peoplelisting--social--icon{% endif %}" title="{{ social.social_title_attribute }}" href="{{ href }}" {% if social.social_hyperlink.open_in_new_tab %}target="_blank"{% endif %} {% if social.social_hyperlink.rel %}rel="{{ item2.social_hyperlink.rel }}"{% endif %}>{% icon name="{{ social.social_icon.name }}" style="{{ social.social_icon.type }}" unicode="{{ social.social_icon.unicode }}" no_wrapper="True" icon_set="{{ social.social_icon.icon_set }}" height="15", purpose="decorative" %}
+                            <span class="visuallyhidden">{{ social.social_link_text }}</span>
+                          </a>
+                        </div>
+                      {% endfor %}
+                    </div>
+
+                  </span>
+                </span>
+
+                {% if item.about_bio_link_type == 'modal'  %}
+                  {% if item.about_bio_bio %}
+                    <div data-selectable="true" id="{{ name }}--{{ loop.index }}" class="bio-modal grid__item eight-twelfths tablet-ten-twelfths palm-one-whole first--hard--top last--hard--bottom" style="display:none;">
+                      <h3 class="hard--bottom">
+                        {{ item.employee_name }}
+                      </h3>
+                      <p class="hard--ends">
+                        {{ item.employee_title }}
+                      </p>
+                      <span class="inner--header-rule"></span>
+                      {{ item.about_bio_bio }}
+                    </div>
+                  {% endif %}
+                {% endif %}
+
+                {% if item.about_bio_link_type == 'video' && item.video.video_type == 'hubspot' %}
+                  {% if item.video.video_hubspot_video.player_id %}
+                    <div id="{{ name }}--embed--{{ loop.index }}" class="video--popover all--aspectratio" style="display:none;">
+
+                      {% set max_width = item.video.video_hubspot_video.size_type == 'auto_custom_max' ? item.video.video_hubspot_video.max_width : item.video.video_hubspot_video.width %}
+                      {% set max_height = item.video.video_hubspot_video.size_type == 'auto_custom_max' ? item.video.video_hubspot_video.max_height : item.video.video_hubspot_video.height %}
+
+                      {% set playColor = item.video.video_hubspot_play_button_color.color %}
+
+                      {% video_player "embed_player"
+                        placeholder_alt_text={{ module.video.video_image_alt_tag }}
+                        play_button_color={{ playColor }}
+                        player_id={{ item.video.video_hubspot_video.player_id }}
+                        type={{ item.video.video_hubspot_video.player_type || 'scriptV4' }}
+                        full_width={{ item.video.video_hubspot_video.size_type == 'auto_full_width' }},
+                        conversion_asset={{ item.video.video_hubspot_video.conversion_asset|tojson|safe }}
+                      %}
+
+                    </div>
+                  {% endif %}
+                {% endif %}
+              </span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% if snippets.multiButton(module.cta) %}
+        <div class="grid hard--ends {{ snippets.textColorOverride(module.section_controls.text_color_override) }}">
+          <div class="grid__item one-whole tall--top palm-short--top hard--bottom first--hard--top last--hard--bottom {{ snippets.textColorOverride(module.section_controls.text_color_override) }} all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+            {{ snippets.multiButton(module.cta) }}
+          </div>
+        </div>
+      {% endif %}
+      <div class="block gridspacer--bottom {{ snippets.sectionPadding(module.section_controls.spacing,"bottom") }}">
+
+      </div>
+      {{ snippets.swoopSpacerBottom(module.background) }}
+    </div>
+  </div>
+
+  {% set vidyardActive = { "value": "false" } %}
+  {% for item in module.peoplelisting_content %}
+  {% if (item.about_bio_link_type == "video") && (item.video.video_type == "vidyard") %}
+  {% do vidyardActive.update({ "value" : "true" }) %}
+  {% endif %}
+  {% endfor %}
+  {% if "true" == vidyardActive.value %}
+  <script type="text/javascript" async src="https://play.vidyard.com/embed/v4.js"></script>
+  {% endif %}
+  {% for item in module.peoplelisting_content %}
+  {% if (item.about_bio_link_type == "video") && (item.video.video_type == "vidyard") %}
+  <div class="visuallyhidden">
+    <img class="vidyard-player-embed" alt="{{ item.video.video_image_alt_tag }}" data-uuid="{{ item.video.vidyard_video_uuid|trim }}" data-type="lightbox" data-v="4">
+  </div>
+  <script>
+    function launchLightbox_{{ loop.index }}_{{ name }}(uuid) {
+      var players = VidyardV4.api.getPlayersByUUID(uuid);
+      var player = players[0];
+      player.showLightbox();
+    }
+  </script>
+  {% endif %}
+  {% endfor %}
+  {{ snippets.sectionPaddingCustomStyles(name,module.section_controls.spacing,".gridspacer--top",".gridspacer--bottom") }}
+
+  {% if module.layout_controls.enable_filtering %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mixitup/3.3.1/mixitup.min.js" integrity="sha512-nKZDK+ztK6Ug+2B6DZx+QtgeyAmo9YThZob8O3xgjqhw2IVQdAITFasl/jqbyDwclMkLXFOZRiytnUrXk/PM6A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      $.each(filterFilters, function (key,value) {
+        for (i=0;i<value.sort().length;i++) {
+          $('.section--peoplelisting--filters--input select[rel="'+key+'"]').append("<option data-filter='.filter--"+value[i].replace(/\s+/g, '-').toLowerCase()+"'>"+value[i]+"</option>");
+        }
+      });
+
+      var defaultFilter = "all";
+      var mixer = mixitup('.section--peoplelisting--cards--wrapper', {
+        load: {
+          filter: defaultFilter
+        }
+      });
+
+      $(document).find('.section--peoplelisting--filters--input select').on('change',function(){
+        var filter = $(this).find(':selected').data('filter');
+        mixer.filter( filter );
+      });
+    });
+  </script>
+  {% endif %}
+
+</div>

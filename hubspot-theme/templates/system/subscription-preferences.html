@@ -1,0 +1,46 @@
+<!--
+  templateType: email_subscription_preferences_page
+  isAvailableForNewContent: true
+  label: PRO-HubUI-2022 - email subscription preferences
+  screenshotPath: ../../images/template-previews/subscription-preferences.png
+-->
+
+{% set template_css = "/PRO-HubUI-2022/css/templates/subscription.css" %}
+{% extends "../layouts/base.html" %}
+
+{#
+  pageTitle is used on system templates for
+  setting a value for the title tag
+#}
+{% set pageTitle    = "Subscription preferences" %}
+{% set body_classes = 'pagetype--subscription header--static'%}
+
+{% block body %}
+  <div class="header--anchor"></div>
+  <section class="content-wrapper">
+    <div class="systems-page">
+      <div class="block relative">
+        <span class="background">
+          <span class="background--layer" style="background:#ffffff;"></span>
+        </span>
+        <div class="grid relative z-index--2 basic palm-tall">
+          <div class="grid__item one-whole short text--left" style="font-size:16px;">
+            {% email_subscriptions
+              "email_subscriptions"
+              button_text='Update communications preferences',
+              header='Communication Preferences',
+              resubscribe_button_text='Yes, resubscribe me!',
+              subheader_text='<p>\n    If this is not your email address, please ignore this page since the email associated with this page was most likely forwarded to you.\n</p>',
+              unsubscribe_all_option='No more calls, no more texts - we\'re breaking up.',
+              unsubscribe_all_text='Or check here to never receive any emails',
+              unsubscribe_all_unsubbed_text='You are presently unsubscribed from all of our emails. Would you like to receive our emails again?',
+              unsubscribe_single_text='Uncheck the types of emails you do not want to receive:',
+              label='Subscription Preferences'
+            %}
+          </div>
+        </div>
+        <span class="clear"></span>
+      </div>
+    </div>
+  </section>
+{% endblock body %}

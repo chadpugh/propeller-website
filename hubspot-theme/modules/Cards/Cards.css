@@ -1,0 +1,67 @@
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# IMPORT CONFIG #}
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ***************************** BASE & CUSTOM CSS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+
+.section--cards .section--cards--cards--wrapper {
+  display:flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left:-{{ short }};
+  margin-right:-{{ short }};
+}
+.section--cards .section--cards--card--inner {
+  padding:{{ short }};
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+.section--cards .section--cards--card--body--wrapper {
+  display: flex;
+  height: 100%;
+  flex-flow: column;
+}
+.section--cards .section--cards--card--body {
+  display: flex;
+  height: 100%;
+  flex-flow: column;
+}
+.section--cards.section--cards--equalizebuttons .section--cards--card--body--cta {
+  margin-top: auto;
+}
+.section--cards .section--cards--card:hover .btn--simple {
+  color: {{ color('primary') }} !important;
+}
+.section--cards .section--cards--card:hover .btn--simple:after {
+  transform: translateX(5px);
+}
+.section--cards .section--cards--card--body {
+  {{ transition('all .3s ease-in-out') }}
+}
+.section--cards .section--cards--card--body.box--hover.box-shadow:hover {
+  {{ boxShadow(config.default_HoverBoxShadow) }}
+}
+
+{% call mediaQuery("palm") %}
+.section--cards .section--cards--card {
+  max-width:450px;
+}
+.section--cards .section--cards--cards--wrapper {
+  justify-content:center;
+}
+{% endcall %}

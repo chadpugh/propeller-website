@@ -1,0 +1,311 @@
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# IMPORT CONFIG #}
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ***************************** BASE & CUSTOM CSS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+
+{% set grid_ColumnSpacing             = config.grid_ColumnSpacing|replace('%','')|float %}
+{% set grid_Width                     = parseInt(config.grid_Width)|int %}
+
+{% set mainFooter_BackgroundColor     = '{{ color("navy") }}' %}
+{% set mainFooter_FontSize            = '16px' %}
+{% set mainFooter_TextColor           = '{{ color("midgrey") }}' %}
+{% set mainFooter_LinkColor           = '{{ color("midgrey") }}' %}
+{% set mainFooter_HoverLinkColor      = '{{ color("white") }}' %}
+{% set mainFooter_TextDecoration      = 'none' %}
+{% set mainFooter_HoverTextDecoration = 'none' %}
+
+{% set groupHeader_FontFamily         = '{{ font("heading") }}' %}
+{% set groupHeader_FontSize           = '14px' %}
+{% set groupHeader_LineHeight         = 16 / groupHeader_FontSize|replace('px','') + 'em' %}
+{% set groupHeader_FontStyle          = undefined %}
+{% set groupHeader_FontWeight         = '{{ config.bolder }}' %}
+{% set groupHeader_TextTransform      = 'uppercase' %}
+{% set groupHeader_TextDecoration     = undefined %}
+{% set groupHeader_LetterSpacing      = undefined %}
+{% set groupHeader_WordSpacing        = undefined %}
+{% set groupHeader_Color              = '#DCDDE5' %}
+{% set groupHeader_BorderColor        = '{{ color("midgrey") }}' %}
+
+{% set groupHeader_iconColor          = '{{ color("midgrey") }}' %}
+
+{% set footerMenu_FontFamily          = '{{ font("heading") }}' %}
+{% set footerMenu_FontSize            = '14px' %}
+{% set footerMenu_LineHeight          = 26 / footerMenu_FontSize|replace('px','') + 'em' %}
+{% set footerMenu_FontStyle           = undefined %}
+{% set footerMenu_FontWeight          = '{{ normal }}' %}
+{% set footerMenu_TextTransform       = undefined %}
+{% set footerMenu_TextDecoration      = undefined %}
+{% set footerMenu_LetterSpacing       = undefined %}
+{% set footerMenu_WordSpacing         = undefined %}
+{% set footerMenu_Color               = '{{ color("midgrey") }}' %}
+{% set footerMenu_HoverColor          = '{{ color("white") }}' %}
+{% set footerMenu_BorderColor         = 'transparent' %}
+{% set footerMenu_HoverBorderColor    = 'transparent' %}
+
+{% set copyFooter_BackgroundColor     = '{{ color("navy") }}' %}
+{% set copyFooter_BorderColor         = '{{ color("midgrey") }}' %}
+{% set copyFooter_TextColor           = '{{ color("midgrey") }}' %}
+{% set copyFooter_LinkColor           = '{{ color("midgrey") }}' %}
+{% set copyFooter_HoverLinkColor      = '{{ color("midgrey") }}' %}
+{% set copyFooter_TextDecoration      = 'none' %}
+{% set copyFooter_HoverTextDecoration = 'none' %}
+
+{% set copyFooter_StarColor           = '{{ color("midgrey") }}' %}
+
+{# FOOTER GENERAL #}
+footer {
+  display:block;
+  position:relative;
+  width:100%;
+  background-color: {{ mainFooter_BackgroundColor }};
+}
+
+{# FOOTER MAIN #}
+footer .footer--main li,
+footer .footer--main p {
+  color:{{ mainFooter_TextColor }};
+  font-size:{{ mainFooter_FontSize }};
+}
+footer .footer--main a {
+  color:{{ mainFooter_LinkColor }};
+  text-decoration:{{ mainFooter_TextDecoration }};
+}
+footer .footer--main a:hover {
+  color:{{ mainFooter_HoverLinkColor }};
+  text-decoration:{{ mainFooter_HoverTextDecoration }};
+}
+
+{# COLUMN CONTROLS #}
+.footer--main--column {
+  display:inline-block;
+  vertical-align:top;
+  width:100%;
+  padding-left:{{ (grid_ColumnSpacing/2)|float()|string|replace(".0","")+'%' }};
+  padding-right:{{ (grid_ColumnSpacing/2)|float()|string|replace(".0","")+'%' }};
+  margin-left: 0;
+  margin-right:0;
+  width: {{ (100-grid_ColumnSpacing)|float()|string|replace(".0","")+'%' }};
+}
+.footer--main--column.footer--main--column--2col .footer--main--menu--content > ul {
+  columns:2;
+  column-gap:{{ grid_ColumnSpacing }}%;
+}
+.footer--main--column.footer--main--column--3col .footer--main--menu--content > ul {
+  columns:3;
+  column-gap:{{ grid_ColumnSpacing }}%;
+}
+
+{% call mediaQuery("portable") %}
+.footer--main--column .footer--main--menu--content > ul {
+  columns:1!important;
+}
+.footer--main--column {
+  width:{{ (100-grid_ColumnSpacing)|float()|string|replace(".0","")+'%!important' }};
+}
+{% endcall %}
+
+{# COLUMN HEADER #}
+.footer--group--header {
+  font-family: {{ groupHeader_FontFamily }};
+  font-size: {{ groupHeader_FontSize }};
+  line-height: {{ groupHeader_LineHeight }};
+  font-style: {{ groupHeader_FontStyle }};
+  font-weight: {{ groupHeader_FontWeight }};
+  text-transform: {{ groupHeader_TextTransform }};
+  text-decoration: {{ groupHeader_TextDecoration }};
+  letter-spacing: {{ groupHeader_LetterSpacing }};
+  word-spacing: {{ groupHeader_WordSpacing }};
+  color:{{ groupHeader_Color }};
+  display:block;
+  padding-bottom:14px;
+  margin-bottom:14px;
+  border-bottom:1px solid {{ groupHeader_BorderColor }};
+}
+
+{# COLUMN LOGO #}
+.footer--main--logo {
+  max-width:200px!important;
+}
+
+{# COLUMN MENU/LINKS #}
+.footer--richtext--wrapper + .footer--richtext--wrapper {
+  margin-top:10px;
+}
+.footer--main .footer--richtext--icon--holder {
+  flex: 0 0 30px;
+  padding-right:16px;
+}
+.footer--main .footer--richtext--icon--holder svg {
+  fill:{{ mainFooter_TextColor }};
+  position:relative;
+  top:4px;
+}
+.footer--main .footer--links--icon--holder {
+  width: 30px;
+  position:relative;
+  top:6px;
+}
+.footer--main .footer--links--icon--holder svg {
+  fill:{{ mainFooter_LinkColor }};
+}
+.footer--main .footer--main--menu--content ul {
+  display:block;
+  text-align:left;
+  width:100%;
+}
+.footer--main .footer--main--menu--content ul li {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  float: none;
+}
+.footer--main .footer--main--menu--content ul li a {
+  display: table!important;
+  font-family: {{ footerMenu_FontFamily }};
+  font-size: {{ footerMenu_FontSize }};
+  line-height: {{ footerMenu_LineHeight }};
+  font-style: {{ footerMenu_FontStyle }};
+  font-weight: {{ footerMenu_FontWeight }};
+  text-transform: {{ footerMenu_TextTransform }};
+  text-decoration: {{ footerMenu_TextDecoration }};
+  letter-spacing: {{ footerMenu_LetterSpacing }};
+  word-spacing: {{ footerMenu_WordSpacing }};
+  color:{{ footerMenu_Color }};
+  padding-bottom:5px;
+  margin-bottom:10px;
+  border-bottom:1px solid {{ footerMenu_BorderColor }};
+  transition: all .3s ease-in-out;
+}
+.footer--main .footer--main--menu--content ul li a svg {
+  transition: all .3s ease-in-out;
+}
+.footer--main .footer--main--menu--content ul li a:hover svg {
+  fill:{{ footerMenu_HoverColor }};
+}
+.footer--main .footer--main--menu--content ul li a:hover {
+  color:{{ footerMenu_HoverColor }};
+  border-bottom:1px solid {{ footerMenu_HoverBorderColor }};
+}
+
+{% call mediaQuery("lap-and-up") %}
+.footer--main--column .footer--main--menu--content {
+  display:block!important;
+  height:auto!important;
+}
+{% endcall %}
+{% call mediaQuery("portable") %}
+.footer--main .footer--main--menu--content > ul {
+  margin-top:20px!important;
+}
+.footer--main .footer--main--menu--wrapper--accordion .footer--main--menu--content > ul > li {
+  display:block;
+}
+.footer--main--column .footer--main--menu--wrapper--accordion .footer--main--menu--content {
+  display:none;
+  width:100%;
+}
+.footer--main--menu--wrapper .footer--group--header {
+  position:relative;
+  margin-bottom:0px!important;
+  padding-top:20px!important;
+  padding-bottom:0px!important;
+}
+.footer--main--menu--wrapper.footer--main--menu--wrapper--static .footer--group--header {
+  padding-bottom:20px!important;
+}
+.footer--main--menu--wrapper.footer--main--menu--wrapper--accordion .footer--group--header:after {
+  content:"";
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill="%23{{ groupHeader_iconColor|render|replace('#','') }}" d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z"/></svg>');
+  background-size:12.25px;
+  position:absolute;
+  top:0px;
+  bottom:0px;
+  right:0px;
+  width:42px;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+.footer--main--menu--wrapper.footer--main--menu--wrapper--accordion.footer--main--menu--open .footer--group--header:after {
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill="%23{{ groupHeader_iconColor|render|replace('#','') }}" d="M416 352c-8.188 0-16.38-3.125-22.62-9.375L224 173.3l-169.4 169.4c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25C432.4 348.9 424.2 352 416 352z"/></svg>');
+}
+.footer--main--menu--wrapper .footer--group--header:hover {
+  cursor:pointer;
+  padding-right:42px;
+}
+.footer--main .footer--main--menu--content.footer--main--menu--content--social ul {
+  columns:2!important;
+  column-gap:{{ grid_ColumnSpacing }}%;
+}
+.footer--main--menu--wrapper--accordion(:not) .footer--main--menu--wrapper .footer--group--header {
+  margin-bottom:0px;
+  border-bottom:0px;
+}
+.footer--main--menu--wrapper--accordion .footer--group--header {
+  padding-bottom:20px!important;
+  border-bottom:1px solid {{ groupHeader_BorderColor }};
+}
+{% endcall %}
+
+{# FOOTER COPYRIGHT #}
+footer .footer--copyright {
+  display:block;
+  background:{{ copyFooter_BackgroundColor }};
+}
+footer .footer--copyright .short {
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+footer .footer--copyright li,
+footer .footer--copyright p {
+  color:{{ copyFooter_TextColor }};
+}
+footer .footer--copyright a {
+  color:{{ copyFooter_LinkColor }};
+  text-decoration:{{ copyFooter_TextDecoration }};
+}
+footer .footer--copyright a:hover {
+  color:{{ copyFooter_HoverLinkColor }};
+  text-decoration:{{ copyFooter_HoverTextDecoration }};
+}
+footer .footer--copyright p {
+  line-height:1.5em;
+}
+footer .footer--copyright .footer--copyright--review p + p {
+  margin-top:-20px;
+}
+footer .footer--copyright .footer--copyright--review svg {
+  fill: {{ copyFooter_StarColor }};
+  width:12px;
+  margin:0 2px 10px 2px;
+}
+{% call mediaQuery("lap-and-up") %}
+footer .footer--copyright .grid {
+  border-top:1px solid {{ copyFooter_BorderColor }};
+}
+{% endcall %}
+{% call mediaQuery("palm") %}
+.footer--copyright--review {
+  padding-top:0!important;
+  padding-bottom:0!important;
+}
+{% endcall %}
+
+{# NO NAVIGATION #}
+body.no--navigation footer .footer--main {
+  display:none!important;
+}
+{# #}

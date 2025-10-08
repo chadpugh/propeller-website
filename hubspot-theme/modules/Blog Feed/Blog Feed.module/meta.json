@@ -1,0 +1,8 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE" ],
+  "host_template_types" : [ "PAGE" ],
+  "module_id" : 196573883411,
+  "icon" : "https://cdn2.hubspot.net/hubfs/298890/assets/images/IMPACT-Logo-Square.svg",
+  "is_available_for_new_content" : true
+}

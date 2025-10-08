@@ -1,0 +1,102 @@
+{#
+ # NOTE FOR DEVELOPERS:
+ # When customizing the appearance of posts in this section,
+ # be sure to make any necessary changes to both the Blog Feed
+ # and Learning Center Feed code since those are separate.
+#}
+
+{% set descriptionCharacterLimit = 150 %}
+
+<div {% if module.section_controls.anchor_id %}id="{{ module.section_controls.anchor_id|trim }}"{% endif %} class="section section--bloglcfeed relative overflow--hidden">
+  {{ snippets.background(module.background) }}
+  <div class="block relative z-index--3">
+    {{ snippets.swoopSpacerTop(module.background) }}
+    <div class="block gridspacer--top {{ snippets.sectionPadding(module.section_controls.spacing,"top") }}">
+
+    </div>
+    {% if module.header || module.content || module.preheader %}
+    <div class="grid hard--ends all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+      <div class="grid__item eight-twelfths tablet-ten-twelfths hard--top tall--bottom palm-short--bottom first--hard--top last--hard--bottom {{ snippets.textColorOverride(module.section_controls.text_color_override) }} all--text--{{ module.layout_controls.header_content_alignment }} palm-all--text--{{ module.layout_controls.header_content_alignment_mobile }}">
+        {% if module.preheader %}
+        <span class="h6 preheader">{{ module.preheader }}</span>
+        {% endif %}
+        {% if module.enable_header_rule %}
+          <span class="header--rule"></span>
+        {% endif %}
+        {% if module.header %}
+        <h2>{{ module.header }}</h2>
+        {% endif %}
+        {{ module.content }}
+      </div>
+    </div>
+    {% endif %}
+    <div class="grid hard--ends">
+      <div class="block text--center">
+        <div class="grid__item one-whole hard overflow--visible text--center">
+          <div class="section--bloglcfeed--wrapper">
+
+            {% if module.blog_feed.blog_feed_type == "recentauthor" %}
+            {% set blogPosts = blog_recent_author_posts(module.blog_feed.blog, module.blog_feed.blog_author_name_or_slug|replace(' ', '-')|lower, 3) %}
+            {% elif module.blog_feed.blog_feed_type == "recenttopic" %}
+            {% set blogPosts = blog_recent_topic_posts(module.blog_feed.blog, module.blog_feed.blog_topic_name_or_slug|replace(' ', '-')|lower, 3) %}
+            {% elif module.blog_feed.blog_feed_type == "populartopic" %}
+            {% set blogPosts = blog_popular_posts(module.blog_feed.blog, 3, module.blog_feed.blog_topic_name_or_slug|replace(' ', '-')|lower, 'popular_past_month') %}
+            {% elif module.blog_feed.blog_feed_type == "popularall" %}
+            {% set blogPosts = blog_popular_posts(module.blog_feed.blog, 3) %}
+            {% else %}{# Default: Recent #}
+            {% set blogPosts = blog_recent_posts(module.blog_feed.blog, 3) %}
+            {% endif %}
+
+            {% set blogGroupData = module.blog_feed.blog ? blog_by_id( module.blog_feed.blog ) : '' %}
+
+            {% for item in blogPosts %}
+              <div class="grid__item one-third tablet-one-half palm-one-whole hard--ends tablet-margin--tall--bottom palm-margin--short--bottom text--left">
+                <a href="{{ item.absolute_url }}" title="{{ item.name|escape }}" class="block no--underline color--inherit" style="height:100%">
+                  <span class="section--bloglcfeed--item--inner">
+                    <span class="section--bloglcfeed--item--body overflow--hidden first--hard--top last--hard--bottom text--{{ module.layout_controls.feed_content_alignment }} palm-text--{{ module.layout_controls.feed_content_alignment_mobile }} border-radius box-shadow box--hover default background--white">
+                      <span role="img" aria-label="{{ item.featured_image_alt_text }}" class="block relative  {{ module.section_controls.lazy_load_images ? 'lozad' : '' }}" {{ module.section_controls.lazy_load_images ? 'data-background-image="{{ item.featured_image }}"' : '' }} style="{{ not module.section_controls.lazy_load_images ? 'background:url(\'{{ item.featured_image }}\');' : '' }}background-repeat:no-repeat;background-position:center center;background-size:cover;">
+                        {{ snippets.aspectSpacer(module.layout_controls.featured_image_aspect_ratio) }}
+                        <span class="section--bloglcfeed--item--tag inline-block overflow--visible absolute right--0 bottom--0">
+                          <p class="block bold hard--ends normalcase color--black font--16">
+                            Article
+                          </p>
+                        </span>
+                      </span>
+                      <span class="section--bloglcfeed--item--body--wrapper">
+                        <span class="section--bloglcfeed--item--upper block overflow--visible" style="padding:40px 40px 0;">
+                          <span class="section--bloglcfeed--item--upper--inner first--hard--top last--hard--bottom">
+                            <h3 class="h5">
+                              {{ item.name }}
+                            </h3>
+                            <p class="block">{{ item.post_summary|striptags|truncatehtml(descriptionCharacterLimit, '...' , false) }}</p>
+                          </span>
+                        </span>
+                        <span class="section--bloglcfeed--item--lower" style="padding:40px;">
+                          <span class="btn btn--simple">
+                            Read More
+                          </span>
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% if snippets.multiButton(module.cta) %}
+    <div class="grid hard--ends">
+      <div class="grid__item one-whole tall--top palm-short--top hard--bottom first--hard--top last--hard--bottom">
+        {{ snippets.multiButton(module.cta) }}
+      </div>
+    </div>
+    {% endif %}
+    <div class="block gridspacer--bottom {{ snippets.sectionPadding(module.section_controls.spacing,"bottom") }}">
+
+    </div>
+    {{ snippets.swoopSpacerBottom(module.background) }}
+  </div>
+  {{ snippets.sectionPaddingCustomStyles(name,module.section_controls.spacing,".gridspacer--top",".gridspacer--bottom") }}
+</div>

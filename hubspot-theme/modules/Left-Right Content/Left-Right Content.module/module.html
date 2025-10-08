@@ -1,0 +1,198 @@
+{% set contentClasses = "one-half palm-one-whole" %}
+{% set mediaClasses = "one-half palm-one-whole" %}
+{% if module.layout_controls.column_widths == "four-twelfths" %}
+{% set contentClasses = "four-twelfths palm-one-whole" %}
+{% set mediaClasses = "eight-twelfths palm-one-whole" %}
+{% elif module.layout_controls.column_widths == "eight-twelfths" %}
+{% set contentClasses = "eight-twelfths palm-one-whole" %}
+{% set mediaClasses = "four-twelfths palm-one-whole" %}
+{% elif module.layout_controls.column_widths == "five-twelfths" %}
+{% set contentClasses = "five-twelfths palm-one-whole" %}
+{% set mediaClasses = "seven-twelfths palm-one-whole" %}
+{% elif module.layout_controls.column_widths == "seven-twelfths" %}
+{% set contentClasses = "seven-twelfths palm-one-whole" %}
+{% set mediaClasses = "five-twelfths palm-one-whole" %}
+{% endif %}
+
+{% if module.layout_controls.column_widths_tablet == "four-twelfths" %}
+{% set contentClasses = contentClasses+" tablet-four-twelfths" %}
+{% set mediaClasses = mediaClasses+" tablet-eight-twelfths" %}
+{% set mediaTabletWidthNumerical = (8/12) %}
+{% elif module.layout_controls.column_widths_tablet == "eight-twelfths" %}
+{% set contentClasses = contentClasses+" tablet-eight-twelfths" %}
+{% set mediaClasses = mediaClasses+" tablet-four-twelfths" %}
+{% set mediaTabletWidthNumerical = (4/12) %}
+{% elif module.layout_controls.column_widths_tablet == "five-twelfths" %}
+{% set contentClasses = contentClasses+" tablet-five-twelfths" %}
+{% set mediaClasses = mediaClasses+" tablet-seven-twelfths" %}
+{% set mediaTabletWidthNumerical = (7/12) %}
+{% elif module.layout_controls.column_widths_tablet == "seven-twelfths" %}
+{% set contentClasses = contentClasses+" tablet-seven-twelfths" %}
+{% set mediaClasses = mediaClasses+" tablet-five-twelfths" %}
+{% set mediaTabletWidthNumerical = (5/12) %}
+{% else %}
+{% set contentClasses = contentClasses+" tablet-one-half" %}
+{% set mediaClasses = mediaClasses+" tablet-one-half" %}
+{% set mediaTabletWidthNumerical = (1/2) %}
+{% endif %}
+
+<div {% if module.section_controls.anchor_id %}id="{{ module.section_controls.anchor_id|trim }}"{% endif %} class="section section--leftright relative overflow--hidden {{ snippets.deviceVisibility(module.section_controls.device_visibility) }}">
+  {{ snippets.background(module.background,module.section_controls.lazy_load_images) }}
+  {% if widget_data.controls.header_design == "transparent" && module.layout_controls.header_htag == 'h1' %}
+  <div class="header--anchor"></div>
+  {% endif %}
+  <div class="block relative z-index--3">
+    {{ snippets.swoopSpacerTop(module.background) }}
+    <div class="block gridspacer--top {{ snippets.sectionPadding(module.section_controls.spacing,"top") }}">
+
+    </div>
+    <div class="grid flexgrid {{ module.layout_controls.content_vertical_alignment }} {% if module.layout_controls.content_position_mobile == 'bottom' %}palm-column--reverse{% endif %} {% if module.layout_controls.content_position == 'right' %}row--reverse{% endif %} hard--ends relative z-index--2">
+      <div class="grid__item {{ contentClasses }} {{ snippets.textColorOverride(module.section_controls.text_color_override) }} hard--ends first--hard--top last--hard--bottom text--left palm-text--{{ module.layout_controls.content_alignment_mobile }} {% if module.layout_controls.content_position == 'right' %}custom--padding--left{% else %}custom--padding--right{% endif %}">
+
+        {% if module.preheader %}
+        <span class="h6 preheader">{{ module.preheader }}</span>
+        {% endif %}
+        {% if module.enable_header_rule %}
+          <span class="header--rule"></span>
+        {% endif %}
+        {% if module.header %}
+        <h2>{{ module.header }}</h2>
+        {% endif %}
+        {{ module.content }}
+
+        {{ snippets.bulletsList(module.bullets) }}
+
+        {% if module.conversion_type == 'cta' %}
+        <div class="margin--tall--top">
+        {{ snippets.multiButton(module.cta) }}
+        </div>
+        {% elif module.conversion_type == 'form' %}
+        <div class="margin--tall--top block all--btn all--btn--{% if module.form.form_ghost_transparent_button %}transparent--{% endif %}{{ module.form.form_button_color }} {% if 'all--color' in snippets.textColorOverride(module.section_controls.text_color_override) %}{{ snippets.textColorOverride(module.section_controls.text_color_override)|replace("all--color","all--labels") }}{% endif %}">
+          {{ module.form.form_header }}
+
+          {% form
+              form_to_use="{{ module.form.form.form_id }}"
+              response_response_type="{{ module.form.form.response_type }}"
+              response_message="{{ module.form.form.message }}"
+              response_redirect_id="{{ module.form.form.redirect_id }}"
+              response_redirect_url="{{ module.form.form.redirect_url }}"
+              gotowebinar_webinar_key="{{ module.form.form.gotowebinar_webinar_key }}"
+              follow_up_type_simple="{{ module.form.send_a_follow_up_email }}"
+              simple_email_for_live_id="{{ module.form.email }}"
+              notifications_are_overridden="{{ module.form.send_form_notifications_to_specified_email_addresses_instead_of_the_form_defaults }}"
+              notifications_override_email_addresses="{{ module.form.email_addresses }}"
+              no_title=True
+            %}
+        </div>
+        {% endif %}
+
+      </div>
+      <div class="grid__item {{ mediaClasses }} {{ module.layout_controls.content_vertical_alignment }} {% if module.layout_controls.content_position_mobile == 'bottom' %}tall--bottom hard--top{% else %}tall--top hard--bottom{% endif %} tablet-hard--ends lap-and-up-hard--ends all--text--center">
+        <div class="block {{ snippets.deviceVisibility(module.media_device_visibility) }}">
+          {% if module.media_type == "image" %}
+          <div class="block">
+            {% if module.image.image.src %}
+            <img src="{{ module.image.image.src }}" {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} alt="{{ module.image.image.alt }}" width="{% if (module.image.image.size_type == 'auto_custom_max') %}{{ module.image.image.max_width }}{% elif (module.image.image.size_type == 'exact') %}{{ module.image.image.width }}{% else %}{{ module.image.image.width }}{% endif %}" height="{% if (module.image.image.size_type == 'auto_custom_max') %}{{ module.image.image.max_height }}{% else %}{{ module.image.image.height }}{% endif %}">
+            {% endif %}
+            {% if module.image.image_label_text %}
+            <div class="block short--top all--text--center {{ snippets.textColorOverride(module.section_controls.text_color_override) }}">
+              <p class="hard--ends">
+                {{ module.image.image_label_text }}
+              </p>
+            </div>
+            {% endif %}
+          </div>
+          {% elif module.media_type == "video" %}
+          <div class="block">
+            {% if module.video.video_type == "embed" %}
+            <div class="block all--aspectratio">
+              {{ module.video.video_embed_code }}
+            </div>
+            {% elif (module.video.video_type == "modal")||(module.video.video_type == "vidyard")||(module.video.video_type == "hubspot") %}
+            {% if (module.video.video_thumbnail_type != 'none')||(module.video.video_thumbnail_type_mobile != 'none') %}
+            <div class="block {% if module.video.video_thumbnail_type == 'none' %}lap-and-up-visuallyhidden tablet-visuallyhidden{% endif %} {% if module.video.video_thumbnail_type_mobile == 'none' %}palm-visuallyhidden{% endif %}" style="{% if (module.video.video_thumbnail_image.size_type == 'auto_custom_max') %}width:{{ module.video.video_thumbnail_image.max_width }}px;max-width:100%;{% elif (module.video.video_thumbnail_image.size_type == 'exact') %}width:{{ module.video.video_thumbnail_image.width }}px;max-width:100%;{% endif %}margin:0 auto;">
+              <a title="{% if module.video.video_title_attribute %}{{ module.video.video_title_attribute }}{% else %}Watch the Video{% endif %}" class="block {% if not module.video.hide_video_play_icon %}block--video{% endif %}" {% if module.video.video_type == 'modal' %}data-fancybox {% if '.mp4' in module.video.video_url_of_iframe_embeddable_video_file.href %}{% else %}data-type="iframe" data-width="936" data-height="636"{% endif %} href="{{ module.video.video_url_of_iframe_embeddable_video_file.href }}"{% elif module.video.video_type == 'hubspot' %}data-src="#{{ name }}--embed" data-fancybox{% elif module.video.video_type == 'vidyard' %}href="javascript:;" onclick="launchLightbox_{{ name }}('{{ module.video.vidyard_video_uuid|trim }}');"{% endif %}>
+                {% set sizeAttrs = 'width="{{ module.video.video_thumbnail_image.width }}" height="{{ module.video.video_thumbnail_image.height }}"' %}
+                {% if module.video.video_thumbnail_image.size_type == 'auto' %}
+                {% set sizeAttrs = 'style="max-width: 100%; height: auto;"' %}
+                {% elif module.video.video_thumbnail_image.size_type == 'auto_custom_max' %}
+                {% set sizeAttrs = 'width="{{ module.video.video_thumbnail_image.max_width }}" height="{{ module.video.video_thumbnail_image.max_height }}" style="max-width: 100%; height: auto;"' %}
+                {% endif %}
+
+                <img src="{{ module.video.video_thumbnail_image.src }}" alt="{{ module.video.video_thumbnail_image.alt }}" {% if module.section_controls.lazy_load_images %}loading="lazy"{% endif %} {{ sizeAttrs }}>
+              </a>
+            </div>
+            {% endif %}
+            {% if (module.video.video_thumbnail_type == 'none')||(module.video.video_thumbnail_type_mobile == 'none') %}
+            <div class="block {% if module.video.video_thumbnail_type != 'none' %}lap-and-up-visuallyhidden tablet-visuallyhidden{% endif %} {% if module.video.video_thumbnail_type_mobile != 'none' %}palm-visuallyhidden{% endif %}">
+              <a title="{% if module.video.video_title_attribute %}{{ module.video.video_title_attribute }}{% else %}Watch the Video{% endif %}" class="inline-block no--underline" {% if module.video.video_type == 'modal' %}data-fancybox {% if '.mp4' in module.video.video_url_of_iframe_embeddable_video_file.href %}{% else %}data-type="iframe" data-width="936" data-height="636"{% endif %} href="{{ module.video.video_url_of_iframe_embeddable_video_file.href }}"{% elif module.video.video_type == 'hubspot' %}data-src="#{{ name }}--embed" data-fancybox{% elif module.video.video_type == 'vidyard' %}href="javascript:;" onclick="launchLightbox_{{ name }}('{{ module.video.vidyard_video_uuid|trim }}');"{% endif %} style="width:320px;max-width:100%;">
+                {% if not module.video.hide_video_play_icon %}
+                <span class="block--video--icon {{ snippets.textColorOverride(module.section_controls.text_color_override) }}"></span>
+                {% endif %}
+                {% if module.video.video_label_text %}
+                <span class="block short--top all--text--center block--video--label {{ snippets.textColorOverride(module.section_controls.text_color_override) }}">
+                  <p class="hard--ends">
+                    {{ module.video.video_label_text }}
+                  </p>
+                </span>
+                {% endif %}
+              </a>
+            </div>
+            {% endif %}
+            {% if module.video.video_type == 'hubspot' %}
+              {% if module.video.video_hubspot_video.player_id %}
+              <div id="{{ name }}--embed" class="video--popover all--aspectratio" style="display:none;">
+
+                {% set max_width = module.video.video_hubspot_video.size_type == 'auto_custom_max' ? module.video.video_hubspot_video.max_width : module.video.video_hubspot_video.width %}
+                {% set max_height = module.video.video_hubspot_video.size_type == 'auto_custom_max' ? module.video.video_hubspot_video.max_height : module.video.video_hubspot_video.height %}
+
+                {% set playColor = module.video.video_hubspot_play_button_color.color %}
+
+                {% video_player "embed_player"
+                    placeholder_alt_text={{ module.video.video_image_alt_tag }}
+                   play_button_color={{ playColor }}
+                   player_id={{ module.video.video_hubspot_video.player_id }}
+                   type={{ module.video.video_hubspot_video.player_type || 'scriptV4' }}
+                   full_width={{ module.video.video_hubspot_video.size_type == 'auto_full_width' }},
+                   conversion_asset={{ module.video.video_hubspot_video.conversion_asset|tojson|safe }}
+                %}
+
+              </div>
+              {% endif %}
+            {% endif %}
+            {% endif %}
+            {% if module.video.video_label_text %}
+            <div class="block short--top all--text--center block--video--label {{ snippets.textColorOverride(module.section_controls.text_color_override) }} {% if ((module.video.video_type == 'modal')||(module.video.video_type == 'vidyard')||(module.video.video_type == 'hubspot'))&&(module.video.video_thumbnail_type == 'none') %}lap-and-up-visuallyhidden tablet-visuallyhidden{% endif %} {% if ((module.video.video_type == 'modal')||(module.video.video_type == 'vidyard')||(module.video.video_type == 'hubspot'))&&(module.video.video_thumbnail_type_mobile == 'none') %}palm-visuallyhidden{% endif %}">
+              <p class="hard--ends">
+                {{ module.video.video_label_text }}
+              </p>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {% if (module.video.video_type == "vidyard")&&(module.media_type == "video") %}
+    {% require_js %}
+    <script type="text/javascript" async src="https://play.vidyard.com/embed/v4.js"></script>
+    {% end_require_js %}
+    <div class="visuallyhidden">
+      <img class="vidyard-player-embed" alt="{{ module.video.video_image_alt_tag }}" data-uuid="{{ module.video.vidyard_video_uuid|trim }}" data-type="lightbox" data-v="4">
+    </div>
+    <script>
+      function launchLightbox_{{ name }}(uuid) {
+        var players = VidyardV4.api.getPlayersByUUID(uuid);
+        var player = players[0];
+        player.showLightbox();
+      }
+    </script>
+    {% endif %}
+    <div class="block gridspacer--bottom {{ snippets.sectionPadding(module.section_controls.spacing,"bottom") }}">
+
+    </div>
+    {{ snippets.swoopSpacerBottom(module.background) }}
+  </div>
+  {{ snippets.sectionPaddingCustomStyles(name,module.section_controls.spacing,".gridspacer--top",".gridspacer--bottom") }}
+</div>

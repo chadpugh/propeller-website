@@ -1,0 +1,34 @@
+<!--
+  templateType: email_backup_unsubscribe_page
+  isAvailableForNewContent: true
+  label: PRO-HubUI-2022 - email backup unsubscribe
+  screenshotPath: ../../images/template-previews/backup-unsubscribe.png
+-->
+{% set template_css = "/PRO-HubUI-2022/css/templates/subscription.css" %}
+{% extends "../layouts/base.html" %}
+
+{#
+  pageTitle is used on system templates for
+  setting a value for the title tag
+#}
+{% set pageTitle    = "Unsubscribe" %}
+{% set body_classes = 'pagetype--subscription header--static'%}
+
+{% block body %}
+  <div class="header--anchor"></div>
+  <section class="content-wrapper">
+    <div class="systems-page">
+      <div class="block relative">
+        <span class="background">
+          <span class="background--layer" style="background:#ffffff;"></span>
+        </span>
+        <div class="grid relative z-index--2 basic palm-tall">
+          <div class="grid__item one-whole short text--left" style="font-size:16px;">
+            {% email_simple_subscription "email_simple_subscription" button_text='Unsubscribe', header='Email Unsubscribe', input_help_text='Your email address:', input_placeholder='email@example.com', label='Backup Unsubscribe' %}
+          </div>
+        </div>
+        <span class="clear"></span>
+      </div>
+    </div>
+  </section>
+{% endblock body %}

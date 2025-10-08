@@ -1,0 +1,69 @@
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# IMPORT CONFIG #}
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ***************************** BASE & CUSTOM CSS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+.active--state--icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+  {{ transition("all .25s ease-in-out") }}
+}
+
+{% call mediaQuery(">tablet") %}
+  .section--verticalcontentslider--row h4 {
+    {{ transition("all .25s ease-in-out") }}
+  }
+  .section--verticalcontentslider--row.active--list--item h3 {
+    color: {{ color('primary') }};
+  }
+  .section--verticalcontentslider--scrollitem--outer {
+    width: 83.33%;
+  }
+  .section--verticalcontentslider--row.active--list--item .active--state--icon {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+  }
+{% endcall %}
+
+.section--verticalcontentslider--row {
+  display:block;
+  width:100%;
+  border-bottom-color: rgba( {{ color('midgrey')|convert_rgb }}, .3 );
+}
+.section--verticalcontentslider--row--inner {
+  display:block;
+  width:100%;
+  text-decoration:none;
+}
+.section--verticalcontentslider--row--content {
+  display:block;
+}
+.section--verticalcontentslider--row--content h3+p {
+  margin-top:-20px;
+}
+.section--verticalcontentslider--row--icon {
+  display:block;
+  float:left;
+  margin-right:32px;
+  text-align:center;
+}
+.section--verticalcontentslider--row--icon + .section--verticalcontentslider--row--content {
+  display:table;
+}

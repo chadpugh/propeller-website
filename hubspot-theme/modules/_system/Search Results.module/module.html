@@ -1,0 +1,27 @@
+<div {% if module.section_controls.anchor_id %}id="{{ module.section_controls.anchor_id|trim }}"{% endif %} class="section section--searchresults background--white visuallyhidden">
+  <div class="grid relative {{ snippets.sectionPadding(module.section_controls.spacing) }}">
+    <div class="grid__item ten-twelfths portable-one-whole short relative">
+      <div class="hs-search-results">
+        <template class="hs-search-results__template">
+          <li>
+            <div class="block first--hard--top last--hard--bottom">
+              <h3>
+                <a href="#" class="hs-search-results__title no--underline">Content Title</a>
+              </h3>
+              <p class="hs-search-results__description">Description</p>
+            </div>
+          </li>
+        </template>
+        <ul id="hsresults" class="hs-search-results__listing text--left"></ul>
+        <div class="hs-search-results__pagination" data-search-path="{{ site_settings.content_search_results_page_path }}">
+          <a href="" class="hs-search-results__prev-page"></a>
+          <div class="hs-search-results__pagenumbers">
+            
+          </div>
+          <a href="" class="hs-search-results__next-page"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{ snippets.sectionPaddingCustomStyles(name,module.section_controls.spacing,".grid",".grid") }}
+</div>

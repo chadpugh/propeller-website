@@ -1,0 +1,75 @@
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+{# ******************** DO NOT EDIT VALUES BELOW THIS LINE ******************** #}
+{# **************************************************************************** #}
+{# ************************* ADD YOUR CUSTOM CSS TO THE *********************** #}
+{# ****************** BOTTOM OF THIS DOCUMENT WHERE SPECIFIED ***************** #}
+{# **************************************************************************** #}
+{# **************************************************************************** #}
+
+{# IMPORT CONFIG #}
+{% import '/PRO-HubUI-2022/css/tools/_config.css' as config %}
+{% import '/PRO-HubUI-2022/css/tools/_functions.css'  %}
+
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+{# ***************************** BASE & CUSTOM CSS ***************************** #}
+{# ***************************************************************************** #}
+{# ***************************************************************************** #}
+
+{% call mediaQuery(">tablet") %}
+.section--leftrightfloat--media {
+  display:block!important;
+  position:absolute;
+  top:0;
+  width:{{ 50 - (grid_ColumnSpacing/2) }}%;
+  height:100%;
+}
+.section--leftrightfloat--media--wrapper {
+  display:block;
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+.section--leftrightfloat--media--wrapper img {
+  position:relative;
+  top:50%;
+  transform:translateY(-50%);
+}
+.section--leftrightfloat--right div.section--leftrightfloat--media {
+  left:0;
+}
+.section--leftrightfloat--left div.section--leftrightfloat--media {
+  right:0;
+}
+.section--leftrightfloat--media--video--icon {
+  position:absolute;
+  top:50%;
+  left:50%;
+  -webkit-transform:translateY(-50%) translateX(-50%);
+  -moz-transform:translateY(-50%) translateX(-50%);
+  transform:translateY(-50%) translateX(-50%);
+}
+.section--leftrightfloat--media--label {
+  background-color:#FFF;
+  position:absolute;
+  bottom:0;
+  padding:10px;
+}
+.section--leftrightfloat--right .section--leftrightfloat--media--label {
+  left:0px; 
+}
+.section--leftrightfloat--left .section--leftrightfloat--media--label {
+  right:0px; 
+}
+.section--leftrightfloat--media--label p {
+  font-size:14px;
+}
+{% endcall %}
+{% call mediaQuery("palm") %}
+.section--leftrightfloat--media--wrapper {
+  background:none!important;
+}
+{% endcall %}
