@@ -1,0 +1,21 @@
+<!-- Dynamic portfolio logos grid -->
+<div class="logo-grid">
+    {% for company in module.portfolio_companies %}
+        <div class="portfolio-logo">
+            {% if company.company_website.url.href %}
+                <a href="{{ company.company_website.url.href }}"{% if company.company_website.open_in_new_tab %} target="_blank"{% endif %}{% if company.company_website.no_follow %} rel="nofollow"{% endif %} title="{{ company.company_name }}">
+            {% endif %}
+            <img src="{{ company.company_logo.src }}" alt="{{ company.company_name }}" loading="lazy" />
+            {% if company.company_website.url.href %}
+                </a>
+            {% endif %}
+        </div>
+    {% endfor %}
+    
+    {# Show placeholder rectangles if no logos are uploaded yet #}
+    {% if module.portfolio_companies|length == 0 %}
+        {% for i in range(15) %}
+            <div class="portfolio-logo portfolio-logo-placeholder"></div>
+        {% endfor %}
+    {% endif %}
+</div>

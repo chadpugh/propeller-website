@@ -15,9 +15,6 @@
 {% block body %}
 <div class="body-container body-container--propeller">
     
-    <!-- Fixed background animation container -->
-    <div id="background-animation"></div>
-    
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
@@ -90,24 +87,11 @@
                             Your browser does not support the video tag.
                         </video>
                         <div class="logos-overlay">
-                            <!-- Portfolio logos grid -->
-                            <div class="logo-grid">
-                                <div class="portfolio-logo"></div>
-                                <div class="portfolio-logo"></div>
-                                <div class="portfolio-logo"></div>
-                                <div class="portfolio-logo"></div>
-                                <div class="portfolio-logo"></div>
-                                <div class="portfolio-logo"></div>
-                                <div class="portfolio-logo"></div>
-                                <div class="portfolio-logo"></div>
-                                <div class="portfolio-logo"></div>
-                                <div class="portfolio-logo"></div>
-                                <div class="portfolio-logo"></div>
-                                <div class="portfolio-logo"></div>
-                                <div class="portfolio-logo"></div>
-                                <div class="portfolio-logo"></div>
-                                <div class="portfolio-logo"></div>
-                            </div>
+                            <!-- Portfolio Company Logos Module -->
+                            {% module "portfolio_logos" 
+                               path="/PRO-HubUI-CHAD EDIT/modules/Portfolio/Portfolio.module",
+                               label="Portfolio Company Logos"
+                            %}
                         </div>
                     </div>
                 </div>

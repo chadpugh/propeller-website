@@ -1,0 +1,15 @@
+{
+  "label": "Portfolio Company Logos",
+  "css_assets": [],
+  "external_js": [],
+  "global": false,
+  "help_text": "Displays a dynamic grid of portfolio company logos with optional links to company websites.",
+  "host_template_types": ["PAGE"],
+  "js_assets": [],
+  "other_assets": [],
+  "smart_type": "NOT_SMART",
+  "tags": ["portfolio", "logos", "companies"],
+  "is_available_for_new_content": true,
+  "module_id": null,
+  "path": "/PRO-HubUI-CHAD EDIT/modules/Portfolio/Portfolio.module"
+}

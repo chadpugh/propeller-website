@@ -21,8 +21,9 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1;
+    z-index: 0; /* Background level */
     background: #EDF6F9;
+    pointer-events: none; /* Allow clicks to pass through */
 }
 
 #background-animation canvas {
@@ -387,26 +388,54 @@ body {
 
 .logo-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
     justify-content: center;
     align-content: center;
-    max-width: 100%;
+    padding: 24px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .portfolio-logo {
+    aspect-ratio: 2/1;
     width: 100%;
-    height: 88px;
-    max-width: 184px;
-    min-width: 160px;
+    max-width: none;
+    min-width: 120px;
     background: rgba(1, 9, 45, 0);
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 28px 0;
-    /* Placeholder styling - in real implementation, these would contain actual logos */
+    padding: 12px;
+    transition: transform 0.2s ease;
+    box-sizing: border-box;
+}
+
+.portfolio-logo:hover {
+    transform: scale(1.05);
+}
+
+.portfolio-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Make logos white on dark video background */
+    opacity: 0.9;
+}
+
+.portfolio-logo:hover img {
+    opacity: 1;
+}
+
+/* Placeholder styling when no logos uploaded */
+.portfolio-logo-placeholder {
     border: 1px dashed rgba(242, 242, 242, 0.3);
+    padding: 28px 0;
+}
+
+.portfolio-logo-placeholder:hover {
+    transform: none;
 }
 
 .contact-card {
@@ -767,14 +796,14 @@ body {
     }
     
     .logo-grid {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 8px;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 12px;
+        padding: 16px;
     }
     
     .portfolio-logo {
-        width: 100%;
-        height: 60px;
-        min-width: 140px;
+        aspect-ratio: 2/1;
+        min-width: 100px;
     }
 }
 

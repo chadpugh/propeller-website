@@ -1,0 +1,77 @@
+[
+  {
+    "id": "portfolio_companies",
+    "name": "portfolio_companies",
+    "label": "Portfolio Company Logos",
+    "help_text": "Add your portfolio company logos. The grid will automatically adjust to any number of logos.",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 0,
+      "max": null,
+      "sorting_label_field": "company_name",
+      "default": 0
+    },
+    "children": [
+      {
+        "id": "company_logo",
+        "name": "company_logo", 
+        "label": "Company Logo",
+        "help_text": "Upload the company logo image. Recommended size: 400x200px or similar aspect ratio.",
+        "required": true,
+        "locked": false,
+        "responsive": true,
+        "resizable": true,
+        "show_loading": false,
+        "type": "image",
+        "display_width": null,
+        "default": {
+          "src": "",
+          "alt": "",
+          "width": 200,
+          "height": 100,
+          "size_type": "auto"
+        }
+      },
+      {
+        "id": "company_name",
+        "name": "company_name",
+        "label": "Company Name", 
+        "help_text": "Company name for accessibility and organization.",
+        "required": true,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": "Company Name"
+      },
+      {
+        "id": "company_website",
+        "name": "company_website",
+        "label": "Company Website (Optional)",
+        "help_text": "If provided, the logo will link to the company's website.",
+        "required": false,
+        "locked": false,
+        "supported_types": ["EXTERNAL", "CONTENT"],
+        "show_advanced_rel_options": false,
+        "type": "link",
+        "display_width": null,
+        "default": {
+          "url": {
+            "type": "EXTERNAL",
+            "href": "",
+            "content_id": null
+          },
+          "open_in_new_tab": true,
+          "no_follow": false
+        }
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null,
+    "default": []
+  }
+]

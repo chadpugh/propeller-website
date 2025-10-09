@@ -68,12 +68,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Poppins:wght@500&family=Space+Grotesk:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
+    {# P5.JS for background animation - load directly like working prototype #}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.10/p5.js"></script>
+
     {# FONTAWESOME #}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
 
   </head>
 
   <body class="{{ body_classes }}">
+    <!-- Fixed background animation container - positioned at highest DOM level -->
+    <div id="background-animation"></div>
+    
     <div class="body-wrapper {{ builtin_body_classes }}">
       {% block header %}
         {% global_partial path="../partials/header.html" %}

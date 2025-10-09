@@ -1,0 +1,8 @@
+/* Portfolio module styles are handled in main propeller-styles.css */
+/* This file is kept for module structure completeness */
+
+.portfolio-logo a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
