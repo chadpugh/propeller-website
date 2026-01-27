@@ -81,3 +81,90 @@ h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-top: 0 !important;
 }
+
+{# ***************************************************************************** #}
+{# ************************** PROPELLER OVERRIDES ***************************** #}
+{# ***************************************************************************** #}
+
+{# ***************************************************************************** #}
+{# ************************** HEADER CLICK FIX ******************************** #}
+{# ***************************************************************************** #}
+
+/* CRITICAL: Force header wrapper to static - fixes click blocking issue */
+/* Maximum specificity to override HubSpot's position:relative */
+html body div#hs_cos_wrapper_header.hs_cos_wrapper.hs_cos_wrapper_widget.hs_cos_wrapper_type_module[data-hs-cos-general-type="widget"][data-hs-cos-type="module"] {
+    position: static !important;
+    z-index: auto !important;
+}
+
+/* Ensure header itself maintains proper positioning and z-index */
+html body .header.propeller-header {
+    position: fixed !important;
+    z-index: 1000 !important;
+}
+
+/* Ensure hero section doesn't overlap header */
+html body .hero {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* ==================== PROPELLER TYPOGRAPHY FIXES ==================== */
+/* Force Inter font for all body/paragraph text */
+p, .content, .body-text, 
+div:not(.header):not(.preheader):not(.logo-text):not(.nav-text) {
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* Ensure module content uses Inter */
+.dnd-module p, 
+.widget-wrapper p,
+.content-wrapper p,
+.dnd-section p,
+.section p {
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* Ensure content areas use Inter font */
+.module-content,
+.module-text,
+.section-content,
+[class*="content"] p {
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* Override theme reading font specifically - exclude spans inside headings */
+body p,
+body div,
+body span:not(.preheader):not(.h6):not(h1 span):not(h2 span):not(h3 span):not(h4 span):not(h5 span):not(h6 span) {
+    font-family: 'Inter', sans-serif !important;
+}
+
+{# ***************************************************************************** #}
+{# ************************** CONTENT VISIBILITY FIX ************************** #}
+{# ***************************************************************************** #}
+
+/* Ensure main content appears above the fixed background animation */
+.body-container-wrapper,
+.body-container,
+.dnd-area,
+.dnd-section,
+.dnd-row,
+.dnd-column {
+    position: relative;
+    z-index: 1;
+}
+
+/* Ensure all content modules and widgets are visible */
+.dnd-module,
+.widget-wrapper,
+.hs_cos_wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+/* Fix for rich text content areas */
+.hs_cos_wrapper_type_rich_text {
+    position: relative;
+    z-index: 1;
+}

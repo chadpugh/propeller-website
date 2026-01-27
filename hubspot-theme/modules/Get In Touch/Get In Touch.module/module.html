@@ -1,0 +1,25 @@
+<!-- Contact Card -->
+<div class="contact-card">
+    <div class="contact-content">
+        <div class="contact-text">
+            <h2>{{ module.section_title }}</h2>
+            {% if module.intro_content %}
+                <div class="intro-content">{{ module.intro_content|safe }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="contact-info">
+            {% for item in module.info_items %}
+                <div class="info-item">
+                    <span class="info-label">{{ item.info_label }}</span>
+                    <span class="info-value">{{ item.info_value }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="contact-buttons">
+        <a href="{{ module.portfolio_button_url.href }}" class="btn-secondary">{{ module.portfolio_button_text }}</a>
+        <a href="{{ module.pitch_button_url.href }}" class="btn-primary">{{ module.pitch_button_text }}</a>
+    </div>
+</div>

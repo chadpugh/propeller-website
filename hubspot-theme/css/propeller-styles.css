@@ -32,6 +32,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    pointer-events: none !important; /* Allow clicks to pass through canvas */
 }
 
 .container {
@@ -41,8 +42,15 @@ body {
 }
 
 /* Header Styles */
+/* Override HubSpot's default wrapper positioning - use multiple selectors for maximum specificity */
+#hs_cos_wrapper_header,
+div#hs_cos_wrapper_header,
+.hs_cos_wrapper_type_module#hs_cos_wrapper_header {
+    position: static !important;
+}
+
 .header {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -193,11 +201,13 @@ body {
     font-size: 13px;
     line-height: 1.54;
     color: #1840EC;
+    text-decoration: none;
 }
 
 .cta-button:hover {
     background: #1840EC;
     color: white;
+    text-decoration: none;
 }
 
 .cta-button:hover svg path {
@@ -231,6 +241,7 @@ body {
     letter-spacing: -0.04em;
     color: #06194E;
     margin-bottom: 24px;
+    text-shadow: 0 2px 8px #edf6f9;
 }
 
 /* Mobile CTA Button */
@@ -388,44 +399,88 @@ body {
 
 .logo-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(3, 1fr); /* Fixed 3 columns for stability */
     gap: 16px;
-    justify-content: center;
-    align-content: center;
+    width: 80%; /* Constrain to 80% width for better visual balance */
+    max-width: 80%;
     padding: 24px;
-    width: 100%;
     box-sizing: border-box;
+    align-items: center; /* Center grid items vertically */
+    justify-items: center; /* Center grid items horizontally */
+    overflow: hidden; /* Prevent logos from scaling outside container */
 }
 
 .portfolio-logo {
     aspect-ratio: 2/1;
-    width: 100%;
-    max-width: none;
-    min-width: 120px;
+    width: 80%; /* Match grid width constraint */
     background: rgba(1, 9, 45, 0);
     border-radius: 4px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
     padding: 12px;
-    transition: transform 0.2s ease;
     box-sizing: border-box;
+    /* Prevent layout shift on hover */
+    transform-origin: center center;
+    will-change: transform;
+    transition: transform 0.2s ease;
+    overflow: hidden; /* Clip scaled content */
+    position: relative; /* Establish positioning context */
 }
 
 .portfolio-logo:hover {
-    transform: scale(1.05);
+    transform: scale(1.03); /* Reduced scale to prevent overflow */
+    z-index: 1; /* Ensure hover doesn't affect siblings */
 }
 
 .portfolio-logo img {
     max-width: 100%;
     max-height: 100%;
+    width: auto;
+    height: auto;
     object-fit: contain;
+    object-position: center center; /* Explicitly center the image */
+    display: block; /* Remove inline spacing */
+    margin: auto; /* Additional centering insurance */
     filter: brightness(0) invert(1); /* Make logos white on dark video background */
     opacity: 0.9;
 }
 
 .portfolio-logo:hover img {
     opacity: 1;
+}
+
+/* Ensure anchor tags don't interfere with centering */
+.portfolio-logo a {
+    display: flex;
+    place-content: center; /* Shorthand for align-content + justify-content center */
+    width: 100%;
+    height: 100%;
+}
+
+.portfolio-logo a img {
+    /* Ensure image is centered within anchor */
+    align-self: center;
+}
+
+/* Safari-specific fixes */
+@supports (-webkit-appearance: none) {
+    .logo-grid {
+        /* Force Safari to respect container width */
+        min-width: 100%;
+        max-width: 100%;
+    }
+    
+    .portfolio-logo {
+        /* Contain the hover effect */
+        contain: layout style;
+    }
+    
+    /* Extra Safari centering fix */
+    .portfolio-logo img {
+        align-self: center;
+        justify-self: center;
+    }
 }
 
 /* Placeholder styling when no logos uploaded */
@@ -445,13 +500,12 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 167px;
+    height: 100%; /* Match parent grid height instead of fixed min-height */
 }
 
 .contact-content {
     display: flex;
     flex-direction: column;
-    gap: 48px;
 }
 
 .contact-text {
@@ -528,10 +582,13 @@ body {
     cursor: pointer;
     padding: 6px 4px;
     transition: opacity 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .btn-secondary:hover {
-    opacity: 0.7;
+    color: #edf6f9;
+    text-decoration: none;
 }
 
 .btn-primary {
@@ -547,10 +604,14 @@ body {
     color: #F2F2F2;
     cursor: pointer;
     transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .btn-primary:hover {
-    background: #1435c7;
+    background: #edf6f9;
+    color: #1840ec;
+    text-decoration: none;
 }
 
 /* Footer Styles */
@@ -703,57 +764,323 @@ body {
 
 .newsletter-form {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-bottom: 4px;
 }
 
-.newsletter-label {
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.4;
-    color: #01092D;
+/* ==================== NEWSLETTER FORM COMPLETE RESET ==================== */
+/* This section strips ALL theme styling from the newsletter form in _forms.css */
+/* Provides a clean baseline to build custom styling from scratch */
+/* Each property is explicitly reset to remove theme defaults */
+
+/* 1. FORM CONTAINER RESET */
+.newsletter-form form.hs-form {
+    /* Reset display and layout */
+    display: block !important;
+    width: auto !important;
+    max-width: none !important;
+    
+    /* Reset spacing */
+    padding: 0 !important;
+    margin: 0 !important;
+    
+    /* Reset borders and backgrounds */
+    border: none !important;
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    
+    /* Reset box model */
+    box-sizing: border-box !important;
+    
+    /* Reset positioning */
+    position: relative !important;
+    
+    /* Reset other properties */
+    clear: none !important;
+    float: none !important;
 }
 
-.newsletter-field {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2px;
-    padding: 8px 8px 8px 0;
-    border-bottom: 1px solid #01092D;
+/* 2. FORM FIELDSET RESET */
+.newsletter-form form.hs-form fieldset {
+    /* Reset display */
+    display: block !important;
+    width: auto !important;
+    max-width: none !important;
+    
+    /* Reset spacing */
+    padding: 0 !important;
+    margin: 0 !important;
+    
+    /* Reset borders */
+    border: none !important;
+    
+    /* Reset positioning */
+    float: none !important;
 }
 
-.newsletter-input {
-    background: transparent;
-    border: none;
-    outline: none;
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 1.4;
-    color: #01092D;
-    flex: 1;
+/* 3. FORM FIELD WRAPPER RESET */
+.newsletter-form form.hs-form .hs-form-field {
+    /* Reset display */
+    display: block !important;
+    width: auto !important;
+    max-width: none !important;
+    
+    /* Reset spacing */
+    padding: 0 !important;
+    margin: 0 !important;
+    margin-bottom: 0 !important;
+    
+    /* Reset positioning */
+    vertical-align: baseline !important;
+    float: none !important;
 }
 
-.newsletter-input::placeholder {
-    color: #01092D;
-    opacity: 0.7;
+/* 4. INPUT WRAPPER RESET */
+.newsletter-form form.hs-form .hs-form-field > .input {
+    /* Reset spacing */
+    margin: 0 !important;
+    margin-bottom: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
 }
 
-.newsletter-submit {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    transition: opacity 0.2s ease;
+/* 5. EMAIL INPUT FIELD RESET */
+.newsletter-form form.hs-form input[type="email"].hs-input {
+    /* Reset display and sizing */
+    display: inline-block !important;
+    width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    
+    /* Reset spacing */
+    padding: 0 !important;
+    margin: 0 !important;
+    
+    /* Reset borders */
+    border: none !important;
+    border-width: 0 !important;
+    border-style: none !important;
+    border-color: transparent !important;
+    border-radius: 0 !important;
+    
+    /* Reset backgrounds */
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    
+    /* Reset shadows and effects */
+    box-shadow: none !important;
+    text-shadow: none !important;
+    outline: none !important;
+    
+    /* Reset text styling - inherit from parent */
+    font-family: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    font-style: inherit !important;
+    line-height: inherit !important;
+    letter-spacing: inherit !important;
+    word-spacing: inherit !important;
+    text-transform: none !important;
+    text-decoration: none !important;
+    text-align: left !important;
+    color: inherit !important;
+    
+    /* Reset appearance */
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    
+    /* Reset box model */
+    box-sizing: border-box !important;
+    
+    /* Reset positioning */
+    vertical-align: baseline !important;
 }
 
-.newsletter-submit:hover {
-    opacity: 0.7;
+/* 6. PLACEHOLDER RESET */
+.newsletter-form form.hs-form input[type="email"].hs-input::placeholder,
+.newsletter-form form.hs-form input[type="email"].hs-input::-webkit-input-placeholder,
+.newsletter-form form.hs-form input[type="email"].hs-input::-moz-placeholder,
+.newsletter-form form.hs-form input[type="email"].hs-input:-ms-input-placeholder,
+.newsletter-form form.hs-form input[type="email"].hs-input:-moz-placeholder {
+    color: inherit !important;
+    opacity: 0.5 !important;
 }
+
+/* 7. LABEL RESET (Keep Hidden) */
+.newsletter-form form.hs-form .hs-form-field > label {
+    display: none !important;
+    position: static !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 8. SUBMIT BUTTON WRAPPER RESET */
+.newsletter-form form.hs-form .hs_submit {
+    /* Reset display */
+    display: inline-block !important;
+    width: auto !important;
+    
+    /* Reset spacing */
+    padding: 0 !important;
+    margin: 0 !important;
+    
+    /* Reset positioning */
+    clear: none !important;
+    text-align: left !important;
+}
+
+/* 9. SUBMIT BUTTON RESET */
+.newsletter-form form.hs-form .hs_submit input.hs-button,
+.newsletter-form form.hs-form .hs-button {
+    /* Reset display and sizing */
+    display: inline-block !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    height: auto !important;
+    
+    /* Reset spacing */
+    padding: 0 !important;
+    margin: 0 !important;
+    
+    /* Reset borders */
+    border: none !important;
+    border-width: 0 !important;
+    border-style: none !important;
+    border-color: transparent !important;
+    border-radius: 0 !important;
+    
+    /* Reset backgrounds */
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    
+    /* Reset shadows and effects */
+    box-shadow: none !important;
+    text-shadow: none !important;
+    outline: none !important;
+    
+    /* Reset text styling */
+    font-family: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    font-style: inherit !important;
+    line-height: inherit !important;
+    letter-spacing: inherit !important;
+    word-spacing: inherit !important;
+    text-transform: none !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    color: inherit !important;
+    
+    /* Reset appearance */
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    
+    /* Reset cursor */
+    cursor: pointer !important;
+    
+    /* Reset box model */
+    box-sizing: border-box !important;
+}
+
+/* 10. ERROR MESSAGES RESET */
+.newsletter-form form.hs-form .hs-error-msgs,
+.newsletter-form form.hs-form .hs-error-msgs.inputs-list {
+    /* Reset display */
+    display: block !important;
+    position: static !important;
+    
+    /* Reset spacing */
+    margin: 0 !important;
+    padding: 0 !important;
+    
+    /* Reset list styling */
+    list-style: none !important;
+}
+
+.newsletter-form form.hs-form .hs-error-msgs li,
+.newsletter-form form.hs-form .hs-error-msgs li label {
+    /* Reset spacing */
+    margin: 0 !important;
+    padding: 0 !important;
+    
+    /* Reset text */
+    font-size: inherit !important;
+    color: inherit !important;
+    text-align: left !important;
+}
+
+/* 11. LEGAL CONSENT RESET (if present) */
+.newsletter-form form.hs-form .legal-consent-container {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 12. RECAPTCHA RESET (if present) */
+.newsletter-form form.hs-form .hs_recaptcha,
+.newsletter-form form.hs-form #captcha_wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* ==================== END NEWSLETTER FORM RESET ==================== */
+
+/* ==================== CUSTOM NEWSLETTER STYLING ==================== */
+/* Now build up ONLY the styles you want from a clean baseline */
+/* Add your custom styling below this line */
+
+/* Horizontal layout with input filling remaining width */
+.newsletter-form form.hs-form {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    border-bottom: 1px solid #01092D !important;
+    padding: 12px 0 !important;
+    position: relative !important;
+}
+
+/* Input field wrapper takes remaining space and positioned relatively */
+.newsletter-form form.hs-form .hs-form-field {
+    flex: 1 !important;
+    position: relative !important;
+}
+
+/* Input fills its container */
+.newsletter-form form.hs-form input[type="email"].hs-input {
+    width: 100% !important;
+}
+
+/* Submit button stays compact */
+.newsletter-form form.hs-form .hs_submit {
+    flex-shrink: 0 !important;
+}
+
+/* Error messages positioned absolutely below the form */
+.newsletter-form form.hs-form .hs-form-field .hs-error-msgs {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    width: 100% !important;
+    margin-top: 8px !important;
+}
+
+/* Form-level error rollup also positioned absolutely */
+.newsletter-form form.hs-form .hs_error_rollup {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    width: 100% !important;
+    margin-top: 8px !important;
+}
+
+/* ==================== END CUSTOM NEWSLETTER STYLING ==================== */
 
 .footer-bg-logo {
     position: absolute;
@@ -796,14 +1123,15 @@ body {
     }
     
     .logo-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        grid-template-columns: repeat(7, 1fr); /* 7 columns for tablet */
         gap: 12px;
         padding: 16px;
+        align-items: center;
+        justify-items: center;
     }
     
     .portfolio-logo {
         aspect-ratio: 2/1;
-        min-width: 100px;
     }
 }
 
@@ -1106,6 +1434,8 @@ body {
     padding-bottom: 136px;
     background: transparent;
     background-color: transparent;
+    position: relative;
+    z-index: 1;
 }
 
 /* Clean approach - target content areas with higher specificity */

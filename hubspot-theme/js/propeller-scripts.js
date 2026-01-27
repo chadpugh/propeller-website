@@ -1,20 +1,63 @@
 // Propeller Website JavaScript for HubSpot theme
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize background animation when p5.js is available
-    initializeBackgroundAnimation();
+// CRITICAL: Force header wrapper position fix - runs at multiple execution points
+// This fixes the click blocking issue caused by HubSpot's position:relative
+(function() {
+    function fixHeaderPosition() {
+        const headerWrapper = document.getElementById('hs_cos_wrapper_header');
+        if (headerWrapper) {
+            headerWrapper.style.setProperty('position', 'static', 'important');
+            headerWrapper.style.setProperty('z-index', 'auto', 'important');
+            console.log('✓ Header position fixed - clicks should work now');
+        }
+    }
+    
+    // Run immediately (catches early DOM)
+    fixHeaderPosition();
+    
+    // Run after DOM loads
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fixHeaderPosition);
+    }
+    
+    // Run after everything loads (catches HubSpot's late scripts)
+    window.addEventListener('load', fixHeaderPosition);
+    
+    // Run after a short delay to catch any async HubSpot modifications
+    setTimeout(fixHeaderPosition, 100);
+    setTimeout(fixHeaderPosition, 500);
+})();
 
-    // Smooth scrolling for anchor links
+// Function to initialize all functionality
+function initializePropeller() {
+    // Header position fix is now handled above with multiple execution points
+    
+    // Initialize background animation only on homepage when container exists
+    const animationContainer = document.getElementById('background-animation');
+    if (animationContainer) {
+        initializeBackgroundAnimation();
+    }
+
+    // Smooth scrolling for anchor links - with validation to prevent errors
     const links = document.querySelectorAll('a[href^="#"]');
     links.forEach(link => {
         link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            // Skip if href is just "#" or empty to prevent querySelector errors
+            if (!href || href === '#' || href.length <= 1) {
+                return;
+            }
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+            try {
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            } catch (error) {
+                console.warn('Invalid selector for smooth scroll:', href);
             }
         });
     });
@@ -119,7 +162,15 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-});
+}
+
+// Initialize when DOM is ready - handles both scenarios
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializePropeller);
+} else {
+    // DOM is already ready, run immediately
+    initializePropeller();
+}
 
 // Initialize background animation
 function initializeBackgroundAnimation() {
@@ -146,6 +197,7 @@ function loadBackgroundAnimationScript() {
           let number_of_particle_sets = 8;
           let particle_sets = [];
           let tick = 0;
+          let startTime;
 
           let palette;
           let nzoom = 10;
@@ -160,11 +212,14 @@ function loadBackgroundAnimationScript() {
 
             p.noFill();
             p.background(237, 246, 249);
-            p.stroke(152, 173, 244, 15);
-            p.strokeWeight(0.7);
+            p.stroke(152, 173, 244, 40);
+            p.strokeWeight(1.2);
             p.smooth();
 
             palette = [p.color(152, 173, 244, 20), p.color(152, 173, 244, 15)];
+
+            // Initialize timer for 20-second stop
+            startTime = p.millis();
 
             for (var j = 0; j < number_of_particle_sets; j++) {
               let ps = [];
@@ -182,6 +237,12 @@ function loadBackgroundAnimationScript() {
           };
 
           p.draw = function() {
+            // Stop animation after 20 seconds
+            if (p.millis() - startTime > 20000) {
+              p.noLoop();
+              return;
+            }
+
             particle_sets.forEach(function(particles, index) {
               particles.forEach(function(particle) {
                 particle.update(index);

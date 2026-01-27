@@ -6,6 +6,7 @@ let sketch = function(p) {
   let number_of_particle_sets = 8;
   let particle_sets = [];
   let tick = 0;
+  let startTime;
 
   let palette;
 
@@ -27,6 +28,9 @@ let sketch = function(p) {
 
     palette = [p.color(152, 173, 244, 20), p.color(152, 173, 244, 15)];
 
+    // Initialize timer for 20-second stop
+    startTime = p.millis();
+
     for (var j = 0; j < number_of_particle_sets; j++) {
       let ps = [];
       for (var i = 0; i < number_of_particles; i++) {
@@ -43,6 +47,12 @@ let sketch = function(p) {
   };
 
   p.draw = function() {
+    // Stop animation after 20 seconds
+    if (p.millis() - startTime > 20000) {
+      p.noLoop();
+      return;
+    }
+
     particle_sets.forEach(function(particles, index) {
       particles.forEach(function(particle) {
         particle.update(index);

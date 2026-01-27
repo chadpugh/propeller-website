@@ -1,0 +1,18 @@
+<!-- Project Info Section -->
+<section class="project-info">
+    <div class="container">
+        <div class="info-cards">
+            {% for card in module.info_cards %}
+                <div class="info-card">
+                    <div class="card-icon{% if card.card_title == "CARBON" %} carbon-icon{% endif %}">
+                        <img src="{{ card.card_icon.src }}" alt="{{ card.card_icon.alt }}" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">{{ card.card_title }}</h3>
+                        <p class="card-description">{{ card.card_description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

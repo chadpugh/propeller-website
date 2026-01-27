@@ -1,0 +1,15 @@
+{
+  "label": "Hero Section",
+  "css_assets": [],
+  "external_js": [],
+  "global": false,
+  "help_text": "Displays the hero section with editable title and mobile call-to-action button.",
+  "host_template_types": ["PAGE"],
+  "js_assets": [],
+  "other_assets": [],
+  "smart_type": "NOT_SMART",
+  "tags": ["hero", "homepage", "cta"],
+  "is_available_for_new_content": true,
+  "module_id": null,
+  "path": "/PRO-HubUI-CHAD EDIT/modules/Hero Section/Hero Section.module"
+}

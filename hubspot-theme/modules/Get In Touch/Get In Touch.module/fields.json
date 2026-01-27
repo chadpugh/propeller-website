@@ -1,0 +1,131 @@
+[
+  {
+    "id": "section_title",
+    "name": "section_title",
+    "label": "Section Title",
+    "help_text": "Main heading for the Get in Touch section",
+    "required": true,
+    "locked": false,
+    "display": "text",
+    "type": "text",
+    "default": "Get in touch"
+  },
+  {
+    "id": "intro_content",
+    "name": "intro_content",
+    "label": "Introduction Content",
+    "help_text": "Rich text content that supports paragraph breaks and formatting. Use Enter for new paragraphs.",
+    "required": false,
+    "locked": false,
+    "display": "richtext",
+    "type": "richtext",
+    "default": "<p>Our investment themes exist to organize our work, but we remain open-minded to the creativity of entrepreneurs.</p><p>If you think what you're working on is of interest to us, we encourage you to send in your pitch.</p>"
+  },
+  {
+    "id": "info_items",
+    "name": "info_items",
+    "label": "Investment Information Items",
+    "help_text": "Add investment information items. Each item has a label and value pair that will be displayed in the contact section.",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 0,
+      "max": null,
+      "sorting_label_field": "info_label",
+      "default": 3
+    },
+    "children": [
+      {
+        "id": "info_label",
+        "name": "info_label",
+        "label": "Label",
+        "help_text": "Label for this information item (e.g. 'INVESTMENT ROUNDS')",
+        "required": true,
+        "locked": false,
+        "display": "text",
+        "type": "text",
+        "default": "INVESTMENT ROUNDS"
+      },
+      {
+        "id": "info_value",
+        "name": "info_value",
+        "label": "Value",
+        "help_text": "Value for this information item (e.g. 'PRE-SEED TO SERIES A')",
+        "required": true,
+        "locked": false,
+        "display": "text",
+        "type": "text",
+        "default": "PRE-SEED TO SERIES A"
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null,
+    "default": [
+      {
+        "info_label": "INVESTMENT ROUNDS",
+        "info_value": "PRE-SEED TO SERIES A"
+      },
+      {
+        "info_label": "INVESTMENT ROLE", 
+        "info_value": "WE CAN LEAD OR FOLLOW"
+      },
+      {
+        "info_label": "CHECK SIZE",
+        "info_value": "~$500K - $2M"
+      }
+    ]
+  },
+  {
+    "id": "portfolio_button_text",
+    "name": "portfolio_button_text",
+    "label": "Portfolio Button Text",
+    "help_text": "Text displayed on the portfolio button",
+    "required": true,
+    "locked": false,
+    "display": "text",
+    "type": "text",
+    "default": "OUR PORTFOLIO"
+  },
+  {
+    "id": "portfolio_button_url",
+    "name": "portfolio_button_url",
+    "label": "Portfolio Button URL",
+    "help_text": "URL for the portfolio button link",
+    "required": true,
+    "locked": false,
+    "display": "text",
+    "type": "url",
+    "default": {
+      "href": "#portfolio",
+      "type": "EXTERNAL"
+    }
+  },
+  {
+    "id": "pitch_button_text",
+    "name": "pitch_button_text",
+    "label": "Pitch Us Button Text",
+    "help_text": "Text displayed on the pitch us button",
+    "required": true,
+    "locked": false,
+    "display": "text",
+    "type": "text",
+    "default": "PITCH US"
+  },
+  {
+    "id": "pitch_button_url",
+    "name": "pitch_button_url",
+    "label": "Pitch Us Button URL",
+    "help_text": "URL for the pitch us button link",
+    "required": true,
+    "locked": false,
+    "display": "text",
+    "type": "url",
+    "default": {
+      "href": "mailto:pitch@propellervc.com",
+      "type": "EXTERNAL"
+    }
+  }
+]

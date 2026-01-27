@@ -1,0 +1,44 @@
+[
+  {
+    "id": "hero_title",
+    "name": "hero_title",
+    "label": "Hero Title",
+    "help_text": "Main heading for the hero section. You can use HTML tags like <br> for line breaks.",
+    "required": true,
+    "locked": false,
+    "display": "richtext",
+    "type": "richtext",
+    "default": "Investing at the<br>Ocean-Climate Nexus"
+  },
+  {
+    "id": "mobile_cta_text",
+    "name": "mobile_cta_text",
+    "label": "Mobile CTA Button Text",
+    "help_text": "Text displayed on the mobile call-to-action button",
+    "required": true,
+    "locked": false,
+    "display": "text",
+    "type": "text",
+    "default": "Pitch Us"
+  },
+  {
+    "id": "mobile_cta_url",
+    "name": "mobile_cta_url",
+    "label": "Mobile CTA Button URL",
+    "help_text": "Link destination for the mobile call-to-action button",
+    "required": true,
+    "locked": false,
+    "supported_types": ["EXTERNAL", "CONTENT"],
+    "show_advanced_rel_options": false,
+    "type": "link",
+    "default": {
+      "url": {
+        "type": "EXTERNAL",
+        "href": "#",
+        "content_id": null
+      },
+      "open_in_new_tab": false,
+      "no_follow": false
+    }
+  }
+]

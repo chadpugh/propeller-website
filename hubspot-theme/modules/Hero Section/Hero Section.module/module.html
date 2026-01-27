@@ -1,0 +1,15 @@
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 class="hero-title">{{ module.hero_title }}</h1>
+            <!-- Mobile CTA Button -->
+            <a href="{{ module.mobile_cta_url.url.href }}"{% if module.mobile_cta_url.open_in_new_tab %} target="_blank"{% endif %}{% if module.mobile_cta_url.no_follow %} rel="nofollow"{% endif %} class="mobile-cta-button">
+                <span>{{ module.mobile_cta_text }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M11.6253 1V9.125C11.6253 9.29076 11.5595 9.44973 11.4423 9.56694C11.3251 9.68415 11.1661 9.75 11.0003 9.75C10.8346 9.75 10.6756 9.68415 10.5584 9.56694C10.4412 9.44973 10.3753 9.29076 10.3753 9.125V2.50859L1.44254 11.4422C1.32526 11.5595 1.1662 11.6253 1.00035 11.6253C0.834495 11.6253 0.675435 11.5595 0.55816 11.4422C0.440885 11.3249 0.375 11.1659 0.375 11C0.375 10.8341 0.440885 10.6751 0.55816 10.5578L9.49175 1.625H2.87535C2.70959 1.625 2.55062 1.55915 2.43341 1.44194C2.3162 1.32473 2.25035 1.16576 2.25035 1C2.25035 0.83424 2.3162 0.675269 2.43341 0.558058C2.55062 0.440848 2.70959 0.375 2.87535 0.375H11.0003C11.1661 0.375 11.3251 0.440848 11.4423 0.558058C11.5595 0.675269 11.6253 0.83424 11.6253 1Z" fill="white"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>

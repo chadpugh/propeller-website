@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/chadpugh/Build/Claude/MCP/filesystem-mcp/**)",
+      "Read(//Users/chadpugh/Build/Claude/MCP/notion-mcp/**)",
+      "Read(//Users/chadpugh/Build/Claude/MCP/fetch-mcp/**)",
+      "Read(//Users/chadpugh/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

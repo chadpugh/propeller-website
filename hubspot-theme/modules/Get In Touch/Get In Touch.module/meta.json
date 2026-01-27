@@ -1,0 +1,15 @@
+{
+  "label": "Get In Touch Section",
+  "css_assets": [],
+  "external_js": [],
+  "global": false,
+  "help_text": "Editable Get In Touch section with title, body copy, and investment information details.",
+  "host_template_types": ["PAGE"],
+  "js_assets": [],
+  "other_assets": [],
+  "smart_type": "NOT_SMART",
+  "tags": ["contact", "investment", "call-to-action"],
+  "is_available_for_new_content": true,
+  "module_id": null,
+  "path": "/PRO-HubUI-CHAD EDIT/modules/Get In Touch/Get In Touch.module"
+}

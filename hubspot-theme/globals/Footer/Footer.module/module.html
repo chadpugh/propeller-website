@@ -67,20 +67,22 @@
             </div>
             {% endunless %}
             
+            {% if module.show_newsletter %}
             <div class="newsletter">
-                <h3>Subscribe to our monthly newsletter and stay up to date</h3>
-                <form class="newsletter-form">
-                    <label for="email" class="newsletter-label">Subscribe to our newsletter</label>
-                    <div class="newsletter-field">
-                        <input type="email" id="email" placeholder="your@email.com" class="newsletter-input">
-                        <button type="submit" class="newsletter-submit">
-                            <svg width="15" height="8" viewBox="0 0 15 8" fill="none">
-                                <path d="M14.5 4L0.5 4M14.5 4L11 0.5M14.5 4L11 7.5" stroke="#01092D" stroke-width="1.5"/>
-                            </svg>
-                        </button>
+                <h3>{{ module.newsletter_title }}</h3>
+                <div class="newsletter-form">
+                    <label class="newsletter-label">Subscribe to our newsletter</label>
+                    <div class="newsletter-hubspot-form">
+                        {% form
+                            form_to_use="{{ module.newsletter_form.form_id }}"
+                            response_response_type="inline"
+                            response_message="{{ module.newsletter_success_message }}"
+                            no_title=True
+                        %}
                     </div>
-                </form>
+                </div>
             </div>
+            {% endif %}
         </div>
         
         <!-- Big Logo Background -->

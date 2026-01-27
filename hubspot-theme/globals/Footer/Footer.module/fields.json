@@ -957,4 +957,71 @@
   "allow_new_line" : false,
   "type" : "text",
   "display_width" : null
+}, {
+  "id" : "newsletter-section-toggle",
+  "name" : "show_newsletter",
+  "label" : "Show Newsletter Section",
+  "inline_help_text" : "Toggle this to show or hide the newsletter signup section in the footer.",
+  "required" : false,
+  "locked" : false,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "newsletter-title-field",
+  "name" : "newsletter_title",
+  "label" : "Newsletter Section Title",
+  "inline_help_text" : "The heading text for the newsletter section.",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "show_newsletter",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Subscribe to our monthly newsletter and stay up to date"
+}, {
+  "id" : "newsletter-form-field",
+  "name" : "newsletter_form",
+  "label" : "Newsletter Form",
+  "inline_help_text" : "Select the HubSpot form to use for newsletter signups.",
+  "required" : true,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "show_newsletter",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "type" : "form",
+  "display_width" : null,
+  "default" : "0b6e572c-65a5-40c0-91a8-a283f6cce0ec"
+}, {
+  "id" : "newsletter-success-message",
+  "name" : "newsletter_success_message",
+  "label" : "Newsletter Success Message",
+  "inline_help_text" : "The message shown after successful form submission.",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "show_newsletter",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Full steam ahead! You've been added to the list."
 } ]

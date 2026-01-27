@@ -14,13 +14,13 @@
             <!-- Navigation -->
             <nav class="nav">
                 {% for menu_item in module.main_navigation %}
-                <div class="nav-item{% if menu_item.nested_menu|length > 0 %} dropdown{% endif %}">
+                <div class="nav-item{% if menu_item.child_menu_type == 'simplemenu' and menu_item.nested_menu|length > 0 %} dropdown{% endif %}">
                     {% if menu_item.add_a_hyperlink %}
                         <a href="{% if menu_item.hyperlink.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{ menu_item.hyperlink.href }}" class="nav-text"{% if menu_item.open_hyperlink_in_new_tab %} target="_blank"{% endif %}>{{ menu_item.menu_item_label }}</a>
                     {% else %}
                         <span class="nav-text">{{ menu_item.menu_item_label }}</span>
                     {% endif %}
-                    {% if menu_item.nested_menu|length > 0 %}
+                    {% if menu_item.child_menu_type == 'simplemenu' and menu_item.nested_menu|length > 0 %}
                     <svg class="nav-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M4 6L8 10L12 6" stroke="#01092D" stroke-width="1.5"/>
                     </svg>

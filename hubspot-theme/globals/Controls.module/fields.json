@@ -69,4 +69,15 @@
   "type" : "choice",
   "display_width" : null,
   "default" : "other"
+}, {
+  "id" : "show_background_animation",
+  "name" : "show_background_animation",
+  "label" : "Show Background Animation",
+  "help_text" : "Enable or disable the particle background animation for this page. Disabling can improve performance and provide a cleaner look for certain content types.",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
 } ]

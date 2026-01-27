@@ -30,7 +30,7 @@ Write your custom notes here ...
     "midgrey":   "#898BA2",
     "grey":      "#E2E1E8",
     "lightgrey": "#F7F7F9",
-    "purple":    "#6000B8",
+    "purple":    "#1840EC",  {# Changed to Propeller brand blue - kept "purple" name to avoid breaking theme references #}
     "blue":      "#111555",
     "navy":      "#0C1E40"
 }%}
@@ -196,7 +196,7 @@ Write your custom notes here ...
 {% set h6_TextDecoration                = '' %}
 {% set h6_LetterSpacing                 = '3px' %}
 {% set h6_WordSpacing                   = '' %}
-{% set h6_Color                         = '{{ color("purple") }}' %}
+{% set h6_Color                         = '#01092D' %}
 
 {% set p_FontFamily                     = '{{ font("reading") }}' %}
 {% set p_FontSize                       = '19px' %}

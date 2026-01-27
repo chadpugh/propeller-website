@@ -1,0 +1,15 @@
+{
+  "label": "Info Cards",
+  "css_assets": [],
+  "external_js": [],
+  "global": false,
+  "help_text": "Displays a grid of information cards with icons, titles, and descriptions for investment themes.",
+  "host_template_types": ["PAGE"],
+  "js_assets": [],
+  "other_assets": [],
+  "smart_type": "NOT_SMART",
+  "tags": ["cards", "info", "investment", "themes"],
+  "is_available_for_new_content": true,
+  "module_id": null,
+  "path": "/PRO-HubUI-CHAD EDIT/modules/Info Cards/Info Cards.module"
+}

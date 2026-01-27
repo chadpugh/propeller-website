@@ -1,0 +1,66 @@
+[
+  {
+    "id": "info_cards",
+    "name": "info_cards",
+    "label": "Info Cards",
+    "help_text": "Add information cards to display your investment themes. Each card includes an icon, title, and description.",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 0,
+      "max": null,
+      "sorting_label_field": "card_title",
+      "default": 3
+    },
+    "children": [
+      {
+        "id": "card_icon",
+        "name": "card_icon",
+        "label": "Card Icon",
+        "help_text": "Upload an icon image for this card. Recommended size: 80x80px or similar.",
+        "required": false,
+        "locked": false,
+        "responsive": true,
+        "resizable": true,
+        "show_loading": false,
+        "type": "image",
+        "display_width": null,
+        "default": {
+          "src": "",
+          "alt": "",
+          "width": 80,
+          "height": 80,
+          "size_type": "auto"
+        }
+      },
+      {
+        "id": "card_title",
+        "name": "card_title",
+        "label": "Card Title",
+        "help_text": "Title for this card (e.g., 'INDUSTRIAL', 'CARBON', 'ORGANICS')",
+        "required": true,
+        "locked": false,
+        "display": "text",
+        "type": "text",
+        "default": "CARD TITLE"
+      },
+      {
+        "id": "card_description",
+        "name": "card_description",
+        "label": "Card Description",
+        "help_text": "Description text for this card",
+        "required": true,
+        "locked": false,
+        "display": "text",
+        "type": "text",
+        "default": "Add a description for this card."
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null,
+    "default": []
+  }
+]
