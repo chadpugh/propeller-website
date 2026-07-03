@@ -1,0 +1,75 @@
+priority_area,url,title,content_type,hubspot_id,blog_or_group,template,data_source,status,notes
+Home,https://propellervc.com,Propeller Home Page 2.0,site_page,197274027155,,PRO-HubUI-CHAD EDIT/templates/propeller-homepage.html,CMS API,PUBLISHED,Published home page with custom Propeller homepage template and portfolio logo module instance.
+Team,https://propellervc.com/about,About Us,site_page,80552529959,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,PUBLISHED,Live team/about page; uses People Listing module.
+Team,https://propellervc.com/-temporary-slug-about-0b09a7c7-a88c-4786-912f-413dcfe4e534,Team Clone of About Us,site_page,199136436018,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,DRAFT,Draft clone of About Us.
+Team,https://propellervc.com/about-1,[IM] Bio Page Template NOT USING,site_page,79033039643,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Legacy bio template draft.
+Team,https://propellervc.com/about-old,[IM] About Team OLD NOT USING,site_page,77738165164,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Legacy about/team draft.
+Portfolio,https://propellervc.com/portfolio,Portfolio,site_page,83039771533,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,PUBLISHED,Live portfolio listing; uses Resources Listing module.
+Portfolio,https://propellervc.com/aikido,Aikido,site_page,170387966493,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live company detail is likely blog post /blog/meet-aikido.
+Portfolio,https://propellervc.com/allium,Allium,site_page,168511742750,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live company detail is likely blog post /blog/meet-allium-engineering.
+Portfolio,https://propellervc.com/aquatic-labs,Aquatic Labs,site_page,153567742895,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live company detail is likely blog post /blog/meet-aquatic-labs.
+Portfolio,https://propellervc.com/banyu,Banyu Carbon,site_page,153570238725,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live company detail is likely blog post /blog/meet-banyu-carbon.
+Portfolio,https://propellervc.com/blueenergy,Blue Energy,site_page,181449824556,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,DRAFT,Draft standalone company page; public route returns draft/404 behavior unless previewed.
+Portfolio,https://propellervc.com/calcarea,Calcarea,site_page,168002605401,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live company detail is likely blog post /blog/meet-calcarea.
+Portfolio,https://propellervc.com/carbonrun,CarbonRun,site_page,153121931008,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live company detail is likely blog post /blog/meet-carbonrun.
+Portfolio,https://propellervc.com/circle-seafoods,Circle Seafoods,site_page,153570238839,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live company detail is likely blog post /blog/meet-circle-seafoods.
+Portfolio,https://propellervc.com/ebb-carbon,Ebb Carbon,site_page,153561720431,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live company detail is likely blog post /blog/meet-ebb-carbon.
+Portfolio,https://propellervc.com/fleet-robotics,Fleet Robotics,site_page,153561720714,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live company detail is likely blog post /blog/meet-fleet-robotics.
+Portfolio,https://propellervc.com/hum.ai,Hum.ai,site_page,153567741587,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live company detail is /blog/hum.ai.
+Portfolio,https://propellervc.com/indeximate,Indeximate,site_page,185395730738,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live company detail is likely blog post /blog/meet-indeximate.
+Portfolio,https://propellervc.com/navier,Navier Boat,site_page,153131563928,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live company detail is likely blog post /blog/meet-navier.
+Portfolio,https://propellervc.com/olokun-minerals,Olokun Minerals,site_page,152609734785,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft standalone company page.
+Portfolio,https://propellervc.com/orpheus,Orpheus,site_page,186815545964,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live company detail is likely blog post /blog/meet-orpheus.
+Portfolio,https://propellervc.com/reel-foods,Reel Foods,site_page,153568451092,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft standalone company page.
+Portfolio,https://propellervc.com/rewind,Rewind,site_page,153567741969,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live company detail is likely blog post /blog/meet-rewind.
+Portfolio,https://propellervc.com/vatn,Vatn,site_page,185397644107,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,DRAFT,Draft standalone company page; public route returned 404; live detail is likely /blog/meet-vatn.
+Portfolio,https://propellervc.com/vema,Vema,site_page,186276030059,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,DRAFT,Draft standalone company page; live detail is likely /blog/meet-vema-hydrogen.
+Blog,https://propellervc.com/blog,Blog listing,blog_listing,unknown,blog,PRO-HubUI-CHAD EDIT/templates/blog-index.html,Public sitemap + screenshot,PUBLISHED,Sitemap lists /blog and 54 /blog/... URLs; API blog scope is blocked.
+Blog,https://propellervc.com/blog-feed,Blog Feed,site_page,86201785150,blog,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,PUBLISHED,Published flex page using Blog Feed module.
+Blog,https://propellervc.com/blog/the-weighing-machine,The Weighing Machine,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Indexed blog post; blog API scope blocked.
+Blog,https://propellervc.com/blog/at-the-oceans-edge,At The Ocean's Edge,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Visible as first post in /blog screenshot.
+Blog,https://propellervc.com/blog/advancing-markets-for-ocean-climate-solutions,Advancing Markets For Ocean Climate Solutions,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Indexed blog post.
+Blog,https://propellervc.com/blog/announcing-portfolio,Announcing Portfolio,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Portfolio-like indexed blog post.
+Blog,https://propellervc.com/blog/hum.ai,Hum.ai,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-aikido,Meet Aikido,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-allium-engineering,Meet Allium Engineering,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-aquatic-labs,Meet Aquatic Labs,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-banyu-carbon,Meet Banyu Carbon,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-blue-energy,Meet Blue Energy,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-calcarea,Meet Calcarea,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-carbonrun,Meet CarbonRun,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-circle-seafoods,Meet Circle Seafoods,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-ebb-carbon,Meet Ebb Carbon,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-fleet-robotics,Meet Fleet Robotics,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-indeximate,Meet Indeximate,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-navier,Meet Navier,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-nexxa.ai,Meet Nexxa.ai,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post; no draft standalone page found in site-page API.
+Blog,https://propellervc.com/blog/meet-orpheus,Meet Orpheus,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-phathom,Meet pHathom,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post; no draft standalone page found in site-page API.
+Blog,https://propellervc.com/blog/meet-rewind,Meet Rewind,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-vatn,Meet Vatn,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Blog,https://propellervc.com/blog/meet-vema-hydrogen,Meet Vema Hydrogen,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Company detail published as blog post.
+Press,https://propellervc.com/press-room,Press Room,site_page,109065602860,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,PUBLISHED,Live press room; uses Resources Listing module.
+Ocean MBA,https://propellervc.com/oceanmba,Ocean MBA,site_page,75649537880,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,DRAFT,Public route returns 404; page has large legacy flex content structure.
+Ocean MBA,https://propellervc.com/blog/oceanmba-2025,Ocean MBA 2025,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Indexed Ocean MBA blog post.
+Ocean MBA,https://propellervc.com/blog/oceanmba,Ocean MBA,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Indexed Ocean MBA blog post.
+Ocean MBA,https://propellervc.com/blog/our-third-ocean-mba-fast-focused,Our Third Ocean MBA Fast Focused,blog_post,unknown,blog,unknown,Public sitemap,PUBLISHED,Indexed Ocean MBA blog post.
+Ocean MBA,https://propellervc.com/apply,Apply,site_page,190327889443,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,DRAFT,Draft OMBA application page.
+Ocean MBA,https://propellervc.com/ombamit2,OMBA MIT 2,site_page,104641797911,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft legacy OMBA page.
+Ocean MBA,https://propellervc.com/ombamit3,OMBA MIT 3,site_page,152346821641,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft legacy OMBA page.
+Pitch,https://propellervc.com/pitch,Pitch Us,site_page,75649536565,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,PUBLISHED,Live pitch page; uses Full-Width Content and Form.
+Bios,https://propellervc.com/brian-halligan,Bio - Brian Halligan,site_page,79630608048,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,PUBLISHED,Published individual bio page.
+Bios,https://propellervc.com/devdutt-yellurkar,Bio - Devdutt Yellurkar,site_page,81219387018,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,PUBLISHED,Published individual bio page.
+Bios,https://propellervc.com/melissa-hanson,Bio - Melissa Hanson,site_page,81219388817,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,PUBLISHED,Published individual bio page.
+Bios,https://propellervc.com/reece-pacheco,Bio - Reece Pacheco,site_page,81219389324,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,PUBLISHED,Published individual bio page.
+Bios,https://propellervc.com/robert-kittler,Bio - Robert Kittler,site_page,118532525065,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,PUBLISHED,Published individual bio page.
+Bios,https://propellervc.com/rodrigo-prudencio,Bio - Rodrigo Prudencio,site_page,123796193889,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,PUBLISHED,Published individual bio page.
+Bios,https://propellervc.com/steven-fox,Bio - Steven Fox,site_page,81219389731,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,PUBLISHED,Published individual bio page.
+Other,https://propellervc.com/investment-themes,Investment Themes,site_page,91672621856,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft legacy page.
+Other,https://propellervc.com/library,library,site_page,97518322752,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft page.
+Other,https://propellervc.com/module-library-0,[IM] Module Library 2022,site_page,74729495959,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft legacy module library.
+Other,https://propellervc.com/old,Homepage,site_page,75306926619,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft old homepage.
+Other,https://propellervc.com/partners,Partners,site_page,75649537308,,PRO-HubUI-2022/templates/flex.html,CMS API,DRAFT,Draft partners page.
+Other,https://propellervc.com/privacy-terms,Privacy and Terms,site_page,83039774976,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,PUBLISHED,Published legal page.
+Other,https://propellervc.com/thankyou,Thank you,site_page,82247839159,,PRO-HubUI-CHAD EDIT/templates/flex.html,CMS API,PUBLISHED,Published thank-you page.
+Other,https://propellervc.com/propeller-ventures,Temp Landing Page,landing_page,66785777702,,@hubspot/panorama_theme/templates/panorama_-_feature_page.html,CMS API,DRAFT,Only landing page returned by API; draft.

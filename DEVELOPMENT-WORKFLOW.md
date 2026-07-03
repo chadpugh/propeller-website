@@ -1,194 +1,163 @@
-# 🚀 Propeller VC Website - Development Workflow Guide
+# Propeller Website Development Workflow
 
-## 📋 Project Overview
+Last updated: 2026-07-03
 
-**Repository**: https://github.com/chadpugh/propeller-website  
-**Live Site**: https://propellervc.com/propeller-vc  
-**HubSpot Theme Path**: `/PRO-HubUI-CHAD EDIT/`  
-**HubSpot Portal ID**: 20619041
+## Project Overview
 
-This is a comprehensive HubSpot theme for Propeller VC featuring:
-- ✅ Working p5.js background particle animation
-- ✅ Ocean water video background with logo overlay
-- ✅ Dynamic portfolio logo grid with click-to-edit interface
-- ✅ Responsive design working across all devices
-- ✅ Complete repository organization as "propeller-website"
+- Repository: `propeller`
+- Local workspace: `/Users/chadpugh/Build/propeller`
+- Live site: `https://propellervc.com`
+- HubSpot portal ID: `20619041`
+- Default HubSpot CLI account: `chad_cli`
+- Primary live theme path: `/PRO-HubUI-CHAD EDIT/`
+- Local theme directory: `hubspot-theme/`
 
-## 🛠️ Development Workflow
+This repo is being used for a phased cleanup of the existing HubSpot site. The goal is to bring the remaining pages into a clean, consistent, full-width layout without rebuilding the whole site or changing the content model unnecessarily.
 
-### 1. Making Changes
+## Source Of Truth
 
-**Edit files in the `hubspot-theme/` directory:**
+Read these before making changes:
 
-**Most Common Files:**
-- `hubspot-theme/css/propeller-styles.css` - Main styling (typography, layout, colors)
-- `hubspot-theme/css/theme-overrides.css` - Theme overrides and fixes
-- `hubspot-theme/templates/propeller-homepage.html` - Homepage structure
-- `hubspot-theme/modules/Portfolio/Portfolio.module/` - Portfolio logo system
-- `hubspot-theme/globals/Header/Header.module/` - Header module
-- `hubspot-theme/globals/Footer/Footer.module/` - Footer module
+- `docs/propeller-build-tracker.md` - live phase checklist, blockers, decisions, QA notes, and deployment log.
+- `docs/propeller-phase-0-audit.md` - discovery evidence, page/template map, MCP status, access gaps, screenshots, and recommended Phase 1 path.
+- `docs/propeller-content-inventory.csv` - page/content inventory from Phase 0.
 
-### 2. Deploy to HubSpot
+Update the tracker as work moves between phases. Keep the audit as historical evidence unless new discovery changes a Phase 0 finding.
 
-```bash
-# Navigate to theme directory
-cd hubspot-theme
+## Current Phase
 
-# Upload specific changes
-hs upload css/ "/PRO-HubUI-CHAD EDIT/css/"                    # CSS changes
-hs upload templates/ "/PRO-HubUI-CHAD EDIT/templates/"        # Template changes  
-hs upload modules/Portfolio/ "/PRO-HubUI-CHAD EDIT/modules/Portfolio/"  # Portfolio module changes
+- Phase 0: complete.
+- Current phase: Phase 1, shared list-row foundation and portfolio listing.
+- Live HubSpot changes for cleanup phases: none yet.
 
-# Upload everything
-hs upload . "/PRO-HubUI-CHAD EDIT/"
-```
+## Production Write Rule
 
-### 3. Save to Version Control
+Do not run live write operations without an explicit checkpoint and approval.
 
-```bash
-# Add changes
-git add .
+This includes:
 
-# Commit with descriptive message
-git commit -m "fix: Description of changes made"
+- `hs upload`
+- project upload/deploy
+- template publish
+- module publish
+- HubSpot page edits
+- HubDB edits
+- live content edits
+- remote deletes/moves/renames
 
-# Push to remote repository  
-git push origin main
-```
+Read-only MCP, CLI, API, browser checks, screenshots, and local file edits are fine when they support the active phase.
 
-## 📁 Key Directory Structure
+## HubSpot MCP And CLI
 
-```
+Use the HubSpot dev MCP first for HubSpot reads and docs lookups.
+
+Current confirmed setup:
+
+- MCP namespace: `mcp__hubspotdev`
+- Local CLI path: `/opt/homebrew/bin/hs`
+- CLI version: `8.9.1`
+- Auth source: `hubspot.config.yml`
+- Account: `chad_cli`
+- Portal ID: `20619041`
+
+MCP notes:
+
+- Use `search-docs` then `fetch-doc` before answering HubSpot platform/API questions or planning HubSpot-specific implementation.
+- Use MCP CMS read tools before shelling out to `hs` where possible.
+- Paths under `/PRO-HubUI-CHAD EDIT/` contain a space. Escape or quote the path when using MCP/CLI list commands.
+- The current developer MCP does not expose all needed Phase 0 reads. Page inventory, blog taxonomy, HubDB tables, and subscription/page limits may still require CLI/API/UI fallback or additional scopes.
+
+Known access gaps:
+
+- HubDB scopes are missing.
+- Blog post/tag/author API scopes are missing.
+- Serverless listing scopes are missing.
+- Exact subscription tier and standalone page limit still need confirmation from Reece or a HubSpot admin.
+
+## Local Directory Map
+
+```text
 hubspot-theme/
-├── css/
-│   ├── propeller-styles.css          # Main custom styles
-│   ├── theme-overrides.css           # Theme fixes and overrides
-│   ├── elements/_typography.css      # Theme typography settings
-│   └── tools/_config.css             # Theme configuration variables
-├── templates/
-│   ├── propeller-homepage.html       # Homepage template
-│   └── layouts/base.html             # Base layout
-├── modules/
-│   └── Portfolio/Portfolio.module/   # Portfolio logo grid system
-├── globals/
-│   ├── Header/Header.module/         # Site header
-│   └── Footer/Footer.module/         # Site footer
-└── js/
-    ├── propeller-scripts.js          # Main JavaScript
-    └── propeller-background-animation.js  # p5.js animation
+  css/
+    propeller-styles.css
+    theme-overrides.css
+    elements/_typography.css
+    tools/_config.css
+  templates/
+    propeller-homepage.html
+    blog-index.html
+    blog-post.html
+    company-post.html
+    flex.html
+    layouts/base.html
+  modules/
+  globals/
+  js/
+
+docs/
+  propeller-build-tracker.md
+  propeller-phase-0-audit.md
+  propeller-content-inventory.csv
+  screenshots/
+
+original-production-theme/
+  Backup/reference only. Do not modify unless explicitly asked.
 ```
 
-## 🎯 Common Development Tasks
+## Working Safely
 
-### CSS/Styling Changes
-```bash
-# Edit styles
-nano hubspot-theme/css/propeller-styles.css
+1. Read `docs/propeller-build-tracker.md`.
+2. Confirm the active phase and status.
+3. Read the relevant Phase 0 findings in `docs/propeller-phase-0-audit.md`.
+4. Inspect local files before editing.
+5. Make scoped local edits.
+6. Run the narrowest useful checks.
+7. Capture screenshots for UI changes.
+8. Update the tracker with status, evidence, blockers, and deployment notes.
+9. Ask before any live HubSpot write.
 
-# Deploy CSS
-cd hubspot-theme && hs upload css/ "/PRO-HubUI-CHAD EDIT/css/"
+## Phase Order
 
-# Test on live site: https://propellervc.com/propeller-vc
-```
+1. Shared list-row foundation and portfolio listing.
+2. Team page mockup only.
+3. Blog and press room.
+4. Ocean MBA.
+5. Pitch/contact.
+6. Optional individual bio pages.
+7. Cross-page QA and handoff.
 
-### Homepage Template Updates  
-```bash  
-# Edit homepage
-nano hubspot-theme/templates/propeller-homepage.html
+Do not fully implement the team page before Reece/team sign-off on the mockup.
 
-# Deploy templates
-cd hubspot-theme && hs upload templates/ "/PRO-HubUI-CHAD EDIT/templates/"
-```
+## Common Local Files
 
-### Portfolio Logo Management
-```bash
-# Edit portfolio module
-nano hubspot-theme/modules/Portfolio/Portfolio.module/module.html
+- `hubspot-theme/css/propeller-styles.css` - primary Propeller custom styles.
+- `hubspot-theme/css/theme-overrides.css` - theme override layer.
+- `hubspot-theme/templates/flex.html` - current template for several key pages.
+- `hubspot-theme/templates/propeller-homepage.html` - homepage template.
+- `hubspot-theme/modules/Portfolio/Portfolio.module/` - older portfolio logo-grid module, not the current live `/portfolio` listing owner.
 
-# Deploy module  
-cd hubspot-theme && hs upload modules/Portfolio/ "/PRO-HubUI-CHAD EDIT/modules/Portfolio/"
-```
+Phase 0 found that live `/portfolio` uses the `Resources Listing` module and live `/about` uses `People Listing`, both on `PRO-HubUI-CHAD EDIT/templates/flex.html`.
 
-## 🐛 Known Issues & Fixes
+## Testing And QA
 
-### Typography Issue: Unwanted Heading Margins
-**Problem**: H1-H6 elements had unwanted 25px margin-top  
-**Root Cause**: Theme's `textSpacing` configuration in `css/tools/_config.css` set to "25px"  
-**Solution**: Added override in `css/theme-overrides.css`:
+For touched pages, check:
 
-```css
-/* Remove unwanted top margins from headings */
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
-    margin-top: 0 !important;
-}
-```
+- Desktop layout.
+- Mobile layout at roughly `390x844`.
+- Horizontal overflow.
+- Header/footer behavior.
+- Forms and newsletter capture where relevant.
+- No regressions to untouched page types.
 
-## 🔧 HubSpot CLI Setup
+Baseline screenshots from Phase 0 are in `docs/screenshots/`.
 
-### Installation & Authentication
-```bash
-# Install HubSpot CLI (if not installed)
-npm install -g @hubspot/cli
+## Git Hygiene
 
-# Check version  
-hs --version
+- Leave unrelated dirty files alone, including `.DS_Store`, `prototype/.DS_Store`, and `prototype/slide-backgrounds.html`.
+- Do not modify `original-production-theme/` unless explicitly asked.
+- Keep commits phase-oriented when possible.
+- Commit Phase 0 docs before implementation work if the user asks for a checkpoint.
 
-# Authentication is pre-configured in hubspot.config.yml
-# Portal: chad_cli (ID: 20619041)
-```
+## Legacy Notes
 
-### Security Note
-⚠️ The `hubspot.config.yml` file contains authentication credentials. Consider:
-- Moving config to home directory: `/Users/chadpugh/`
-- Adding to `.gitignore` if not already tracked
-- Ensure credentials haven't been pushed to public repositories
-
-## 📝 File Naming Conventions
-
-- **CSS Files**: Use kebab-case (`propeller-styles.css`)
-- **Templates**: Use kebab-case (`propeller-homepage.html`)  
-- **Modules**: Use PascalCase for directories (`Portfolio/`)
-- **JavaScript**: Use kebab-case (`propeller-scripts.js`)
-
-## 🚨 Important Notes for LLMs
-
-1. **Always check current working directory**: Should be `/Users/chadpugh/Build/propeller`
-
-2. **HubSpot theme path**: All uploads go to `/PRO-HubUI-CHAD EDIT/` with escaped spaces
-
-3. **CSS specificity**: Use `!important` sparingly, but necessary for theme overrides
-
-4. **File structure**: Never modify `original-production-theme/` - this is backup only
-
-5. **Testing**: Always verify changes on live site after deployment
-
-6. **Commit messages**: Follow conventional commit format (`fix:`, `feat:`, `chore:`, etc.)
-
-## 🔄 Complete Development Cycle Example
-
-```bash
-# 1. Make changes to CSS
-nano hubspot-theme/css/propeller-styles.css
-
-# 2. Deploy to HubSpot  
-cd hubspot-theme && hs upload css/ "/PRO-HubUI-CHAD EDIT/css/"
-
-# 3. Test on live site
-# Visit: https://propellervc.com/propeller-vc
-
-# 4. Save to version control
-cd .. && git add . && git commit -m "feat: Add new styling for hero section" && git push origin main
-```
-
-## 📚 Additional Resources
-
-- **HubSpot Theme Documentation**: https://developers.hubspot.com/docs/cms/developer-reference/themes
-- **HubSpot CLI Commands**: `hs --help` for full command reference
-- **Live Site**: https://propellervc.com/propeller-vc
-- **HubSpot Theme Previewer**: https://app.hubspot.com/theme-previewer/20619041/edit/hubspot-theme
-
----
-
-*Last Updated: October 2025*  
-*This guide ensures smooth development workflow for all future contexts working on the Propeller VC website.*
+The old workflow guidance assumed routine direct uploads to `/PRO-HubUI-CHAD EDIT/` and referenced a narrower homepage/portfolio-logo workflow. The current cleanup is broader and should be driven by the tracker, audit, and explicit live-write checkpoints.
